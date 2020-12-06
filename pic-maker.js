@@ -51,7 +51,7 @@ const makePrev = async (weather, template) => {
   }
   for (const element of getElementsByClassName(preview, `name`)) {
     console.log(weather.name)
-    element.textContent = weather.name;
+    element.textContent = weather.name.replace(`Oblast`, ``);
   }
   for (const element of getElementsByClassName(preview, `time`)) {
     var today = new Date()
