@@ -12,7 +12,7 @@ const parser = new DOMParser();
 const sun = Symbol();
 
 const templates = {
-  [sun]: fs.readFileSync(`./01d.svg`, `utf8`),
+  [sun]: fs.readFileSync(`./pic/01d.svg`, `utf8`),
 };
 const get = (node, className, tag) =>
   Array.from(node.getElementsByTagName(tag)).filter(
