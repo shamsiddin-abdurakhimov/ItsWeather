@@ -47,7 +47,7 @@ const makePrev = async (weather, template) => {
   weather = JSON.parse(weather)
   const preview = parser.parseFromString(templates[template]);
   for (const element of getElementsByClassName(preview, `temp`)) {
-    element.textContent = `${tempReplace(weather.main.temp)}°`;
+    element.textContent = tempReplace(weather.main.temp);
   }
   for (const element of getElementsByClassName(preview, `name`)) {
     console.log(weather.name)
