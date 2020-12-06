@@ -53,7 +53,6 @@ const makePrev = async (weather, template) => {
     console.log(weather.name)
     element.textContent = weather.name.replace(`Oblast`, ``);
   }
-  var textWidth = preview.getElementById("watter").clientWidth;
   for (const element of getElementsByClassName(preview, `time`)) {
     var today = new Date()
     const week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
@@ -65,7 +64,7 @@ const makePrev = async (weather, template) => {
     const data = today.getUTCDate()
     const month = months[today.getUTCMonth()]
     const year = `${today.getUTCFullYear()}`.slice(0, -2)
-    element.textContent = `${hh}:${mm} - ${day}, ${data} ${month} '${year}    ${textWidth}`;
+    element.textContent = `${hh}:${mm} - ${day}, ${data} ${month} '${year}`;
   }
   const templateBuffer = Buffer.from(serialize(preview), `binary`);
   console.log('finish makePrev')
