@@ -3,12 +3,6 @@ const { DOMParser, XMLSerializer } = require(`xmldom`);
 const sharp = require(`sharp`);
 const { serializeToString: serialize } = new XMLSerializer();
 
-
-const { consoleBot } = require(`./logger`);
-const logger = new consoleBot('@ItsWeatherBot');
-
-
-
 const RENDER_CONFIG = {
   density: 150,
 };
@@ -49,14 +43,14 @@ function tempReplace(temp) {
   return temp
 }
 const makePrev = async (weather, template) => {
-  logger.log('start makePrev')
+  console.log('start makePrev')
   weather = JSON.parse(weather)
   const preview = parser.parseFromString(templates[template]);
   for (const element of getElementsByClassName(preview, `temp`)) {
     element.textContent = tempReplace(weather.main.temp);
   }
   for (const element of getElementsByClassName(preview, `name`)) {
-    logger.log(weather.name)
+    console.log(weather.name)
     element.textContent = weather.name.replace(`Oblast`, ``);
   }
   for (const element of getElementsByClassName(preview, `time`)) {
@@ -73,7 +67,7 @@ const makePrev = async (weather, template) => {
     element.textContent = `${hh}:${mm} - ${day}, ${data} ${month} '${year}`;
   }
   const templateBuffer = Buffer.from(serialize(preview), `binary`);
-  logger.log('finish makePrev')
+  console.log('finish makePrev')
   return sharp(templateBuffer, RENDER_CONFIG).png().toBuffer();
 };
 
