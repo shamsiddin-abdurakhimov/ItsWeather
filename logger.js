@@ -6,19 +6,14 @@ class consoleBot {
 	constructor(from) {
 		this.from = from;
 	}
-	async log(logger) {
-		try {
+	log(logger) {
 			bot.telegram.sendMessage(
 				AWA,
 				`Log from ${this.from}:\n\n\`\`\`\n${logger}\`\`\``,
 				{ parse_mode: `Markdown` } // eslint-disable-line camelcase
 				);
-		} catch (error) {
-			console.error(error);
-		}
 	}
-	async err(error, loc) {
-		try {
+	err(error, loc) {
 			if (error instanceof Error) {
 				bot.telegram.sendMessage(
 					AWA,
@@ -32,9 +27,6 @@ class consoleBot {
 					{ parse_mode: `Markdown` } // eslint-disable-line camelcase
 					);
 			}
-		} catch (error) {
-			console.error(error);
-		}
 	}
 }
 module.exports = {
