@@ -8,7 +8,7 @@ class consoleBot {
 	}
 	async log(logger) {
 		try {
-			await bot.telegram.sendMessage(
+			bot.telegram.sendMessage(
 				AWA,
 				`Log from ${this.from}:\n\n\`\`\`\n${logger}\`\`\``,
 				{ parse_mode: `Markdown` } // eslint-disable-line camelcase
@@ -20,13 +20,13 @@ class consoleBot {
 	async err(error, loc) {
 		try {
 			if (error instanceof Error) {
-				await bot.telegram.sendMessage(
+				bot.telegram.sendMessage(
 					AWA,
 					`Error in the ${this.from}:\n\n\`\`\`\n${error.stack}\n\n\n${loc}\`\`\``,
 					{ parse_mode: `Markdown` } // eslint-disable-line camelcase
 					);
 			} else {
-				await bot.telegram.sendMessage(
+				bot.telegram.sendMessage(
 					AWA,
 					`Error in the ${this.from}:\n\n\`\`\`\n${JSON.stringify(error)}\n\n\n${loc}\`\`\``,
 					{ parse_mode: `Markdown` } // eslint-disable-line camelcase
