@@ -10,7 +10,7 @@ class consoleBot {
 		try {
 			await bot.telegram.sendMessage(
 				AWA,
-				`Log from ${from}:\n\n\`\`\`\n${logger}\`\`\``,
+				`Log from ${this.from}:\n\n\`\`\`\n${logger}\`\`\``,
 				{ parse_mode: `Markdown` } // eslint-disable-line camelcase
 				);
 		} catch (error) {
@@ -22,13 +22,13 @@ class consoleBot {
 			if (error instanceof Error) {
 				await bot.telegram.sendMessage(
 					AWA,
-					`Error in the ${from}:\n\n\`\`\`\n${error.stack}\n\n\n${loc}\`\`\``,
+					`Error in the ${this.from}:\n\n\`\`\`\n${error.stack}\n\n\n${loc}\`\`\``,
 					{ parse_mode: `Markdown` } // eslint-disable-line camelcase
 					);
 			} else {
 				await bot.telegram.sendMessage(
 					AWA,
-					`Error in the ${from}:\n\n\`\`\`\n${JSON.stringify(error)}\n\n\n${loc}\`\`\``,
+					`Error in the ${this.from}:\n\n\`\`\`\n${JSON.stringify(error)}\n\n\n${loc}\`\`\``,
 					{ parse_mode: `Markdown` } // eslint-disable-line camelcase
 					);
 			}
