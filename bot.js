@@ -31,6 +31,7 @@ bot.start((context) => {
   //context.reply(weather.weather('Tashkent', 'metric', 'ru'));
 });
 bot.on(`message`, (context) => {sendReply(context)});
+bot.telegram.sendMessage(1443794846, `@ItsWeatherBot is running…`);
 /*
 console.log(weather.weather('Tashkent', 'metric', 'ru'))
 console.log(weather.forecast('Tashkent', 'metric', 'ru', 1))
