@@ -4,16 +4,27 @@ const apiId = process.env.apiId;
 const {WeatherApi} = require(`./weatherApi`); 
 const Telegraf = require(`telegraf`);
 const render = require(`./render-pool`);
-const {sun} = require(`./pic-maker`);
+const request = require(`request-promise`);
 
 const bot = new Telegraf(token);
 const weather = new WeatherApi(apiId);
 
+bot.context.downloadFile = async function (fileId) {
+  const file = await bot.telegram.getFile(fileId);
+  const fileContent = await request({
+    encoding: null,
+    uri: `http://api.telegram.org/file/bot${token}/${file.file_path}`,
+  });
+
+  return fileContent;
+};
 async function sendReply(context) {
+	const photos = await bot.telegram.getUserProfilePhotos(context.message.from.id)
+	const photo = await bot.context.downloadFile(photos.photos[0][1].file_id)
 	console.log(1)
 	const weatherReply = await weather.weather(context.update.message.text, 'metric', 'en')
 	console.log(2)
-	const preview = await render({weather: weatherReply, template: sun});
+	const preview = await render({weather: weatherReply, userPic: photo, userName: context.message.from.first_name});
 	console.log(3)
 	await context.replyWithPhoto(
 		{ source: preview },

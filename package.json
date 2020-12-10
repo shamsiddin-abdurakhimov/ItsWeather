@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/shamsiddin7/ItsWeather#readme",
   "dependencies": {
+    "image-size": "^0.9.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "sharp": "^0.26.3",
     "telegraf": "^3.38.0",
     "xmldom": "^0.4.0",

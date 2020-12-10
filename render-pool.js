@@ -5,11 +5,11 @@ let renderersNumber = 0;
 
 const queue = [];
 
-const render = async ({ weather, template, resolve, reject }) => {
+const render = async ({ weather, userPic, userName, resolve, reject }) => {
   renderersNumber++;
 
   try {
-    let preview = await maker.makePrev(weather, template);
+    let preview = await maker.makePrev(weather, userPic, userName);
 
     resolve(preview);
   } catch (error) {
