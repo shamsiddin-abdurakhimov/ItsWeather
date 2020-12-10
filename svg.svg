@@ -14,8 +14,8 @@
     	<text class="temp" text-anchor="end" x="414" y="1055" font-size="110">-25</text>
     	<text class="name" x="449" y="1025" font-size="64" font-weight="300">Washington</text>
     	<text class="main" x="449" y="1057" font-size="24" font-weight="300">Clear sky</text>
-    	<circle cx="422.75" cy="990.75" r="8.5" stroke-width="5.5"/>
     </g>
+    <circle class="deg" cx="422.75" cy="990.75" r="8.5" stroke="#0E1213" stroke-opacity="0.9" stroke-width="5.5"/>
   <defs>
     <filter id="filter0_f" x="34" y="125" width="1731.29" height="1150" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
       <feFlood flood-opacity="0" result="BackgroundImageFix"/>

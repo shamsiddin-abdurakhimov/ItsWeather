@@ -130,6 +130,11 @@ const makePrev = async (weather, userPic, userName) => {
   }
 
 
+  for (const element of getElementsByClassName(preview, `deg`)) {
+    element.setAttribute(`stroke`, COLORS[weather.weather[0].icon].bottom);
+  }
+
+
   for (const element of getElementsByClassName(preview, `back`)) {
     fill(element, COLORS[weather.weather[0].icon].back);
   }
