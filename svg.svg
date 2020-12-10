@@ -5,12 +5,12 @@
   </g>
     <rect x="177" y="250" width="1450" height="900" rx="25" fill="url(#pattern0)"/>
     <circle cx="272.5" cy="299.5" r="12.5" fill="url(#pattern1)"/>
-    <text fill="#0E1213" x="293" y="307">
-      <tspan class="user"  fill-opacity="0.9" font-family="Josefin Sans" font-size="20" font-weight="400">Shamsiddin</tspan>
-      <tspan fill-opacity="0.6" font-family="Josefin Sans" font-size="20">  •  </tspan>
-      <tspan class="time"  fill-opacity="0.7" font-family="Josefin Sans" font-size="20" font-weight="400">23:15 - Thursday, 26 Nov '20</tspan>
+    <text class="top" fill="#0E1213" x="293" y="307" font-family="Josefin Sans" font-size="20" font-weight="400">
+      <tspan class="user"  fill-opacity="0.9">Shamsiddin</tspan>
+      <tspan fill-opacity="0.6">  •  </tspan>
+      <tspan class="time"  fill-opacity="0.7">23:15 - Thursday, 26 Nov '20</tspan>
     </text>
-    <g fill="#0E1213" font-family="Josefin Sans" fill-opacity="0.9">
+    <g class="bottom" fill="#0E1213" font-family="Josefin Sans" fill-opacity="0.9">
     	<text class="temp" text-anchor="end" x="414" y="1055" font-size="110">-25</text>
     	<text class="name" x="449" y="1025" font-size="64" font-weight="300">Washington</text>
     	<text class="main" x="449" y="1057" font-size="24" font-weight="300">Clear sky</text>

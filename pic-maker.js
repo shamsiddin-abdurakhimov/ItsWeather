@@ -8,25 +8,25 @@ const RENDER_CONFIG = {
   density: 150,
 };
 
-const BACK_COLORS = {
-  '01d':'#C4CFD5',
-  '01n':'#181622',
-  '02d':'#CDC3DB',
-  '02n':'#CDC3DB',
-  '03d':'#CDC3DB',
-  '03n':'#CDC3DB',
-  '04d':'#A3B1BC',
-  '04n':'#A3B1BC',
-  '09d':'#566766',
-  '09n':'#566766',
-  '10d':'#566766',
-  '10n':'#566766',
-  '11d':'#1A2E3D',
-  '11n':'#1A2E3D',
-  '13d':'#2F2F26',
-  '13n':'#2F2F26',
-  '50d':'#263133',
-  '50n':'#263133'
+const COLORS = {
+  '01d':{'back':'#C4CFD5', 'top':'#0E1213', 'bottom':'#0E1213'},
+  '01n':{'back':'#181622', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '02d':{'back':'#CDC3DB', 'top':'#575F7A', 'bottom':'#575F7A'},
+  '02n':{'back':'#CDC3DB', 'top':'#575F7A', 'bottom':'#575F7A'},
+  '03d':{'back':'#CDC3DB', 'top':'#575F7A', 'bottom':'#575F7A'},
+  '03n':{'back':'#CDC3DB', 'top':'#575F7A', 'bottom':'#575F7A'},
+  '04d':{'back':'#A3B1BC', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '04n':{'back':'#A3B1BC', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '09d':{'back':'#566766', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '09n':{'back':'#566766', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '10d':{'back':'#566766', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '10n':{'back':'#566766', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '11d':{'back':'#1A2E3D', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '11n':{'back':'#1A2E3D', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '13d':{'back':'#2F2F26', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '13n':{'back':'#2F2F26', 'top':'#FFFFFF', 'bottom':'#FFFFFF'},
+  '50d':{'back':'#263133', 'top':'#263133', 'bottom':'#FFFFFF'},
+  '50n':{'back':'#263133', 'top':'#263133', 'bottom':'#FFFFFF'}
 }
 
 const parser = new DOMParser();
@@ -120,8 +120,18 @@ const makePrev = async (weather, userPic, userName) => {
 
 
 
+  for (const element of getElementsByClassName(preview, `top`)) {
+    fill(element, COLORS[weather.weather[0].icon].top);
+  }
+
+
+  for (const element of getElementsByClassName(preview, `bottom`)) {
+    fill(element, COLORS[weather.weather[0].icon].bottom);
+  }
+
+
   for (const element of getElementsByClassName(preview, `back`)) {
-    fill(element, BACK_COLORS[weather.weather[0].icon]);
+    fill(element, COLORS[weather.weather[0].icon].back);
   }
 
 
