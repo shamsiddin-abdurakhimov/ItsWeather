@@ -155,8 +155,8 @@ const makePrev = async (weather, userPic, userName) => {
   }
 
 
-  for (const element of getElementsByClassName(preview, `description`)) {
-    element.textContent = weather.weather[0].description
+  for (const element of getElementsByClassName(preview, `main`)) {
+    element.textContent = weather.weather[0].main
   }
 
   const picBack = fs.readFileSync(`./pic/${weather.weather[0].icon}.png`, `binary`);
