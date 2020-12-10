@@ -23,7 +23,7 @@ async function sendReply(context) {
 	const photo = await bot.context.downloadFile(photos.photos[0][1].file_id)
 	const weatherReply = await weather.weather(context.update.message.text, 'metric', 'en')
 	const preview = await render({weather: weatherReply, userPic: photo, userName: context.message.from.first_name});
-	await context.replyWithPhoto(source: preview);
+	await context.replyWithPhoto({source: preview});
 }
 
 bot.start((context) => {
