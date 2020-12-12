@@ -1,4 +1,4 @@
-const maker = require(`./pic-maker`);
+const picMaker = require(`./pic-maker`);
 
 const MAX_RENDERERS_AT_ONCE = 10;
 let renderersNumber = 0;
@@ -9,7 +9,7 @@ const render = async ({ weather, userPic, userName, resolve, reject }) => {
   renderersNumber++;
 
   try {
-    let preview = await maker.makePrev(weather, userPic, userName);
+    let preview = await picMaker.makePrev(weather, userPic, userName);
 
     resolve(preview);
   } catch (error) {

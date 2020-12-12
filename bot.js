@@ -1,13 +1,15 @@
 const token = process.env.TOKEN;
 const apiId = process.env.apiId;
+const adminId = process.env.adminId;
 
 const {WeatherApi} = require(`./weatherApi`); 
 const Telegraf = require(`telegraf`);
-const render = require(`./render-pool`);
+const render = require(`./pool`);
 const request = require(`request-promise`);
 
 const bot = new Telegraf(token);
 const weather = new WeatherApi(apiId);
+const username = (await bot.telegram.getMe()).username
 
 bot.context.downloadFile = async function (fileId) {
   const file = await bot.telegram.getFile(fileId);
@@ -30,7 +32,7 @@ bot.start((context) => {
 	console.log(context.update.message.text)
 });
 bot.on(`message`, (context) => {sendReply(context)});
-bot.telegram.sendMessage(1443794846, `@ItsWeatherBot is running…`);
+bot.telegram.sendMessage(adminId, `@${username} is running…`);
 /*
 console.log(weather.weather('Tashkent', 'metric', 'ru'))
 console.log(weather.forecast('Tashkent', 'metric', 'ru', 1))

@@ -1,4 +1,14 @@
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const { XMLHttpRequest } = require("xmlhttprequest");
+function getResult(url) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', url, false);
+	xhr.send();
+	if (xhr.status != 200) {
+		return xhr.status + ': ' + xhr.statusText
+	} else {
+		return xhr.responseText
+	}
+}
 class WeatherApi {
 	constructor(appid) {
 		this.appid = appid;
@@ -10,15 +20,7 @@ class WeatherApi {
 			units	optional	Units of measurement. standard, metric and imperial units are available. If you do not use the units parameter, standard units will be applied by default.
 			lang	optional	You can use this parameter to get the output in your language.
 		*/
-		var xhr = new XMLHttpRequest();
-		let url = `http://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${this.appid}&lang=${lang}&units=${units}`
-		xhr.open('GET', url, false);
-		xhr.send();
-		if (xhr.status != 200) {
-			return xhr.status + ': ' + xhr.statusText
-		} else {
-			return xhr.responseText
-		}
+		return getResult(`http://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${this.appid}&lang=${lang}&units=${units}`)
 	}
 	forecast(q, units, lang, cnt) {
 		/*
@@ -27,16 +29,9 @@ class WeatherApi {
 			cnt		optional	A number of timestamps in response.
 			lang	optional	Language code.
 		*/
-		var xhr = new XMLHttpRequest();
 		let url = `http://api.openweathermap.org/data/2.5/forecast?q=${q}&appid=${this.appid}&lang=${lang}&units=${units}`
 		if (cnt != undefined) {url += `&cnt=${cnt}`}
-		xhr.open('GET', url, false);
-		xhr.send();
-		if (xhr.status != 200) {
-			return xhr.status + ': ' + xhr.statusText
-		} else {
-			return xhr.responseText
-		}
+		return getResult(url)
 	}
 	onecall(q, units, lang, exclude) {
 		/*
@@ -52,15 +47,7 @@ class WeatherApi {
 			units		optional	Units of measurement. standard, metric and imperial units are available. If you do not use the units parameter, standard units will be applied by default.
 			lang		optional	You can use the lang parameter to get the output in your language.
 		*/
-		var xhr = new XMLHttpRequest();
-		let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${q.lat}&lon=${q.lon}&appid=${this.appid}&lang=${lang}&units=${units}&exclude=${exclude}`
-		xhr.open('GET', url, false);
-		xhr.send();
-		if (xhr.status != 200) {
-			return xhr.status + ': ' + xhr.statusText
-		} else {
-			return xhr.responseText
-		}
+		return getResult(`https://api.openweathermap.org/data/2.5/onecall?lat=${q.lat}&lon=${q.lon}&appid=${this.appid}&lang=${lang}&units=${units}&exclude=${exclude}`)
 	}
 }
 module.exports = {

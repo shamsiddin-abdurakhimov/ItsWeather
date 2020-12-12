@@ -3,10 +3,7 @@ const { DOMParser, XMLSerializer } = require(`xmldom`);
 const sizeOf = require(`image-size`);
 const sharp = require(`sharp`);
 const { serializeToString: serialize } = new XMLSerializer();
-
-const RENDER_CONFIG = {
-  density: 150,
-};
+const parser = new DOMParser();
 
 const COLORS = {
   '01d':{'back':'#C4CFD5', 'top':'#0E1213', 'bottom':'#0E1213'},
@@ -29,7 +26,8 @@ const COLORS = {
   '50n':{'back':'#263133', 'top':'#263133', 'bottom':'#FFFFFF'}
 }
 
-const parser = new DOMParser();
+const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 
 const get = (node, className, tag) => 
   Array.from(node.getElementsByTagName(tag)).filter(
@@ -37,8 +35,7 @@ const get = (node, className, tag) =>
       element.getAttribute && element.getAttribute(`class`) === className
   );
 
-
-const getElementsByClassName = (node, className) => [
+const getElements = (node, className) => [
   ...get(node, className, `rect`),
   ...get(node, className, `circle`),
   ...get(node, className, `path`),
@@ -49,9 +46,10 @@ const getElementsByClassName = (node, className) => [
   ...get(node, className, `stop`),
   ...get(node, className, `text`),
 ];
+
 function tempReplace(temp) {
   temp = `${Math.round(temp)}`
-  var minus = ''
+  let minus = ''
   if (temp.split(``)[0] == '-') {
     minus = '-'
     temp = temp.replace(`-`, ``)
@@ -60,6 +58,7 @@ function tempReplace(temp) {
   temp = minus + temp
   return temp
 }
+
 const addPic = async (elements, imageBuffer) => {
   await Promise.all(
     elements.map(async (element) => {
@@ -98,61 +97,61 @@ const addPic = async (elements, imageBuffer) => {
     })
   );
 }
-const fill = (node, color) => {
+
+const fill = (node, hex) => {
   if (node.tagName === `stop`) {
-    node.setAttribute(`stop-color`, color);
+    node.setAttribute(`stop-color`, hex);
   } else {
-    node.setAttribute(`fill`, color);
+    node.setAttribute(`fill`, hex);
   }
 
   if (node.childNodes) {
     for (let child of Array.from(node.childNodes)) {
       if (child.setAttribute) {
-        fill(child, color);
+        fill(child, hex);
       }
     }
   }
 };
-const makePrev = async (weather, userPic, userName) => {
-  console.log('start makePrev')
+
+const picMake = async (weather, userPic, userName) => {
+  console.log('start picMake')
   weather = JSON.parse(weather)
-  const preview = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
+  const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
 
 
 
-  for (const element of getElementsByClassName(preview, `top`)) {
+  for (const element of getElements(pic, `top`)) {
     fill(element, COLORS[weather.weather[0].icon].top);
   }
 
 
-  for (const element of getElementsByClassName(preview, `bottom`)) {
+  for (const element of getElements(pic, `bottom`)) {
     fill(element, COLORS[weather.weather[0].icon].bottom);
   }
 
 
-  for (const element of getElementsByClassName(preview, `deg`)) {
+  for (const element of getElements(pic, `deg`)) {
     element.setAttribute(`stroke`, COLORS[weather.weather[0].icon].bottom);
   }
 
 
-  for (const element of getElementsByClassName(preview, `back`)) {
+  for (const element of getElements(pic, `back`)) {
     fill(element, COLORS[weather.weather[0].icon].back);
   }
 
 
-  for (const element of getElementsByClassName(preview, `user`)) {
+  for (const element of getElements(pic, `user`)) {
     element.textContent = userName;
   }
 
 
-  for (const element of getElementsByClassName(preview, `time`)) {
-    var today = new Date()
-    const week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  for (const element of getElements(pic, `time`)) {
+    let today = new Date()
     today.setSeconds(today.getUTCSeconds() + weather.timezone)
     const hh = tempReplace(today.getUTCHours())
     const mm = tempReplace(today.getUTCMinutes())
-    const day = week[today.getUTCDay()]
+    const day = weekDays[today.getUTCDay()]
     const data = today.getUTCDate()
     const month = months[today.getUTCMonth()]
     const year = `${today.getUTCFullYear()}`.slice(0, -2)
@@ -160,32 +159,32 @@ const makePrev = async (weather, userPic, userName) => {
   }
 
 
-  for (const element of getElementsByClassName(preview, `temp`)) {
+  for (const element of getElements(pic, `temp`)) {
     element.textContent = tempReplace(weather.main.temp);
   }
 
 
-  for (const element of getElementsByClassName(preview, `name`)) {
+  for (const element of getElements(pic, `name`)) {
     element.textContent = weather.name
   }
 
 
-  for (const element of getElementsByClassName(preview, `main`)) {
+  for (const element of getElements(pic, `main`)) {
     element.textContent = weather.weather[0].main
   }
 
   const picBack = fs.readFileSync(`./pic/${weather.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
-  const backPic = getElementsByClassName(preview, "back_pic");
+  const backPic = getElements(pic, "back_pic");
   await addPic(backPic, backImageBuffer)
-  const userPicElement = getElementsByClassName(preview, "user_pic");
+  const userPicElement = getElements(pic, "user_pic");
   await addPic(userPicElement, userPic)
 
-  const templateBuffer = Buffer.from(serialize(preview), `binary`);
-  console.log('finish makePrev')
-  return sharp(templateBuffer, RENDER_CONFIG).png().toBuffer();
+  const picBuffer = Buffer.from(serialize(pic), `binary`);
+  console.log('finish picMake')
+  return sharp(picBuffer, {density: 200}).png().toBuffer();
 };
 
 module.exports = {
-  makePrev,
+  picMake,
 };
