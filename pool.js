@@ -9,7 +9,7 @@ const render = async ({ weather, userPic, userName, resolve, reject }) => {
   renderersNumber++;
 
   try {
-    let preview = await picMaker.makePrev(weather, userPic, userName);
+    let preview = await picMaker.picMake(weather, userPic, userName);
 
     resolve(preview);
   } catch (error) {
