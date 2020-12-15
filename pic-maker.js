@@ -191,7 +191,8 @@ const picMake = async (weather, userPic, userName) => {
   const hourlyTempMax = hourlyTemp[hourlyTemp.length - 1]
   const hourlyTempMin = hourlyTemp[0]
   const factor = 70 / Math.abs(hourlyTempMax - hourlyTempMin)
-  const yValue = 470 + (Math.abs(hourlyTempMax - hourlyTempMin) * factor)
+  const factor2 = hourlyTempMin < 0 ? hourlyTempMax : Math.abs(hourlyTempMax - hourlyTempMin)
+  const yValue = 470 + (factor2 * factor)
   console.log(yValue)
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
