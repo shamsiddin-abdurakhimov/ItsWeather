@@ -29,14 +29,14 @@ const COLORS = {
 const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 const hoursClass = {
-  time1: 0
-  time2: 6
-  time3: 12
-  time4: 18
-  time5: 24
-  time6: 30
-  time7: 36
-  time8: 42
+  time1: 0,
+  time2: 6,
+  time3: 12,
+  time4: 18,
+  time5: 24,
+  time6: 30,
+  time7: 36,
+  time8: 42,
   time9: 48
 }
 
