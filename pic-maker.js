@@ -28,6 +28,17 @@ const COLORS = {
 
 const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+const hoursClass = {
+  time1: 0
+  time2: 6
+  time3: 12
+  time4: 18
+  time5: 24
+  time6: 30
+  time7: 36
+  time8: 42
+  time9: 48
+}
 
 const get = (node, className, tag) => 
   Array.from(node.getElementsByTagName(tag)).filter(
@@ -212,6 +223,13 @@ const picMake = async (weather, userPic, userName) => {
   }
   for (const element of getElements(pic, `graph_fill`)) {
     element.setAttribute(`points`, graphPointsFill)
+  }
+  for (const hourClass of hoursClass) {
+    for (const element of getElements(pic, hoursClass)) {
+      var date = new Date(0);
+      date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
+      element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})
+    }
   }
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
