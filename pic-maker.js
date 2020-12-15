@@ -174,6 +174,16 @@ const picMake = async (weather, userPic, userName) => {
     element.textContent = weather.current.weather[0].main
   }
 
+
+  for (const element of getElements(pic, `min`)) {
+    element.textContent = weather.daily[0].temp.min
+  }
+
+
+  for (const element of getElements(pic, `max`)) {
+    element.textContent = weather.daily[0].temp.max
+  }
+
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
   const backPic = getElements(pic, "back_pic");
