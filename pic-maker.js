@@ -183,9 +183,11 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `max`)) {
     element.textContent = tempReplace(weather.daily[0].temp.max)
   }
+  const hourlyTemp = []
   let hourlyTempMax
   let hourlyTempMin
   for (const hour in weather.hourly) {
+    hourlyTemp.push(weather.hourly[hour].temp)
     if (hourlyTempMax == undefined && hourlyTempMin == undefined) {
       hourlyTempMax = Math.abs(weather.hourly[hour].temp)
       hourlyTempMin = Math.abs(weather.hourly[hour].temp)
@@ -197,6 +199,8 @@ const picMake = async (weather, userPic, userName) => {
       hourlyTempMin = Math.abs(weather.hourly[hour].temp)
     }
   }
+  hourlyTemp.sort((a, b) => a - b);
+  console.log(hourlyTemp)
   const factor = 70 / Math.abs(hourlyTempMax - hourlyTempMin)
   const yValue = 470 + (Math.abs(hourlyTempMax - hourlyTempMin) * factor)
   console.log(yValue)
