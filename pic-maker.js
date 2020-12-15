@@ -195,16 +195,12 @@ const picMake = async (weather, userPic, userName) => {
   const hourlyTempMin = hourlyTempSort[0]
   const hourlyTempDifference = hourlyTempMax - hourlyTempMin
   const yOne = 70 / hourlyTempDifference
-  const factor = hourlyTempMin < 0 ? hourlyTempMax : hourlyTempDifference
-  const yValue = 470 + (factor * yOne)
   const hourlyTempLength = hourlyTemp.length - 1
   let graphPoints = ''
   const xOne = 480 / hourlyTempLength
   let yMax = 0
-  console.log(yValue)
   for (var i = 0; i < hourlyTemp.length; i++) {
-    const y = yValue - (yOne * (hourlyTempDifference - hourlyTemp[i]))
-    console.log(y, yOne * hourlyTemp[i], yOne, hourlyTemp[i])
+    const y = 470 + (yOne * (hourlyTempDifference - hourlyTemp[i]))//540
     const x = 1110 + (xOne * i)
     if (y > yMax) {yMax = y}
     if (graphPoints != '') {graphPoints += ' '}
