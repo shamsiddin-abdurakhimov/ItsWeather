@@ -193,7 +193,7 @@ const picMake = async (weather, userPic, userName) => {
       hourlyTempMax = Math.abs(weather.hourly[hour].temp)
     }
   }
-  console.log(hourlyTempMin)
+  console.log(hourlyTempMax)
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
