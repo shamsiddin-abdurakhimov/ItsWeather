@@ -183,7 +183,6 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `max`)) {
     element.textContent = tempReplace(weather.daily[0].temp.max)
   }
-
   let hourlyTempMax
   for (const hour in weather.hourly) {
     if (hourlyTempMax == undefined) {
@@ -193,7 +192,8 @@ const picMake = async (weather, userPic, userName) => {
       hourlyTempMax = Math.abs(weather.hourly[hour].temp)
     }
   }
-  console.log(hourlyTempMax)
+  const yValue = 470 + Math.round(hourlyTempMax)
+  console.log(yValue)
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
