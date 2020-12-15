@@ -195,17 +195,24 @@ const picMake = async (weather, userPic, userName) => {
   const yOne = 70 / Math.abs(hourlyTempMax - hourlyTempMin)
   const factor = hourlyTempMin < 0 ? hourlyTempMax : Math.abs(hourlyTempMax - hourlyTempMin)
   const yValue = 470 + (factor * yOne)
-  console.log(yValue)
   const hourlyTempLength = hourlyTemp.length - 1
   let graphPoints = ''
   const xOne = 480 / hourlyTempLength
+  let yMax = 0
   for (var i = 0; i < hourlyTemp.length; i++) {
     const y = yValue - (yOne * hourlyTemp[i])
     const x = 1110 + (xOne * i)
+    if (y > yMax) {yMax = y}
     if (graphPoints != '') {graphPoints += ' '}
     graphPoints += `${x},${y}`
   }
-  console.log(graphPoints)
+  const graphPointsFill = `1110,${yMax} ${graphPoints} 1590,${yMax}`
+  for (const element of getElements(pic, `graph`)) {
+    element.setAttribute(`points`, graphPoints)
+  }
+  for (const element of getElements(pic, `graph_fill`)) {
+    element.setAttribute(`points`, graphPointsFill)
+  }
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
