@@ -225,7 +225,7 @@ const picMake = async (weather, userPic, userName) => {
     element.setAttribute(`points`, graphPointsFill)
   }
   for (const hourClass of Object.keys(hoursClass)) {
-    console.log(hourClass)
+    console.log(hourClass, hoursClass[hourClass])
     for (const element of getElements(pic, hourClass)) {
       var date = new Date(0);
       date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
