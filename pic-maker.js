@@ -116,28 +116,29 @@ const fill = (node, hex) => {
 
 const picMake = async (weather, userPic, userName) => {
   console.log('start picMake')
-  weather = JSON.parse(weather)
+  const nameWeather = JSON.parse(weather).weatherCoord.name
+  weather = JSON.parse(weather).weatherReply
   const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
 
 
 
   for (const element of getElements(pic, `top`)) {
-    fill(element, COLORS[weather.weather[0].icon].top);
+    fill(element, COLORS[weather.current.weather[0].icon].top);
   }
 
 
   for (const element of getElements(pic, `bottom`)) {
-    fill(element, COLORS[weather.weather[0].icon].bottom);
+    fill(element, COLORS[weather.current.weather[0].icon].bottom);
   }
 
 
   for (const element of getElements(pic, `deg`)) {
-    element.setAttribute(`stroke`, COLORS[weather.weather[0].icon].bottom);
+    element.setAttribute(`stroke`, COLORS[weather.current.weather[0].icon].bottom);
   }
 
 
   for (const element of getElements(pic, `back`)) {
-    fill(element, COLORS[weather.weather[0].icon].back);
+    fill(element, COLORS[weather.current.weather[0].icon].back);
   }
 
 
@@ -148,7 +149,7 @@ const picMake = async (weather, userPic, userName) => {
 
   for (const element of getElements(pic, `time`)) {
     let today = new Date()
-    today.setSeconds(today.getUTCSeconds() + weather.timezone)
+    today.setSeconds(today.getUTCSeconds() + weather.timezone_offset)
     const hh = tempReplace(today.getUTCHours())
     const mm = tempReplace(today.getUTCMinutes())
     const day = weekDays[today.getUTCDay()]
@@ -160,20 +161,20 @@ const picMake = async (weather, userPic, userName) => {
 
 
   for (const element of getElements(pic, `temp`)) {
-    element.textContent = tempReplace(weather.main.temp);
+    element.textContent = tempReplace(weather.current.temp);
   }
 
 
   for (const element of getElements(pic, `name`)) {
-    element.textContent = weather.name
+    element.textContent = nameWeather
   }
 
 
   for (const element of getElements(pic, `main`)) {
-    element.textContent = weather.weather[0].main
+    element.textContent = weather.current.weather[0].main
   }
 
-  const picBack = fs.readFileSync(`./pic/${weather.weather[0].icon}.png`, `binary`);
+  const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
   const backPic = getElements(pic, "back_pic");
   await addPic(backPic, backImageBuffer)
