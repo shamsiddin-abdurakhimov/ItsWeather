@@ -187,8 +187,8 @@ const picMake = async (weather, userPic, userName) => {
 
   let hourlyTempSum = 0
   for (const hour in weather.hourly) {
-    hourlyTempSum += hour.temp
-    console.log(hour, hour.temp)
+    hourlyTempSum += weather.hourly[hour].temp
+    console.log(weather.hourly[hour], weather.hourly[hour].temp)
   }
   console.log(hourlyTempSum)
   console.log(hourlyTempSum / weather.hourly.length)
