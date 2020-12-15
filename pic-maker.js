@@ -203,7 +203,7 @@ const picMake = async (weather, userPic, userName) => {
   let yMax = 0
   console.log(yValue)
   for (var i = 0; i < hourlyTemp.length; i++) {
-    const y = yValue - (yOne * (hourlyTemp[i] - hourlyTempDifference))
+    const y = yValue - (yOne * (hourlyTempDifference - hourlyTemp[i]))
     console.log(y, yOne * hourlyTemp[i], yOne, hourlyTemp[i])
     const x = 1110 + (xOne * i)
     if (y > yMax) {yMax = y}
