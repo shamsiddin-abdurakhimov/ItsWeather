@@ -200,8 +200,10 @@ const picMake = async (weather, userPic, userName) => {
   let graphPoints = ''
   const xOne = 480 / hourlyTempLength
   let yMax = 0
+  console.log(yValue)
   for (var i = 0; i < hourlyTemp.length; i++) {
     const y = yValue - (yOne * hourlyTemp[i])
+    console.log(y)
     const x = 1110 + (xOne * i)
     if (y > yMax) {yMax = y}
     if (graphPoints != '') {graphPoints += ' '}
