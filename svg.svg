@@ -65,7 +65,7 @@
 
 
   <defs>
-    <filter id="filter1_f" x="1010" y="450" width="600" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <filter id="filter1_f" x="1000" y="400" width="900" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
       <feFlood flood-opacity="0" result="BackgroundImageFix"/>
       <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
       <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur"/>

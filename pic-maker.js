@@ -189,7 +189,6 @@ const picMake = async (weather, userPic, userName) => {
   for (const hour in weather.hourly) {
     hourlyTemp.push(weather.hourly[hour].temp)
     hourlyTempSort.push(weather.hourly[hour].temp)
-    console.log(weather.hourly[hour].temp)
   }
   hourlyTempSort.sort((a, b) => a - b);
   const hourlyTempMax = hourlyTempSort[hourlyTempSort.length - 1]
