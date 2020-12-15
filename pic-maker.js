@@ -183,17 +183,29 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `max`)) {
     element.textContent = tempReplace(weather.daily[0].temp.max)
   }
+  const hourlyTempSort = []
   const hourlyTemp = []
   for (const hour in weather.hourly) {
     hourlyTemp.push(weather.hourly[hour].temp)
+    hourlyTempSort.push(weather.hourly[hour].temp)
   }
-  hourlyTemp.sort((a, b) => a - b);
-  const hourlyTempMax = hourlyTemp[hourlyTemp.length - 1]
-  const hourlyTempMin = hourlyTemp[0]
-  const factor = 70 / Math.abs(hourlyTempMax - hourlyTempMin)
-  const factor2 = hourlyTempMin < 0 ? hourlyTempMax : Math.abs(hourlyTempMax - hourlyTempMin)
-  const yValue = 470 + (factor2 * factor)
+  hourlyTempSort.sort((a, b) => a - b);
+  const hourlyTempMax = hourlyTempSort[hourlyTempSort.length - 1]
+  const hourlyTempMin = hourlyTempSort[0]
+  const yOne = 70 / Math.abs(hourlyTempMax - hourlyTempMin)
+  const factor = hourlyTempMin < 0 ? hourlyTempMax : Math.abs(hourlyTempMax - hourlyTempMin)
+  const yValue = 470 + (factor * yOne)
   console.log(yValue)
+  const hourlyTempLength = hourlyTemp.length - 1
+  let graphPoints = ''
+  const xOne = 480 / hourlyTempLength
+  for (var i = 0; i < hourlyTemp.length; i++) {
+    const y = yValue - (yOne * hourlyTemp[i])
+    const x = 1110 + (xOne * i)
+    if (graphPoints != '') {graphPoints += ' '}
+    graphPoints += `${x},${y}`
+  }
+  console.log(graphPoints)
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
