@@ -200,7 +200,9 @@ const picMake = async (weather, userPic, userName) => {
     }
   }
   hourlyTemp.sort((a, b) => a - b);
-  console.log(hourlyTemp[hourlyTemp.length])
+  console.log(hourlyTemp)
+  console.log(hourlyTemp[0])
+  console.log(hourlyTemp[hourlyTemp.length - 1])
   const factor = 70 / Math.abs(hourlyTempMax - hourlyTempMin)
   const yValue = 470 + (Math.abs(hourlyTempMax - hourlyTempMin) * factor)
   console.log(yValue)
