@@ -37,7 +37,7 @@ const hoursClass = {
   time6: 30,
   time7: 36,
   time8: 42,
-  time9: 48
+  time9: 47
 }
 
 const get = (node, className, tag) => 
@@ -196,7 +196,7 @@ const picMake = async (weather, userPic, userName) => {
     element.textContent = tempReplace(weather.daily[0].temp.max)
   }
 
-  weather.hourly.unshift({"dt":weather.hourly[0].dt - 3600,"temp":weather.current.temp,"feels_like":-4.14,"pressure":1034,"humidity":86,"dew_point":-2.81,"uvi":0,"clouds":0,"visibility":10000,"wind_speed":1.07,"wind_deg":21,"weather":[{"id":800,"main":"Clear","description":"ясно","icon":"01n"}],"pop":0})
+  //weather.hourly.unshift({"dt":weather.hourly[0].dt - 3600,"temp":weather.current.temp,"feels_like":-4.14,"pressure":1034,"humidity":86,"dew_point":-2.81,"uvi":0,"clouds":0,"visibility":10000,"wind_speed":1.07,"wind_deg":21,"weather":[{"id":800,"main":"Clear","description":"ясно","icon":"01n"}],"pop":0})
   const hourlyTempSort = []
   const hourlyTemp = []
   for (const hour in weather.hourly) {
