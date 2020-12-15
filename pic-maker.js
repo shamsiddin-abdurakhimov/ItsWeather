@@ -116,6 +116,7 @@ const fill = (node, hex) => {
 
 const picMake = async (weather, userPic, userName) => {
   console.log('start picMake')
+  console.log(weather)
   const nameWeather = JSON.parse(weather).weatherCoord.name
   weather = JSON.parse(weather).weatherReply
   const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
