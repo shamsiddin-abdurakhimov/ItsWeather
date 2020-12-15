@@ -189,6 +189,7 @@ const picMake = async (weather, userPic, userName) => {
   for (const hour in weather.hourly) {
     hourlyTemp.push(weather.hourly[hour].temp)
     hourlyTempSort.push(weather.hourly[hour].temp)
+    console.log(weather.hourly[hour].temp)
   }
   hourlyTempSort.sort((a, b) => a - b);
   const hourlyTempMax = hourlyTempSort[hourlyTempSort.length - 1]
@@ -200,7 +201,7 @@ const picMake = async (weather, userPic, userName) => {
   const xOne = 480 / hourlyTempLength
   let yMax = 0
   for (var i = 0; i < hourlyTemp.length; i++) {
-    const y = 470 + (yOne * (hourlyTemp[i] - hourlyTempMin))//540
+    const y = 540 - (yOne * (hourlyTemp[i] - hourlyTempMin))
     const x = 1110 + (xOne * i)
     if (y > yMax) {yMax = y}
     if (graphPoints != '') {graphPoints += ' '}
