@@ -190,7 +190,10 @@ const picMake = async (weather, userPic, userName) => {
   let hourlyTempMin;
   for (const hour in weather.hourly) {
     hourlyTempSum += weather.hourly[hour].temp
-    console.log(hourlyTempMin)
+    if (hourlyTempMax == undefined && hourlyTempMin == undefined) {
+      hourlyTempMin = weather.hourly[hour].temp
+      hourlyTempMax = weather.hourly[hour].temp
+    }
     if (weather.hourly[hour].temp > hourlyTempMax) {
       hourlyTempMax = weather.hourly[hour].temp
     } else if (weather.hourly[hour].temp < hourlyTempMin) {
