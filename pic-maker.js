@@ -41,6 +41,7 @@ const getElements = (node, className) => [
   ...get(node, className, `path`),
   ...get(node, className, `g`),
   ...get(node, className, `polygon`),
+  ...get(node, className, `polyline`),
   ...get(node, className, `image`),
   ...get(node, className, `tspan`),
   ...get(node, className, `stop`),
