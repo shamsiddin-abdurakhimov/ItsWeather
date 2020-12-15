@@ -184,16 +184,22 @@ const picMake = async (weather, userPic, userName) => {
     element.textContent = tempReplace(weather.daily[0].temp.max)
   }
   let hourlyTempMax
+  let hourlyTempMin
   for (const hour in weather.hourly) {
-    if (hourlyTempMax == undefined) {
-      hourlyTempMax = weather.hourly[hour].temp
+    if (hourlyTempMax == undefined && hourlyTempMin == undefined) {
+      hourlyTempMax = Math.abs(weather.hourly[hour].temp)
+      hourlyTempMin = Math.abs(weather.hourly[hour].temp)
     }
     if (Math.abs(weather.hourly[hour].temp) > hourlyTempMax) {
       hourlyTempMax = Math.abs(weather.hourly[hour].temp)
     }
+    if (Math.abs(weather.hourly[hour].temp) < hourlyTempMin) {
+      hourlyTempMin = Math.abs(weather.hourly[hour].temp)
+    }
   }
   const yValue = 470 + Math.round(hourlyTempMax)
   console.log(yValue)
+  console.log(Math.abs(hourlyTempMax - hourlyTempMin))
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
