@@ -226,7 +226,7 @@ const picMake = async (weather, userPic, userName) => {
   }
   for (const hourClass of Object.keys(hoursClass)) {
     console.log(hourClass)
-    for (const element of getElements(pic, hoursClass)) {
+    for (const element of getElements(pic, hourClass)) {
       var date = new Date(0);
       date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
       console.log(date.toLocaleString("en-US", {hour: 'numeric'}), weather.hourly[hoursClass[hourClass]].dt)
