@@ -2,6 +2,7 @@ const fs = require(`fs`);
 const { DOMParser, XMLSerializer } = require(`xmldom`);
 const sizeOf = require(`image-size`);
 const sharp = require(`sharp`);
+const { render } = require('resvg-node');
 const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
 
@@ -229,7 +230,7 @@ const picMake = async (weather, userPic, userName) => {
   for (const hourClass of Object.keys(hoursClass)) {
     console.log(hourClass, hoursClass[hourClass])
     for (const element of getElements(pic, hourClass)) {
-      var date = new Date(0);
+      var date = new Date(2011, 0, 1, 0, 0, 0, 0);
       date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
       console.log(date.toLocaleString("en-US", {hour: 'numeric'}), weather.hourly[hoursClass[hourClass]].dt)
       element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})
@@ -245,7 +246,8 @@ const picMake = async (weather, userPic, userName) => {
 
   const picBuffer = Buffer.from(serialize(pic), `binary`);
   console.log('finish picMake')
-  return sharp(picBuffer, {density: 200}).png().toBuffer();
+  //return sharp(picBuffer, {density: 200}).png().toBuffer();
+  return render(picBuffer);
 };
 
 module.exports = {
