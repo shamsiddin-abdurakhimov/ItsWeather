@@ -128,8 +128,7 @@ const fill = (node, hex) => {
 };
 
 const picMake = async (weather, userPic, userName) => {
-  console.time("foo")
-  console.log('start picMake')
+  console.time("picMake")
   const nameWeather = JSON.parse(weather.weatherCoord).name
   weather = JSON.parse(weather.weatherReply)
   const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
@@ -244,9 +243,8 @@ const picMake = async (weather, userPic, userName) => {
   await addPic(backPic, backImageBuffer)
   const userPicElement = getElements(pic, "user_pic");
   await addPic(userPicElement, userPic)
-  console.log('finish picMake')
   //return sharp(picBuffer, {density: 200}).png().toBuffer();
-  console.timeEnd("foo")
+  console.timeEnd("picMake")
   return render(serialize(pic));
 };
 
