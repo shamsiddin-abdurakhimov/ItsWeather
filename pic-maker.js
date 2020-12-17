@@ -128,6 +128,7 @@ const fill = (node, hex) => {
 };
 
 const picMake = async (weather, userPic, userName) => {
+  console.time("foo")
   console.log('start picMake')
   const nameWeather = JSON.parse(weather.weatherCoord).name
   weather = JSON.parse(weather.weatherReply)
@@ -245,6 +246,7 @@ const picMake = async (weather, userPic, userName) => {
   await addPic(userPicElement, userPic)
   console.log('finish picMake')
   //return sharp(picBuffer, {density: 200}).png().toBuffer();
+  console.time("foo")
   return render(serialize(pic));
 };
 
