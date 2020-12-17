@@ -246,6 +246,7 @@ const picMake = async (weather, userPic, userName) => {
 
   const picBuffer = Buffer.from(serialize(pic), `binary`);
   console.log('finish picMake')
+  console.log(picBuffer)
   //return sharp(picBuffer, {density: 200}).png().toBuffer();
   return render(picBuffer);
 };
