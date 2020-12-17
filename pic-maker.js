@@ -246,7 +246,7 @@ const picMake = async (weather, userPic, userName) => {
   await addPic(userPicElement, userPic)
   console.log('finish picMake')
   //return sharp(picBuffer, {density: 200}).png().toBuffer();
-  console.time("foo")
+  console.timeEnd("foo")
   return render(serialize(pic));
 };
 
