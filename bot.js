@@ -21,12 +21,20 @@ bot.context.downloadFile = async function (fileId) {
 };
 async function sendReply(context) {
 	console.time("sendWeather")
+	console.time("photos")
 	const photos = await bot.telegram.getUserProfilePhotos(context.message.from.id)
 	const photo = await bot.context.downloadFile(photos.photos[0][1].file_id)
+	console.timeEnd("photos")
+	console.time("weather")
 	const weatherCoord = await weather.weather(context.update.message.text, 'metric', 'en')
 	const weatherReply = await weather.onecall(JSON.parse(weatherCoord).coord, 'metric', 'en')
+	console.timeEnd("weather")
+	console.time("render")
 	const preview = await render({weather: {weatherReply, weatherCoord}, userPic: photo, userName: context.message.from.first_name});
+	console.timeEnd("render")
+	console.time("send")
 	await context.replyWithPhoto({source: preview});
+	console.timeEnd("send")
 	console.timeEnd("sendWeather")
 }
 
