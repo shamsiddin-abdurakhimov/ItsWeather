@@ -221,7 +221,7 @@ const picMake = async (weather, userPic, userName) => {
     if (graphPoints != '') {graphPoints += ' '}
     graphPoints += `${x},${y}`
   }
-  const graphPointsFill = `1110,${yMax} ${graphPoints} 1590,${yMax}`
+  const graphPointsFill = `1110,${yMax + 2} ${graphPoints} 1590,${yMax + 2}`
   for (const element of getElements(pic, `graph`)) {
     element.setAttribute(`points`, graphPoints)
   }
