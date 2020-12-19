@@ -246,7 +246,7 @@ const picMake = async (weather, userPic, userName) => {
   console.log(__dirname) 
   const options = {
     dpi: 120,
-    TextRendering: 2,
+    textRendering: 2,
     font: {
       fontFiles: [
         `${path.join(__dirname, '.fonts/JosefinSans-Bold.ttf')}`,
