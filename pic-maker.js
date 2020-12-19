@@ -243,10 +243,11 @@ const picMake = async (weather, userPic, userName) => {
   await addPic(userPicElement, userPic)
   //return sharp(picBuffer, {density: 200}).png().toBuffer();
   console.timeEnd("picMake")
-  /*const options = {
-    font_files: []
-  };*/
-  return render(serialize(pic));
+  const options = {
+    dpi: 50
+    //font_files: []
+  };
+  return render(serialize(pic), options);
 };
 
 module.exports = {
