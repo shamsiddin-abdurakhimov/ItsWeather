@@ -225,23 +225,24 @@ const picMake = async (weather, userPic, userName) => {
   for (const hourClass of hoursClass) {
     const temp = `temp${hourClass}`
     const time = `time${hourClass}`
+    console.log(temp)
     for (const element of getElements(pic, temp)) {
       if (hoursClass == 0) {
-        element.textContent = 'now'
+        element.textContent = tempReplace(weather.current.temp)
       } else {
-        element.textContent = weather.hourly[hoursClass[hourClass]].temp
+        element.textContent = tempReplace(weather.hourly[hoursClass[hourClass]].temp)
       }
     }
-    for (const element of getElements(pic, time)) {
-      /*if (hoursClass == 0) {
+    /*for (const element of getElements(pic, time)) {
+      if (hoursClass == 0) {
         element.textContent = 'now'
       } else {
         element.textContent = weather.hourly[hoursClass[hourClass]].temp
       }
       var date = new Date(2011, 0, 1, 0, 0, 0, 0);
       date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
-      element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})*/
-    }
+      element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})
+    }*/
   }
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
