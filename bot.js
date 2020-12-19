@@ -10,27 +10,32 @@ const request = require(`request-promise`);
 const bot = new Telegraf(token);
 const weather = new WeatherApi(apiId);
 
-bot.context.downloadFile = async function (fileId) {
-  const file = await bot.telegram.getFile(fileId);
-  const fileContent = await request({
-    encoding: null,
-    uri: `http://api.telegram.org/file/bot${token}/${file.file_path}`,
-  });
-
-  return fileContent;
+bot.context.downloadFile = async function (userId) {
+	const photos = await bot.telegram.getUserProfilePhotos(userId)
+	console.log(photos)
+	const fileId = await photos.photos[0][1].file_id
+	const file = await bot.telegram.getFile(fileId);
+	const fileContent = await request({
+		encoding: null,
+		uri: `http://api.telegram.org/file/bot${token}/${file.file_path}`,
+	});
+	return fileContent;
 };
+const getWeather = async (name) => {
+	let weatherCoord = JSON.parse(await weather.weather(name, 'metric', 'en'))
+	const weatherReply = JSON.parse(await weather.onecall(weatherCoord.coord, 'metric', 'en'))
+	return {weatherReply, weatherCoord}
+}
 async function sendReply(context) {
 	console.time("sendWeather")
 	console.time("photos")
-	const photos = await bot.telegram.getUserProfilePhotos(context.message.from.id)
-	const photo = await bot.context.downloadFile(photos.photos[0][1].file_id)
+	const userPic = bot.context.downloadFile(context.message.from.id)
 	console.timeEnd("photos")
 	console.time("weather")
-	const weatherCoord = await weather.weather(context.update.message.text, 'metric', 'en')
-	const weatherReply = await weather.onecall(JSON.parse(weatherCoord).coord, 'metric', 'en')
+	const weather = getWeather(context.update.message.text)
 	console.timeEnd("weather")
 	console.time("render")
-	const preview = await render({weather: {weatherReply, weatherCoord}, userPic: photo, userName: context.message.from.first_name});
+	const preview = await render({weather, userPic, userName: context.message.from.first_name});
 	console.timeEnd("render")
 	console.time("send")
 	await context.replyWithPhoto({source: preview});
