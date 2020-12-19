@@ -39,17 +39,18 @@
         <polyline class="graph_fill" points="1110,515 1110,515 1170,475 1230,470 1290,480 1350,485 1410,480 1470,505 1530,503 1590,495 1590,515" fill="#ffffff" fill-opacity="0.6"/>
       </g>
       <text text-anchor="middle" fill="rgb(240,240,240)"  fill-opacity="0.9" font-family="Josefin Sans" font-size="16" font-weight="400">
-        <tspan class="hour1" x="1110" y="495">12</tspan>
-        <tspan class="hour2" x="1170" y="465">13</tspan>
-        <tspan class="hour3" x="1230" y="450">14</tspan>
-        <tspan class="hour4" x="1290" y="460">15</tspan>
-        <tspan class="hour5" x="1350" y="465">16</tspan>
-        <tspan class="hour6" x="1410" y="460">17</tspan>
-        <tspan class="hour7" x="1470" y="485">18</tspan>
-        <tspan class="hour8" x="1530" y="483">19</tspan>
-        <tspan class="hour9" x="1590" y="475">20</tspan>
+        <tspan class="temp0" x="1590" y="475">20</tspan>
+        <tspan class="temp1" x="1110" y="495">12</tspan>
+        <tspan class="temp2" x="1170" y="465">13</tspan>
+        <tspan class="temp3" x="1230" y="450">14</tspan>
+        <tspan class="temp4" x="1290" y="460">15</tspan>
+        <tspan class="temp5" x="1350" y="465">16</tspan>
+        <tspan class="temp6" x="1410" y="460">17</tspan>
+        <tspan class="temp7" x="1470" y="485">18</tspan>
+        <tspan class="temp8" x="1530" y="483">19</tspan>
       </text>
       <text y="405" text-anchor="middle" fill="rgb(240,240,240)"  fill-opacity="0.9" font-family="Josefin Sans" font-size="18" font-weight="400">
+        <tspan class="time0" x="1590">3am</tspan>
         <tspan class="time1" x="1110">now</tspan>
         <tspan class="time2" x="1170">8pm</tspan>
         <tspan class="time3" x="1230">9pm</tspan>
@@ -58,7 +59,6 @@
         <tspan class="time6" x="1410">12pm</tspan>
         <tspan class="time7" x="1470">1am</tspan>
         <tspan class="time8" x="1530">2am</tspan>
-        <tspan class="time9" x="1590">3am</tspan>
       </text>
     </g>
   </g>

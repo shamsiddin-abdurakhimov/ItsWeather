@@ -30,17 +30,7 @@ const COLORS = {
 
 const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-const hoursClass = {
-  time1: 0,
-  time2: 6,
-  time3: 12,
-  time4: 18,
-  time5: 24,
-  time6: 30,
-  time7: 36,
-  time8: 42,
-  time9: 47
-}
+const hoursClass = [0,6,12,18,24,30,36,42,48]
 
 const get = (node, className, tag) => 
   Array.from(node.getElementsByTagName(tag)).filter(
@@ -232,12 +222,26 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `graph_fill`)) {
     element.setAttribute(`points`, graphPointsFill)
   }
-  for (const hourClass of Object.keys(hoursClass)) {
-    for (const element of getElements(pic, hourClass)) {
+  for (const hourClass of hoursClass) {
+    const temp = `temp${hourClass}`
+    const time = `time${hourClass}`
+    for (const element of getElements(pic, temp)) {
+      if (hoursClass == 0) {
+        element.textContent = 'now'
+      } else {
+        element.textContent = weather.hourly[hoursClass[hourClass]].temp
+      }
+    }
+    for (const element of getElements(pic, time)) {
+      /*if (hoursClass == 0) {
+        element.textContent = 'now'
+      } else {
+        element.textContent = weather.hourly[hoursClass[hourClass]].temp
+      }
       var date = new Date(2011, 0, 1, 0, 0, 0, 0);
       date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
       element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})
-    }
+    }*/
   }
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
