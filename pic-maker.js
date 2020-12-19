@@ -225,15 +225,11 @@ const picMake = async (weather, userPic, userName) => {
   }
   console.log(weather.hourly)
   console.log(hourlyTemp.length)
-  for (const hourClass of hoursClass) {
-    const temp = `temp${hourClass}`
-    const time = `time${hourClass}`
+  for (var i = 0; i < hoursClass.length; i++) {
+    const temp = `temp${i}`
+    const time = `time${i}`
     for (const element of getElements(pic, temp)) {
-      if (hoursClass == 0) {
-        element.textContent = tempReplace(weather.current.temp)
-      } else {
-        element.textContent = tempReplace(weather.hourly[hourClass].temp)
-      }
+      element.textContent = tempReplace(weather.hourly[hoursClass[i]].temp)
     }
     /*for (const element of getElements(pic, time)) {
       if (hoursClass == 0) {
