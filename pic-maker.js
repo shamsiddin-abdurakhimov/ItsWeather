@@ -241,14 +241,13 @@ const picMake = async (weather, userPic, userName) => {
   await addPic(backPic, backImageBuffer)
   const userPicElement = getElements(pic, "user_pic");
   await addPic(userPicElement, userPic)
-  //return sharp(picBuffer, {density: 200}).png().toBuffer();
   console.timeEnd("picMake")
   const options = {
     dpi: 50,
     font: {
-      default_font_family: "Josefin Sans",
+      defaultFontFamily: "Josefin Sans",
     }
-    //font_files: []
+    //fontFiles: []
   };
   return render(serialize(pic), options);
 };
