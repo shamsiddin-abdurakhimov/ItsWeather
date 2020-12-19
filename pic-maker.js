@@ -122,7 +122,7 @@ const picMake = async (weather, userPic, userName) => {
   console.time("picMake")
   const nameWeather = weather.weatherCoord.name
   weather = weather.weatherReply
-  for (var i = 0; i < weather.hourly.length - 41; i++) {
+  for (var i = 0; weather.hourly.length - i > 40; i++) {
     weather.hourly.pop()
   }
   const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
