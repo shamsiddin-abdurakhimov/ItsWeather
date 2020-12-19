@@ -245,7 +245,9 @@ const picMake = async (weather, userPic, userName) => {
   console.timeEnd("picMake")
   const options = {
     dpi: 50,
-    default_font_family: "Josefin Sans"
+    font: {
+      default_font_family: "Josefin Sans",
+    }
     //font_files: []
   };
   return render(serialize(pic), options);
