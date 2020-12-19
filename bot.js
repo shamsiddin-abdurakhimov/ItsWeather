@@ -10,29 +10,29 @@ const request = require(`request-promise`);
 const bot = new Telegraf(token);
 const weather = new WeatherApi(apiId);
 
-bot.context.downloadFile = function (userId) {
-	const photos = bot.telegram.getUserProfilePhotos(userId)
+bot.context.downloadFile = async function (userId) {
+	const photos = await bot.telegram.getUserProfilePhotos(userId)
 	console.log(photos)
-	const fileId = photos.photos[0][1].file_id
-	const file = bot.telegram.getFile(fileId);
-	const fileContent = request({
+	const fileId = await photos.photos[0][1].file_id
+	const file = await bot.telegram.getFile(fileId);
+	const fileContent = await request({
 		encoding: null,
 		uri: `http://api.telegram.org/file/bot${token}/${file.file_path}`,
 	});
 	return fileContent;
 };
-const getWeather = (name) => {
-	let weatherCoord = JSON.parse(weather.weather(name, 'metric', 'en'))
-	const weatherReply = JSON.parse(weather.onecall(weatherCoord.coord, 'metric', 'en'))
+const getWeather = async (name) => {
+	let weatherCoord = JSON.parse(await weather.weather(name, 'metric', 'en'))
+	const weatherReply = JSON.parse(await weather.onecall(weatherCoord.coord, 'metric', 'en'))
 	return {weatherReply, weatherCoord}
 }
 async function sendReply(context) {
 	console.time("sendWeather")
 	console.time("photos")
-	const userPic = bot.context.downloadFile(context.message.from.id)
+	const userPic = await bot.context.downloadFile(context.message.from.id)
 	console.timeEnd("photos")
 	console.time("weather")
-	const weather = getWeather(context.update.message.text)
+	const weather = await getWeather(context.update.message.text)
 	console.log(userPic, weather)
 	console.timeEnd("weather")
 	console.time("render")
