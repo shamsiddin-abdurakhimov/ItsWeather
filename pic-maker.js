@@ -242,12 +242,12 @@ const picMake = async (weather, userPic, userName) => {
   const userPicElement = getElements(pic, "user_pic");
   await addPic(userPicElement, userPic)
   console.timeEnd("picMake")
+  console.log(__dirname) 
   const options = {
     dpi: 50,
     font: {
-      defaultFontFamily: "Josefin Sans",
+      fontFiles: []
     }
-    //fontFiles: []
   };
   return render(serialize(pic), options);
 };
