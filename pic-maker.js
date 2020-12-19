@@ -227,7 +227,7 @@ const picMake = async (weather, userPic, userName) => {
         } else {
           let date = new Date(weather.hourly[i].dt * 1000);
           element.textContent = date.getHours();
-          element.setAttribute(`x`, x)
+          //element.setAttribute(`x`, x)
         }
       }
     }
