@@ -246,7 +246,22 @@ const picMake = async (weather, userPic, userName) => {
   const options = {
     dpi: 50,
     font: {
-      fontFiles: []
+      fontFiles: [
+        path.join(__dirname, '.fonts/JosefinSans-Bold.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-BoldItalic.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-ExtraLigth.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-ExtraLigthItalic.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-Italic.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-Ligth.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-LigthItalic.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-Medium.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-MediumItalic.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-Regular.ttf'),
+        path.join(__dirname, '.fonts/JosefinSans-SemiBold.ttf')
+        path.join(__dirname, '.fonts/JosefinSans-SemiBoldItalic.ttf')
+        path.join(__dirname, '.fonts/JosefinSans-Thin.ttf')
+        path.join(__dirname, '.fonts/JosefinSans-ThinItalic.ttf')
+      ]
     }
   };
   return render(serialize(pic), options);
