@@ -123,7 +123,7 @@ const picMake = async (weather, userPic, userName) => {
   const nameWeather = weather.weatherCoord.name
   weather = weather.weatherReply
   const weatherLength = weather.hourly.length
-  for (var i = 0; weatherLength - i > 41; i++) {
+  for (let i = 0; weatherLength - i > 41; i++) {
     weather.hourly.pop()
   }
   const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
@@ -207,7 +207,7 @@ const picMake = async (weather, userPic, userName) => {
   let graphPoints = ''
   const xOne = 480 / hourlyTempLength
   let yMax = 0
-  for (var i = 0; i < hourlyTemp.length; i++) {
+  for (let i = 0; i < hourlyTemp.length; i++) {
     const y = 540 - (yOne * (hourlyTemp[i] - hourlyTempMin))
     const x = 1110 + (xOne * i)
     if (y > yMax) {yMax = y}
@@ -221,10 +221,16 @@ const picMake = async (weather, userPic, userName) => {
         element.setAttribute(`x`, x)
         element.setAttribute(`y`, y - 15)
       }
+      for (const element of getElements(pic, time)) {
+        if (i == 0) {
+          element.textContent = 'now'
+        } else {
+          let date = new Date(weather.hourly[i].dt * 1000);
+          element.textContent = date.getHours();
+          element.setAttribute(`x`, x)
+        }
+      }
     }
-    /*if () {}
-    newTemp.setAttribute(`x`, hex);
-    newTemp.setAttribute(`y`, hex);*/
   }
   const graphPointsFill = `1110,${yMax + 2} ${graphPoints} 1590,${yMax + 2}`
   for (const element of getElements(pic, `graph`)) {
@@ -233,24 +239,6 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `graph_fill`)) {
     element.setAttribute(`points`, graphPointsFill)
   }
-  /*for (var i = 0; i < hoursClass.length; i++) {
-    const temp = `temp${i}`
-    const time = `time${i}`
-    for (const element of getElements(pic, temp)) {
-      element.textContent = tempReplace(weather.hourly[hoursClass[i]].temp)
-    }
-    for (const element of getElements(pic, time)) {
-      if (hoursClass == 0) {
-        element.textContent = 'now'
-      } else {
-        element.textContent = weather.hourly[hoursClass[hourClass]].temp
-      }
-      var date = new Date(2011, 0, 1, 0, 0, 0, 0);
-      date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
-      element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})
-    }
-  }*/
-
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
   const backPic = getElements(pic, "back_pic");
