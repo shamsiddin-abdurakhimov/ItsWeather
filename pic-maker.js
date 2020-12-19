@@ -213,6 +213,15 @@ const picMake = async (weather, userPic, userName) => {
     if (y > yMax) {yMax = y}
     if (graphPoints != '') {graphPoints += ' '}
     graphPoints += `${x},${y}`
+    if (hoursClass.includes(i)) {
+      const temp = `temp${i}`
+      const time = `time${i}`
+      for (const element of getElements(pic, temp)) {
+        element.textContent = tempReplace(weather.hourly[hoursClass[i]].temp)
+        element.setAttribute(`x`, x)
+        element.setAttribute(`y`, y - 15)
+      }
+    }
     /*if () {}
     newTemp.setAttribute(`x`, hex);
     newTemp.setAttribute(`y`, hex);*/
@@ -224,15 +233,13 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `graph_fill`)) {
     element.setAttribute(`points`, graphPointsFill)
   }
-  console.log(weather.hourly)
-  console.log(hourlyTemp.length)
-  for (var i = 0; i < hoursClass.length; i++) {
+  /*for (var i = 0; i < hoursClass.length; i++) {
     const temp = `temp${i}`
     const time = `time${i}`
     for (const element of getElements(pic, temp)) {
       element.textContent = tempReplace(weather.hourly[hoursClass[i]].temp)
     }
-    /*for (const element of getElements(pic, time)) {
+    for (const element of getElements(pic, time)) {
       if (hoursClass == 0) {
         element.textContent = 'now'
       } else {
@@ -241,8 +248,8 @@ const picMake = async (weather, userPic, userName) => {
       var date = new Date(2011, 0, 1, 0, 0, 0, 0);
       date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
       element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})
-    }*/
-  }
+    }
+  }*/
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
   const backImageBuffer = Buffer.from(picBack, `binary`);
