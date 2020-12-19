@@ -225,7 +225,7 @@ const picMake = async (weather, userPic, userName) => {
         if (i == 0) {
           element.textContent = 'now'
         } else {
-          let date = new Date(today.getUTCMilliseconds() + weather.hourly[i].dt * 1000);
+          let date = new Date(weather.hourly[i].dt * 1000);
           console.log(data)
           element.textContent = date.getHours();
           //element.setAttribute(`x`, x)
