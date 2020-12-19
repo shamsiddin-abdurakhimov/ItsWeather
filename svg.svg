@@ -16,7 +16,7 @@
     <g class="bottom" fill="#000000" font-family="Josefin Sans" fill-opacity="0.9">
       <text class="temp" text-anchor="end" x="410" y="1055" font-size="110"></text>
       <text class="name" x="449" y="1025" font-size="64" font-weight="300"></text>
-      <text class="main" x="449" y="1057" font-size="24" font-weight="300"></text>
+      <text class="main" x="449" y="1057" font-family="JosefinSans-Italic" font-size="24" font-weight="300"></text>
     </g>
     <circle class="deg" cx="422.75" cy="990.75" r="8.5" stroke="#000000" stroke-opacity="0.9" stroke-width="5.5"/>
   </g>
