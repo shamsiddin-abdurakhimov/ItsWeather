@@ -226,8 +226,7 @@ const picMake = async (weather, userPic, userName) => {
           element.textContent = 'now'
         } else {
           let date = new Date(weather.hourly[i].dt * 1000 + weather.timezone_offset * 1000);
-          console.log(date.getHours(), date.toLocaleString("en-US", {hour: 'numeric'}))
-          element.textContent = date.getUTCHours();
+          element.textContent = date.toLocaleString("en-US", {hour: 'numeric'}).replace(" ", "").toLowerCase()
         }
       }
     }
