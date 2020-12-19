@@ -214,12 +214,16 @@ const picMake = async (weather, userPic, userName) => {
   let graphPoints = ''
   const xOne = 480 / hourlyTempLength
   let yMax = 0
+  console.log(hourlyTemp.length)
   for (var i = 0; i < hourlyTemp.length; i++) {
     const y = 540 - (yOne * (hourlyTemp[i] - hourlyTempMin))
     const x = 1110 + (xOne * i)
     if (y > yMax) {yMax = y}
     if (graphPoints != '') {graphPoints += ' '}
     graphPoints += `${x},${y}`
+    /*if () {}
+    newTemp.setAttribute(`x`, hex);
+    newTemp.setAttribute(`y`, hex);*/
   }
   const graphPointsFill = `1110,${yMax + 2} ${graphPoints} 1590,${yMax + 2}`
   for (const element of getElements(pic, `graph`)) {
