@@ -13,7 +13,7 @@
     </text>
   </g>
   <g class="bottom_cont">
-    <g class="bottom" fill="#000000" font-family="Josefin Sans, Light" fill-opacity="0.9">
+    <g class="bottom" fill="#000000" font-family="Light, Josefin Sans" fill-opacity="0.9">
       <text class="temp" text-anchor="end" x="410" y="1055" font-size="110"></text>
       <text class="name" x="449" y="1025" font-size="64" font-weight="300"></text>
       <text class="main" x="449" y="1057" font-size="24" font-weight="300"></text>
