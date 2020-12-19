@@ -3,6 +3,7 @@ const { DOMParser, XMLSerializer } = require(`xmldom`);
 const sizeOf = require(`image-size`);
 const sharp = require(`sharp`);
 const { render } = require('resvg-node');
+const path = require('path');
 const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
 
