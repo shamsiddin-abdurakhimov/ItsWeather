@@ -244,7 +244,8 @@ const picMake = async (weather, userPic, userName) => {
   //return sharp(picBuffer, {density: 200}).png().toBuffer();
   console.timeEnd("picMake")
   const options = {
-    dpi: 50
+    dpi: 50,
+    default_font_family: "Josefin Sans"
     //font_files: []
   };
   return render(serialize(pic), options);
