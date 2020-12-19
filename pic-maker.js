@@ -183,6 +183,11 @@ const picMake = async (weather, userPic, userName) => {
   }
 
 
+  for (const element of getElements(pic, `description`)) {
+    element.textContent = weather.current.weather[0].description
+  }
+
+
   for (const element of getElements(pic, `min`)) {
     element.textContent = tempReplace(weather.daily[0].temp.min)
   }
