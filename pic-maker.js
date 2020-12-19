@@ -245,7 +245,7 @@ const picMake = async (weather, userPic, userName) => {
   console.timeEnd("picMake")
   console.log(__dirname) 
   const options = {
-    dpi: 200,
+    dpi: 100,
     textRendering: 2,
     shapeRendering: 2,
     imageRendering: 1,
