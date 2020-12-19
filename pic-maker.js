@@ -188,7 +188,6 @@ const picMake = async (weather, userPic, userName) => {
     element.textContent = tempReplace(weather.daily[0].temp.max)
   }
 
-  weather.hourly.unshift('now')
   const hourlyTempSort = []
   const hourlyTemp = []
   for (const hour in weather.hourly) {
@@ -222,6 +221,8 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `graph_fill`)) {
     element.setAttribute(`points`, graphPointsFill)
   }
+  weather.hourly.unshift('now')
+  console.log(weather.hourly)
   for (const hourClass of hoursClass) {
     const temp = `temp${hourClass}`
     const time = `time${hourClass}`
