@@ -240,8 +240,8 @@ const picMake = async (weather, userPic, userName) => {
       }
       var date = new Date(2011, 0, 1, 0, 0, 0, 0);
       date.setSeconds(weather.hourly[hoursClass[hourClass]].dt)
-      element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})
-    }*/
+      element.textContent = date.toLocaleString("en-US", {hour: 'numeric'})*/
+    }
   }
 
   const picBack = fs.readFileSync(`./pic/${weather.current.weather[0].icon}.png`, `binary`);
