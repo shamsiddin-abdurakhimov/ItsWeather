@@ -33,6 +33,7 @@ async function sendReply(context) {
 	console.timeEnd("photos")
 	console.time("weather")
 	const weather = getWeather(context.update.message.text)
+	console.log(userPic, weather)
 	console.timeEnd("weather")
 	console.time("render")
 	const preview = await render({weather, userPic, userName: context.message.from.first_name});

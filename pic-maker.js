@@ -129,7 +129,6 @@ const fill = (node, hex) => {
 
 const picMake = async (weather, userPic, userName) => {
   console.time("picMake")
-  console.log(weather)
   const nameWeather = weather.weatherCoord.name
   weather = weather.weatherReply
   const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
