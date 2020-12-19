@@ -219,14 +219,14 @@ const picMake = async (weather, userPic, userName) => {
       for (const element of getElements(pic, temp)) {
         element.textContent = tempReplace(weather.hourly[i].temp)
         element.setAttribute(`x`, x)
-        element.setAttribute(`y`, y - 15)
+        element.setAttribute(`y`, y - 20)
       }
       for (const element of getElements(pic, time)) {
         if (i == 0) {
           element.textContent = 'now'
         } else {
           let date = new Date(weather.hourly[i].dt * 1000);
-          console.log(date.getUTCHours(), date.getUTCMinutes())
+          console.log(date.getUTCHours(), date.getHours())
           element.textContent = date.getUTCHours();
           //element.setAttribute(`x`, x)
         }
