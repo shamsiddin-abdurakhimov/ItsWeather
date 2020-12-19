@@ -39,26 +39,26 @@
         <polyline class="graph_fill" points="1110,515 1110,515 1170,475 1230,470 1290,480 1350,485 1410,480 1470,505 1530,503 1590,495 1590,515" fill="#ffffff" fill-opacity="0.6"/>
       </g>
       <text text-anchor="middle" fill="rgb(240,240,240)"  fill-opacity="0.9" font-family="Josefin Sans" font-size="16" font-weight="400">
-        <tspan class="temp0" x="1590" y="475">20</tspan>
-        <tspan class="temp5" x="1110" y="495">12</tspan>
-        <tspan class="temp10" x="1170" y="465">13</tspan>
-        <tspan class="temp15" x="1230" y="450">14</tspan>
-        <tspan class="temp20" x="1290" y="460">15</tspan>
-        <tspan class="temp25" x="1350" y="465">16</tspan>
-        <tspan class="temp30" x="1410" y="460">17</tspan>
-        <tspan class="temp35" x="1470" y="485">18</tspan>
-        <tspan class="temp40" x="1530" y="483">19</tspan>
+        <tspan class="temp0" x="1110" y="495">12</tspan>
+        <tspan class="temp5" x="1170" y="465">13</tspan>
+        <tspan class="temp10" x="1230" y="450">14</tspan>
+        <tspan class="temp15" x="1290" y="460">15</tspan>
+        <tspan class="temp20" x="1350" y="465">16</tspan>
+        <tspan class="temp25" x="1410" y="460">17</tspan>
+        <tspan class="temp30" x="1470" y="485">18</tspan>
+        <tspan class="temp35" x="1530" y="483">19</tspan>
+        <tspan class="temp40" x="1590" y="475">20</tspan>
       </text>
       <text y="405" text-anchor="middle" fill="rgb(240,240,240)"  fill-opacity="0.9" font-family="Josefin Sans" font-size="18" font-weight="400">
-        <tspan class="time0" x="1590">3am</tspan>
-        <tspan class="time5" x="1110">now</tspan>
-        <tspan class="time10" x="1170">8pm</tspan>
-        <tspan class="time15" x="1230">9pm</tspan>
-        <tspan class="time20" x="1290">10pm</tspan>
-        <tspan class="time25" x="1350">11pm</tspan>
-        <tspan class="time30" x="1410">12pm</tspan>
-        <tspan class="time35" x="1470">1am</tspan>
-        <tspan class="time40" x="1530">2am</tspan>
+        <tspan class="time0" x="1110">now</tspan>
+        <tspan class="time5" x="1170">8pm</tspan>
+        <tspan class="time10" x="1230">9pm</tspan>
+        <tspan class="time15" x="1290">10pm</tspan>
+        <tspan class="time20" x="1350">11pm</tspan>
+        <tspan class="time25" x="1410">12pm</tspan>
+        <tspan class="time30" x="1470">1am</tspan>
+        <tspan class="time35" x="1530">2am</tspan>
+        <tspan class="time40" x="1590">3am</tspan>
       </text>
     </g>
   </g>
