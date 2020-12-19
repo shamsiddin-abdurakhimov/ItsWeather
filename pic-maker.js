@@ -30,7 +30,7 @@ const COLORS = {
 
 const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-const hoursClass = [0,6,12,18,24,30,36,42,48]
+const hoursClass = [0,5,10,15,20,25,30,35,40]
 
 const get = (node, className, tag) => 
   Array.from(node.getElementsByTagName(tag)).filter(
@@ -122,6 +122,9 @@ const picMake = async (weather, userPic, userName) => {
   console.time("picMake")
   const nameWeather = weather.weatherCoord.name
   weather = weather.weatherReply
+  for (var i = 0; i < 41; i++) {
+    weather.hourly.pop()
+  }
   const pic = parser.parseFromString(fs.readFileSync(`./svg.svg`, `utf8`));
 
 
@@ -187,7 +190,6 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `max`)) {
     element.textContent = tempReplace(weather.daily[0].temp.max)
   }
-  weather.hourly.unshift({temp: weather.current.temp})
 
   const hourlyTempSort = []
   const hourlyTemp = []
@@ -221,7 +223,6 @@ const picMake = async (weather, userPic, userName) => {
   for (const element of getElements(pic, `graph_fill`)) {
     element.setAttribute(`points`, graphPointsFill)
   }
-  console.log(hourlyTemp.length)
   for (const hourClass of hoursClass) {
     const temp = `temp${hourClass}`
     const time = `time${hourClass}`
