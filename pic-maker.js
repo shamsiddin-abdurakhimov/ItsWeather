@@ -159,6 +159,7 @@ const picMake = async (weather, userPic, userName) => {
     let today = new Date()
     today.setSeconds(today.getUTCSeconds() + weather.timezone_offset)
     const hh = tempReplace(today.getUTCHours())
+    console.log(hh, today.getHours())
     const mm = tempReplace(today.getUTCMinutes())
     const day = weekDays[today.getUTCDay()]
     const data = today.getUTCDate()
