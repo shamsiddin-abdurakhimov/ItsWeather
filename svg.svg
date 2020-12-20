@@ -39,15 +39,15 @@
         <tspan class="temp35" x="" y=""></tspan>
         <tspan class="temp40" x="" y=""></tspan>
       </text>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
-      <circle class="temp_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp0_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp5_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp10_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp15_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp20_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp25_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp30_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp35_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
+      <circle class="temp40_deg" cx="" cy="" r="3" stroke="rgb(240,240,240)" stroke-opacity="0.9" stroke-width="1"/>
       <text y="520" text-anchor="middle" fill="rgb(240,240,240)"  fill-opacity="0.9" font-family="Josefin Sans" font-size="18" font-weight="400">
         <tspan class="time0" x="1110"></tspan>
         <tspan class="time5" x="1170"></tspan>
