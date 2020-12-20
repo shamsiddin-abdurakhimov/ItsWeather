@@ -182,16 +182,6 @@ const picMake = async (weather, userPic, userName) => {
     element.textContent = weather.current.weather[0].main
   }
 
-
-  for (const element of getElements(pic, `min`)) {
-    element.textContent = tempReplace(weather.daily[0].temp.min)
-  }
-
-
-  for (const element of getElements(pic, `max`)) {
-    element.textContent = tempReplace(weather.daily[0].temp.max)
-  }
-
   const hourlyTempSort = []
   const hourlyTemp = []
   for (const hour in weather.hourly) {
@@ -221,6 +211,10 @@ const picMake = async (weather, userPic, userName) => {
         element.setAttribute(`x`, x)
         element.setAttribute(`y`, y - 20)
       }
+      for (const element of getElements(pic, `${temp}_deg`)) {
+        element.setAttribute(`cx`, x + 10)
+        element.setAttribute(`cy`, y - 20)
+      }
       for (const element of getElements(pic, time)) {
         if (i == 0) {
           element.textContent = 'now'
@@ -245,8 +239,8 @@ const picMake = async (weather, userPic, userName) => {
   const userPicElement = getElements(pic, "user_pic");
   await addPic(userPicElement, userPic)
   console.timeEnd("picMake")
-  console.log(__dirname) 
-  const options = {
+  return sharp(picBuffer, {density: 100}).png().toBuffer();
+  /*const options = {
     dpi: 100,
     textRendering: 2,
     shapeRendering: 2,
@@ -270,7 +264,7 @@ const picMake = async (weather, userPic, userName) => {
       ]
     }
   };
-  return render(serialize(pic), options);
+  return render(serialize(pic), options);*/
 };
 
 module.exports = {
