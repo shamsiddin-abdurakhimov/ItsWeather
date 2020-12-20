@@ -212,8 +212,8 @@ const picMake = async (weather, userPic, userName) => {
         element.setAttribute(`y`, y - 20)
       }
       for (const element of getElements(pic, `${temp}_deg`)) {
-        element.setAttribute(`cx`, x + 10)
-        element.setAttribute(`cy`, y - 20)
+        element.setAttribute(`cx`, x + 15)
+        element.setAttribute(`cy`, y - 25)
       }
       for (const element of getElements(pic, time)) {
         if (i == 0) {
