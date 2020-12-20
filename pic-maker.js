@@ -208,7 +208,7 @@ const picMake = async (weather, userPic, userName) => {
       const time = `time${i}`
       for (const element of getElements(pic, temp)) {
         element.textContent = tempReplace(weather.hourly[i].temp)
-        element.setAttribute(`x`, x + 10)
+        element.setAttribute(`x`, x + 15)
         element.setAttribute(`y`, y - 20)
       }
       for (const element of getElements(pic, `${temp}_deg`)) {
