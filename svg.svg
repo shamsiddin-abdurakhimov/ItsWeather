@@ -29,7 +29,7 @@
         <polyline class="graph_fill" points="" fill="#ffffff" fill-opacity="0.6"/>
       </g>
       <text text-anchor="end" fill="rgb(240,240,240)"  fill-opacity="0.9" font-family="Josefin Sans" font-size="16" font-weight="400">
-        <tspan class="temp0" x="" y=""></tspan>
+        <tspan class="temp0" x="" y="">°</tspan>
         <tspan class="temp5" x="" y=""></tspan>
         <tspan class="temp10" x="" y=""></tspan>
         <tspan class="temp15" x="" y=""></tspan>
