@@ -169,7 +169,7 @@ const picMake = async (weather, userPic, userName) => {
 
 
   for (const element of getElements(pic, `temp`)) {
-    element.textContent = tempReplace(weather.current.temp);
+    element.textContent = `${tempReplace(weather.current.temp)}°`;
   }
 
 
