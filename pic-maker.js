@@ -2,7 +2,6 @@ const fs = require(`fs`);
 const { DOMParser, XMLSerializer } = require(`xmldom`);
 const sizeOf = require(`image-size`);
 const sharp = require(`sharp`);
-const { render } = require('resvg-node');
 const path = require('path');
 const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
@@ -249,7 +248,7 @@ const picMake = async (weather, userPic, userName) => {
   await addPic(userPicElement, userPic)
   console.timeEnd("picMake")
 
-  const svg = preview.getElementsByTagName(`svg`)[0]
+  const svg = pic.getElementsByTagName(`svg`)[0]
   const widthSvg = parseInt(svg.getAttribute('width'))
   const heightSvg = parseInt(svg.getAttribute('height'))
 
@@ -260,7 +259,7 @@ const picMake = async (weather, userPic, userName) => {
     deviceScaleFactor: 0,
   });
   await page.goto(`file://${__dirname}/blank.html`);
-  await page.setContent(`${serialize(preview)}`)
+  await page.setContent(`${serialize(pic)}`)
   const screen = await page.screenshot({
     clip:{
       x:8,
