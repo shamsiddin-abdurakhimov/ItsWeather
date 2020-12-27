@@ -6,6 +6,12 @@ const { render } = require('resvg-node');
 const path = require('path');
 const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
+const puppeteer = require('puppeteer')
+
+let browser = null;
+const newBrowser = async () => {
+  browser = await puppeteer.launch();
+}
 
 const COLORS = {
   '01d':{'back':'#C4CFD5', 'top':'#0E1213', 'bottom':'#0E1213'},
@@ -119,6 +125,9 @@ const fill = (node, hex) => {
 };
 
 const picMake = async (weather, userPic, userName) => {
+  if (browser === null) {
+    await newBrowser()
+  }
   console.time("picMake")
   const nameWeather = weather.weatherCoord.name
   weather = weather.weatherReply
@@ -169,7 +178,7 @@ const picMake = async (weather, userPic, userName) => {
 
 
   for (const element of getElements(pic, `temp`)) {
-    element.textContent = `${tempReplace(weather.current.temp)}°`;
+    element.textContent = tempReplace(weather.current.temp);
   }
 
 
@@ -239,33 +248,29 @@ const picMake = async (weather, userPic, userName) => {
   const userPicElement = getElements(pic, "user_pic");
   await addPic(userPicElement, userPic)
   console.timeEnd("picMake")
-  const picBuffer = Buffer.from(serialize(pic), `binary`);
-  return sharp(picBuffer, {density: 100}).png().toBuffer();
-  /*const options = {
-    dpi: 100,
-    textRendering: 2,
-    shapeRendering: 2,
-    imageRendering: 1,
-    font: {
-      fontFiles: [
-        `${path.join(__dirname, '.fonts/JosefinSans-Bold.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-BoldItalic.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-ExtraLigth.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-ExtraLigthItalic.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-Italic.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-Ligth.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-LigthItalic.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-Medium.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-MediumItalic.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-Regular.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-SemiBold.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-SemiBoldItalic.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-Thin.ttf')}`,
-        `${path.join(__dirname, '.fonts/JosefinSans-ThinItalic.ttf')}`
-      ]
+
+  const svg = preview.getElementsByTagName(`svg`)[0]
+  const widthSvg = parseInt(svg.getAttribute('width'))
+  const heightSvg = parseInt(svg.getAttribute('height'))
+
+  const page = await browser.newPage();
+  await page.setViewport({
+    width: widthSvg + 8,
+    height: heightSvg + 8,
+    deviceScaleFactor: 0,
+  });
+  await page.goto(`file://${__dirname}/blank.html`);
+  await page.setContent(`${serialize(preview)}`)
+  const screen = await page.screenshot({
+    clip:{
+      x:8,
+      y:8,
+      width:widthSvg,
+      height:heightSvg
     }
-  };
-  return render(serialize(pic), options);*/
+  });
+  await page.close()
+  return screen;
 };
 
 module.exports = {
