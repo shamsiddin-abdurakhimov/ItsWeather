@@ -5,56 +5,38 @@ const adminId = process.env.adminId;
 const {WeatherApi} = require(`./weatherApi`); 
 const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
-const request = require(`request-promise`);
+const fs = require(`fs`);
 
 const bot = new Telegraf(token);
 const weather = new WeatherApi(apiId);
 
-bot.context.downloadFile = async function (userId) {
-	const photos = await bot.telegram.getUserProfilePhotos(userId)
-	console.log(photos)
-	const fileId = await photos.photos[0][1].file_id
-	const file = await bot.telegram.getFile(fileId);
-	const fileContent = await request({
-		encoding: null,
-		uri: `http://api.telegram.org/file/bot${token}/${file.file_path}`,
-	});
-	return fileContent;
-};
-const getWeather = async (name) => {
-	let weatherCoord = JSON.parse(await weather.weather(name, 'metric', 'en'))
-	const weatherReply = JSON.parse(await weather.onecall(weatherCoord.coord, 'metric', 'en'))
-	return {weatherReply, weatherCoord}
-}
+const myPic = fs.readFileSync(`./myPic.png`);
 async function sendReply(context) {
 	console.time("sendWeather")
-	console.time("photos")
-	const userPic = await bot.context.downloadFile(context.message.from.id)
-	console.timeEnd("photos")
-	console.time("weather")
-	const weather = await getWeather(context.update.message.text)
-	console.timeEnd("weather")
-	console.time("render")
-	const preview = await render({weather, userPic, userName: context.message.from.first_name});
-	console.timeEnd("render")
-	console.time("send")
+    if (!/^\w+$/.test(context.update.message.text)) {
+        await context.reply('Enter in Latin.')
+        return
+    }
+    const cord = await weather.weather(context.update.message.text, 'metric', 'en')
+    if (cord.startsWith('404')) {
+        await context.reply('There is no such place.')
+        return
+    }
+    bot.telegram.sendChatAction(context.message.chat.id, `upload_photo`);
+    const weatherCoord = JSON.parse(cord)
+    const weatherReply = JSON.parse(await weather.onecall(weatherCoord.coord, 'metric', 'en'))
+	const preview = await render({weather: {weatherReply, weatherCoord}, userPic: myPic, userName: context.message.from.first_name});
 	await context.replyWithPhoto({source: preview});
-	console.timeEnd("send")
 	console.timeEnd("sendWeather")
 }
 
 bot.start((context) => {
-	console.log(context.update.message.text)
+	context.reply('Send me the name of the place.')
 });
 bot.on(`message`, (context) => {sendReply(context)});
 const start = async function () {
 	bot.telegram.sendMessage(adminId, `@${(await bot.telegram.getMe()).username} is running…`);
 };
 start()
-/*
-console.log(weather.weather('Tashkent', 'metric', 'ru'))
-console.log(weather.forecast('Tashkent', 'metric', 'ru', 1))
-console.log(weather.onecall({lon:69.22,lat:41.26}, 'metric', 'ru', 'minutely'))
-*/
 
 bot.startPolling();

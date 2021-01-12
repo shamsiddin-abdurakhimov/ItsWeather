@@ -7,10 +7,7 @@ const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
 const puppeteer = require('puppeteer')
 
-let browser = null;
-const newBrowser = async () => {
-  browser = await puppeteer.launch();
-}
+const browser = puppeteer.launch();
 
 const COLORS = {
   '01d':{'back':'#C4CFD5', 'top':'#0E1213', 'bottom':'#0E1213'},
@@ -124,9 +121,6 @@ const fill = (node, hex) => {
 };
 
 const picMake = async (weather, userPic, userName) => {
-  if (browser === null) {
-    await newBrowser()
-  }
   console.time("picMake")
   const nameWeather = weather.weatherCoord.name
   weather = weather.weatherReply
@@ -171,13 +165,13 @@ const picMake = async (weather, userPic, userName) => {
     const day = weekDays[today.getUTCDay()]
     const data = today.getUTCDate()
     const month = months[today.getUTCMonth()]
-    const year = `${today.getUTCFullYear()}`.slice(0, -2)
+    const year = `${today.getUTCFullYear()}`.slice(-2)
     element.textContent = `${hh}:${mm} - ${day}, ${data} ${month} '${year}`;
   }
 
 
   for (const element of getElements(pic, `temp`)) {
-    element.textContent = tempReplace(weather.current.temp);
+    element.textContent = `${tempReplace(weather.current.temp)}__deg`;
   }
 
 
@@ -206,7 +200,7 @@ const picMake = async (weather, userPic, userName) => {
   const xOne = 480 / hourlyTempLength
   let yMax = 0
   for (let i = 0; i < hourlyTemp.length; i++) {
-    const y = 490 - (yOne * (hourlyTemp[i] - hourlyTempMin))
+    const y = 410 - (yOne * (hourlyTemp[i] - hourlyTempMin))
     const x = 1110 + (xOne * i)
     if (y > yMax) {yMax = y}
     if (graphPoints != '') {graphPoints += ' '}
@@ -215,13 +209,9 @@ const picMake = async (weather, userPic, userName) => {
       const temp = `temp${i}`
       const time = `time${i}`
       for (const element of getElements(pic, temp)) {
-        element.textContent = tempReplace(weather.hourly[i].temp)
-        element.setAttribute(`x`, x + 15)
+        element.textContent = `${tempReplace(weather.hourly[i].temp)}__deg`
+        element.setAttribute(`x`, x)
         element.setAttribute(`y`, y - 20)
-      }
-      for (const element of getElements(pic, `${temp}_deg`)) {
-        element.setAttribute(`cx`, x + 15)
-        element.setAttribute(`cy`, y - 30)
       }
       for (const element of getElements(pic, time)) {
         if (i == 0) {
@@ -248,27 +238,27 @@ const picMake = async (weather, userPic, userName) => {
   await addPic(userPicElement, userPic)
   console.timeEnd("picMake")
 
-  const svg = pic.getElementsByTagName(`svg`)[0]
-  const widthSvg = parseInt(svg.getAttribute('width'))
-  const heightSvg = parseInt(svg.getAttribute('height'))
+  const svg = pic.getElementsByTagName(`svg`)[0];
+  const widthSvg = parseInt(svg.getAttribute(`width`));
+  const heightSvg = parseInt(svg.getAttribute(`height`));
 
-  const page = await browser.newPage();
+  const page = await browser.then((browser) => browser.newPage());
   await page.setViewport({
-    width: widthSvg + 8,
-    height: heightSvg + 8,
+    width: widthSvg,
+    height: heightSvg,
     deviceScaleFactor: 0,
   });
-  await page.goto(`file://${__dirname}/blank.html`);
-  await page.setContent(`${serialize(pic)}`)
-  const screen = await page.screenshot({
-    clip:{
-      x:8,
-      y:8,
-      width:widthSvg,
-      height:heightSvg
-    }
-  });
-  await page.close()
+  await page.goto(`data:text/html,`);
+  await page.setContent(`
+    <style>
+        * {
+            margin: 0;
+        }
+    </style>
+    ${serialize(pic).replace(/__deg/g, '°')}
+  `);
+  const screen = await page.screenshot();
+  await page.close();
   return screen;
 };
 

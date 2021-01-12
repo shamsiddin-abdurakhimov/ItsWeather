@@ -1,7 +1,7 @@
 const { XMLHttpRequest } = require("xmlhttprequest");
 function getResult(url) {
 	let xhr = new XMLHttpRequest();
-	xhr.open('GET', url, false);
+	xhr.open('POST', url, false);
 	xhr.send();
 	if (xhr.status != 200) {
 		return xhr.status + ': ' + xhr.statusText
