@@ -1,5 +1,5 @@
 {
-  "name": "ItsWeather",
+  "name": "itsweather",
   "version": "1.0.0",
   "description": "",
   "main": "bot.js",
@@ -17,9 +17,7 @@
   },
   "homepage": "https://github.com/shamsiddin7/ItsWeather#readme",
   "dependencies": {
-    "image-size": "^0.9.1",
     "puppeteer": "^5.5.0",
-    "sharp": "^0.26.3",
     "telegraf": "^3.38.0",
     "xmldom": "^0.4.0",
     "xmlhttprequest": "^1.8.0"
