@@ -24,7 +24,7 @@
         <path d="M50 1380H950" stroke="white" stroke-linejoin="round" />
     </g>
     <text class="week_days" fill="#ffffff" font-family="Josefin Sans" font-size="40">
-        <tspan class="one" x="66" y="1255">Tuesday</tspan>
+        <tspan class="week_days one" x="66" y="1255">Tuesday</tspan>
         <tspan class="two" x="66" y="1347">Wednesday</tspan>
         <tspan class="three" x="66" y="1439">Thursday</tspan>
     </text>
