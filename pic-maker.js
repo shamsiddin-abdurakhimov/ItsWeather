@@ -67,30 +67,16 @@ const picMake = async (weather) => {
     "Friday",
     "Saturday",
   ];
-  const week = [{}, {}, {}, {}, {}, {}, {}];
-  console.log(weather.daily.length);
-  /*const numbers = ["one", "two", "three"];
+  const numbers = ["one", "two", "three"];
   for (const num in numbers) {
     const number = numbers[num];
     for (const element of getElements(pic, `week_days_${number}`)) {
       let today = new Date();
-      today.setSeconds(today.getUTCSeconds() + weather.daily[num].dt);
+      today.setSeconds(today.getUTCSeconds() + weather.daily[num + 1].dt);
       const day = weekDays[today.getUTCDay()];
-      week[today.getUTCDay()].temp = weather.daily[num].temp.day;
-      console.log(weather.daily[num].weather);
-      //week[today.getUTCDay()].name = weather.daily[num].temp.day;
       element.textContent = `${day}`;
     }
-  }*/
-  for (const day of weather.daily) {
-    let today = new Date();
-    today.setSeconds(today.getUTCSeconds() + day.dt);
-    console.log(today, day, weekDays[today.getUTCDay()]);
-    week[today.getUTCDay()].temp = day.temp.day;
-    week[today.getUTCDay()].weather = day.weather[0].main;
   }
-  console.log(week);
-
   /*
 
   for (const element of getElements(pic, `deg`)) {
