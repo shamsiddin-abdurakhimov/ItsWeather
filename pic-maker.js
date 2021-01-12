@@ -67,6 +67,7 @@ const picMake = async (weather) => {
     "Friday",
     "Saturday",
   ];
+  const week = [{}, {}, {}, {}, {}, {}, {}];
   console.log(weather.daily.length);
   const numbers = ["one", "two", "three"];
   for (const num in numbers) {
@@ -75,9 +76,13 @@ const picMake = async (weather) => {
       let today = new Date();
       today.setSeconds(today.getUTCSeconds() + weather.daily[num].dt);
       const day = weekDays[today.getUTCDay()];
+      week[today.getUTCDay()].temp = weather.daily[num].temp.day;
+      console.log(weather.daily[num].weather);
+      //week[today.getUTCDay()].name = weather.daily[num].temp.day;
       element.textContent = `${day}`;
     }
   }
+  console.log(week);
 
   /*
 
