@@ -23,20 +23,20 @@
         <path d="M50 1285H950" stroke="white" stroke-linejoin="round" />
         <path d="M50 1380H950" stroke="white" stroke-linejoin="round" />
     </g>
-    <text class="week_days" fill="#ffffff" font-family="Josefin Sans" font-size="40">
-        <tspan class="one" x="66" y="1255">Tuesday</tspan>
-        <tspan class="two" x="66" y="1347">Wednesday</tspan>
-        <tspan class="three" x="66" y="1439">Thursday</tspan>
+    <text fill="#ffffff" font-family="Josefin Sans" font-size="40">
+        <tspan class="week_days_one" x="66" y="1255">Tuesday</tspan>
+        <tspan class="week_days_two" x="66" y="1347">Wednesday</tspan>
+        <tspan class="week_days_three" x="66" y="1439">Thursday</tspan>
     </text>
-    <text class="week_temp" text-anchor="end" fill="#ffffff" font-family="Josefin Sans" font-size="40">
-        <tspan class="one" x="963" y="1247">17°</tspan>
-        <tspan class="two" x="963" y="1339">14°</tspan>
-        <tspan class="three" x="950" y="1431">15°</tspan>
+    <text text-anchor="end" fill="#ffffff" font-family="Josefin Sans" font-size="40">
+        <tspan class="week_temp_one" x="963" y="1247">17°</tspan>
+        <tspan class="week_temp_two" x="963" y="1339">14°</tspan>
+        <tspan class="week_temp_three" x="950" y="1431">15°</tspan>
     </text>
-    <text class="week_weather" text-anchor="end" fill="#ffffff" font-family="Josefin Sans" font-size="30" font-weight="300">
-        <tspan class="one" x="950" y="1272">Rain</tspan>
-        <tspan class="two" x="950" y="1364">Clouds</tspan>
-        <tspan class="three" x="940" y="1456">Clear</tspan>
+    <text text-anchor="end" fill="#ffffff" font-family="Josefin Sans" font-size="30" font-weight="300">
+        <tspan class="week_weather_one" x="950" y="1272">Rain</tspan>
+        <tspan class="week_weather_two" x="950" y="1364">Clouds</tspan>
+        <tspan class="week_weather_three" x="940" y="1456">Clear</tspan>
     </text>
     <defs>
         <linearGradient id="paint0_linear" x1="500" y1="0" x2="500" y2="1500" gradientUnits="userSpaceOnUse">
