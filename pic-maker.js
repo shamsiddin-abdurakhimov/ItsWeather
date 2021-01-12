@@ -58,9 +58,9 @@ const picMake = async (weather) => {
     element.textContent = weather.current.weather[0].main;
   }
 
-  for (const element of getElements(pic, `one`)) {
-    console.log(element.getAttribute("class"));
-  }
+  console.log(
+    pic.getElementsByClassName("week_days").getElementsByClassName("one")
+  );
 
   /*
   for (const element of getElements(pic, `deg`)) {
