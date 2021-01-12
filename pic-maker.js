@@ -72,7 +72,7 @@ const picMake = async (weather) => {
     const number = numbers[num];
     for (const element of getElements(pic, `week_days_${number}`)) {
       let today = new Date();
-      today.setSeconds(today.getUTCSeconds() + weather.daily[num + 1].dt);
+      today.setSeconds(today.getUTCSeconds() + weather.daily[num + 2].dt);
       const day = weekDays[today.getUTCDay()];
       element.textContent = `${day}`;
     }
