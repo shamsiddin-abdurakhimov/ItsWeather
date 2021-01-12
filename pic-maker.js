@@ -67,6 +67,7 @@ const picMake = async (weather) => {
     "Friday",
     "Saturday",
   ];
+  console.log(weather.daily.length);
   const numbers = ["one", "two", "three"];
   for (const num in numbers) {
     const number = numbers[num];
