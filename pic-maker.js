@@ -7,7 +7,7 @@ const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
 const puppeteer = require('puppeteer')
 
-const browser = puppeteer.launch();
+const browser = puppeteer.launch({ args: ['--no-sandbox'] });
 
 const COLORS = {
   '01d':{'back':'#C4CFD5', 'top':'#0E1213', 'bottom':'#0E1213'},
