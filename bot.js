@@ -7,7 +7,7 @@ const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
 
 const bot = new Telegraf(token);
-const weather = new WeatherApi(apiId);
+const weatherApi = new WeatherApi(apiId);
 
 async function sendReply(context) {
   console.time("sendWeather");
@@ -15,7 +15,7 @@ async function sendReply(context) {
     await context.reply("Enter in Latin.");
     return;
   }
-  const cord = await weather.weather(
+  const cord = await weatherApi.weather(
     context.update.message.text,
     "metric",
     "en"
@@ -25,8 +25,8 @@ async function sendReply(context) {
     return;
   }
   bot.telegram.sendChatAction(context.message.chat.id, `upload_photo`);
-  const weather = JSON.parse(
-    await weather.onecall(JSON.parse(cord).coord, "metric", "en")
+  const weather = await JSON.parse(
+    await weatherApi.onecall(JSON.parse(cord).coord, "metric", "en")
   );
   const preview = await render({ weather });
   await context.replyWithPhoto({ source: preview });
