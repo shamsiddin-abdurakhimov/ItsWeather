@@ -2,9 +2,9 @@ const fs = require(`fs`);
 const { DOMParser, XMLSerializer } = require(`xmldom`);
 const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
-const puppeteer = require("puppeteer");
+const puppeteer = require(`puppeteer`);
 
-const browser = puppeteer.launch({ args: ["--no-sandbox"] });
+const browser = puppeteer.launch({ args: [`--no-sandbox`] });
 const pic = parser.parseFromString(fs.readFileSync(`./blank.svg`, `utf8`));
 
 const get = (node, className, tag) =>
@@ -27,9 +27,9 @@ const getElements = (node, className) => [
 
 function tempReplace(temp) {
   temp = `${Math.round(temp)}`;
-  let minus = "";
-  if (temp.split(``)[0] == "-") {
-    minus = "-";
+  let minus = ``;
+  if (temp.split(``)[0] == `-`) {
+    minus = `-`;
     temp = temp.replace(`-`, ``);
   }
   if (temp.length < 2) {
@@ -48,7 +48,7 @@ const fill = (node, hex) => {
 };
 
 const picMake = async (weather) => {
-  console.time("picMake");
+  console.time(`picMake`);
 
   for (const element of getElements(pic, `temp`)) {
     element.textContent = `${tempReplace(weather.current.temp)}__deg`;
@@ -57,10 +57,7 @@ const picMake = async (weather) => {
   for (const element of getElements(pic, `weather`)) {
     element.textContent = weather.current.weather[0].main;
   }
-
-  for (const element of getElements(pic, `one`)) {
-    console.log(element.getAttribute(`class`));
-  }
+  console.log(pic.querySelector(`.week_days .one`));
 
   /*
   for (const element of getElements(pic, `deg`)) {
@@ -88,7 +85,7 @@ const picMake = async (weather) => {
             margin: 0;
         }
     </style>
-    ${serialize(pic).replace(/__deg/g, "°")}
+    ${serialize(pic).replace(/__deg/g, `°`)}
   `);
   const screen = await page.screenshot();
   await page.close();
