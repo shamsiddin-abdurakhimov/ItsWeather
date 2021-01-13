@@ -4,9 +4,9 @@
     <rect width="1000" height="1500" fill="url(#paint0_linear)" />
     <circle cx="504" cy="734" r="184" fill="url(#paint1_linear)" />
     <g>
-        <path class="mountains" d="M484.5 728L494 712L555 741L589.5 776.5L599 767L629 776.5L653.5 813.5H702.5L734.5 850.5L759.5 858L826 914.5L838 900L862.5 929.5L872.5 914.5L1017 1020.5V1545.5H-9V1054.5L55 1003.5L242 862L280.5 842.5L302.5 854V849H311.5L314.5 829.5L330 837.5L362.5 802H375L407.5 767H423.5L439.5 741H455.5L468.5 728H484.5Z" fill="#31253B" />
+        <path class="mountains" d="M484.5 728L494 712L555 741L589.5 776.5L599 767L629 776.5L653.5 813.5H702.5L734.5 850.5L759.5 858L826 914.5L838 900L862.5 929.5L872.5 914.5L1017 1020.5V1545.5H-9V1054.5L55 1003.5L242 862L280.5 842.5L302.5 854V849H311.5L314.5 829.5L330 837.5L362.5 802H375L407.5 767H423.5L439.5 741H455.5L468.5 728H484.5Z" fill="" />
         <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="-9" y="712" width="1026" height="546">
-            <path d="M484.5 728L494 712L555 741L589.5 776.5L599 767L629 776.5L653.5 813.5H702.5L734.5 850.5L759.5 858L826 914.5L838 900L862.5 929.5L872.5 914.5L1017 1020.5V1257.5H-9V1054.5L55 1003.5L242 862L280.5 842.5L302.5 854V849H311.5L314.5 829.5L330 837.5L362.5 802H375L407.5 767H423.5L439.5 741H455.5L468.5 728H484.5Z" fill="#31253B" />
+            <path d="M484.5 728L494 712L555 741L589.5 776.5L599 767L629 776.5L653.5 813.5H702.5L734.5 850.5L759.5 858L826 914.5L838 900L862.5 929.5L872.5 914.5L1017 1020.5V1257.5H-9V1054.5L55 1003.5L242 862L280.5 842.5L302.5 854V849H311.5L314.5 829.5L330 837.5L362.5 802H375L407.5 767H423.5L439.5 741H455.5L468.5 728H484.5Z" fill="#ffd200" />
         </mask>
         <g mask="url(#mask0)">
             <path d="M302 848.5L327.5 850L314.5 829.5L399.5 871.5L414 912.5C403.5 933.333 383 975.9 385 979.5C387 983.1 343.5 1009.67 321.5 1022.5L282.5 994L263.5 946L321.5 962V946L259 908.5L252 870.5L268 879.5H287L298.5 895.5H315.5L347.5 936L355 901L302 848.5Z" fill="url(#paint2_linear)" />
@@ -40,26 +40,26 @@
     </text>
     <defs>
         <linearGradient id="paint0_linear" x1="500" y1="0" x2="500" y2="1500" gradientUnits="userSpaceOnUse">
-            <stop class="background" stop-color="#1E0D3A" />
-            <stop class="background_shadow" offset="1" stop-color="#605986" />
+            <stop class="background" stop-color="" />
+            <stop class="background_shadow" offset="1" stop-color="" />
         </linearGradient>
         <linearGradient id="paint1_linear" x1="405.719" y1="591.382" x2="574.201" y2="865.534" gradientUnits="userSpaceOnUse">
-            <stop class="sun" stop-color="#E57873" />
-            <stop class="sun_shadow" offset="1" stop-color="#E3443D" />
+            <stop class="sun" stop-color="" />
+            <stop class="sun_shadow" offset="1" stop-color="" />
         </linearGradient>
         <linearGradient id="paint2_linear" x1="282.5" y1="856" x2="352" y2="917" gradientUnits="userSpaceOnUse">
             <stop stop-color="white" stop-opacity="0.9" />
-            <stop offset="1" stop-color="#31253B" stop-opacity="0" />
+            <stop class="mountains" offset="1" stop-color="" stop-opacity="0" />
         </linearGradient>
         <linearGradient id="paint3_linear" x1="487.5" y1="712.5" x2="643.5" y2="867.5" gradientUnits="userSpaceOnUse">
             <stop stop-color="white" stop-opacity="0.9" />
             <stop offset="0.359375" stop-color="#E2E0E3" stop-opacity="0.772881" />
-            <stop offset="0.921875" stop-color="#31253B" stop-opacity="0" />
+            <stop class="mountains" offset="0.921875" stop-color="" stop-opacity="0" />
         </linearGradient>
         <linearGradient id="paint4_linear" x1="547.5" y1="818.5" x2="712.5" y2="1124" gradientUnits="userSpaceOnUse">
             <stop stop-color="white" stop-opacity="0.9" />
             <stop offset="0.307292" stop-color="#E6E5E8" stop-opacity="0.792187" />
-            <stop offset="1" stop-color="#31253B" stop-opacity="0" />
+            <stop class="mountains" offset="1" stop-color="" stop-opacity="0" />
         </linearGradient>
         <linearGradient id="paint5_linear" x1="500.5" y1="808" x2="601.5" y2="906.5" gradientUnits="userSpaceOnUse">
             <stop stop-color="white" stop-opacity="0.9" />

@@ -1,11 +1,22 @@
 const fs = require(`fs`);
 const { DOMParser, XMLSerializer } = require(`xmldom`);
+const { colors } = require("./colors.js");
 const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
 const puppeteer = require(`puppeteer`);
 
 const browser = puppeteer.launch({ args: [`--no-sandbox`] });
 const pic = parser.parseFromString(fs.readFileSync(`./blank.svg`, `utf8`));
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+const numbers = ["one", "two", "three"];
 
 const get = (node, className, tag) =>
   Array.from(node.getElementsByTagName(tag)).filter(
@@ -58,16 +69,6 @@ const picMake = async (weather) => {
     element.textContent = weather.current.weather[0].main;
   }
 
-  const weekDays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const numbers = ["one", "two", "three"];
   for (let num in numbers) {
     const number = numbers[num];
     const day = parseInt(num) + 2;
@@ -83,16 +84,12 @@ const picMake = async (weather) => {
       element.textContent = weather.daily[day].weather[0].main;
     }
   }
-
-  /*
-
-  for (const element of getElements(pic, `deg`)) {
-    element.setAttribute(
-      `stroke`,
-      COLORS[weather.current.weather[0].icon].bottom
-    );
+  const now = "day";
+  for (const elementClass in colors[now]) {
+    for (const element of getElements(pic, `${elementClass}`)) {
+      fill(element, colors[now][elementClass]);
+    }
   }
-  */
 
   const svg = pic.getElementsByTagName(`svg`)[0];
   const widthSvg = parseInt(svg.getAttribute(`width`));
