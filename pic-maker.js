@@ -68,12 +68,14 @@ const picMake = async (weather) => {
     "Saturday",
   ];
   const numbers = ["one", "two", "three"];
-  for (const num in numbers) {
+  for (let num in numbers) {
     const number = numbers[num];
     for (const element of getElements(pic, `week_days_${number}`)) {
       let today = new Date();
-      console.log(num + 2, weather.daily[num + 2]);
-      today.setSeconds(today.getUTCSeconds() + weather.daily[num + 2].dt);
+      console.log(parseInt(num) + 2, weather.daily[parseInt(num) + 2]);
+      today.setSeconds(
+        today.getUTCSeconds() + weather.daily[parseInt(num) + 2].dt
+      );
       const day = weekDays[today.getUTCDay()];
       element.textContent = `${day}`;
     }
