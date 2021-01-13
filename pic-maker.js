@@ -85,9 +85,9 @@ const picMake = async (weather) => {
     }
   }
   let now = `day`;
-  if (Math.abs(weather.current.dt - weather.current.sunset) > 3600) {
+  if (Math.abs(weather.current.dt - weather.current.sunset) < 3600) {
     now = `sunset`;
-  } else if (Math.abs(weather.current.dt - weather.current.sunrise) > 3600) {
+  } else if (Math.abs(weather.current.dt - weather.current.sunrise) < 3600) {
     now = `sunrise`;
   }
   for (const elementClass in colors[now]) {
