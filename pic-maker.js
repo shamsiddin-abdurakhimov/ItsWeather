@@ -6,7 +6,8 @@ const parser = new DOMParser();
 const puppeteer = require(`puppeteer`);
 
 const browser = puppeteer.launch({ args: [`--no-sandbox`] });
-const pic = parser.parseFromString(fs.readFileSync(`./blank.svg`, `utf8`));
+const blank = fs.readFileSync(`./blank.svg`, `utf8`);
+
 const weekDays = [
   "Sunday",
   "Monday",
@@ -59,8 +60,7 @@ const fill = (node, hex) => {
 };
 
 const picMake = async (weather) => {
-  console.time(`picMake`);
-
+  const pic = parser.parseFromString(blank);
   for (const element of getElements(pic, `temp`)) {
     element.textContent = `${tempReplace(weather.current.temp)}°`;
   }
