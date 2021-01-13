@@ -28,6 +28,7 @@ async function sendReply(context) {
   const weather = await JSON.parse(
     await weatherApi.onecall(JSON.parse(cord).coord, "metric", "en")
   );
+  context.reply(weather);
   const preview = await render({ weather });
   await context.replyWithPhoto({ source: preview });
   console.timeEnd("sendWeather");
