@@ -40,14 +40,11 @@ const getElements = (node, className) => [
 function tempReplace(temp) {
   temp = `${Math.round(temp)}`;
   let minus = ``;
-  if (temp.split(``)[0] == `-`) {
+  if (temp.startsWith(`-`)) {
     minus = `-`;
     temp = temp.replace(`-`, ``);
   }
-  if (temp.length < 2) {
-    temp = 0 + temp;
-  }
-  temp = minus + temp;
+  temp = temp.length < 2 ? minus + 0 + temp : minus + temp;
   return temp;
 }
 
