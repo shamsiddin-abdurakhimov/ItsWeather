@@ -74,10 +74,13 @@ const picMake = async (weather) => {
     for (const element of getElements(pic, `week_days_${number}`)) {
       let today = new Date();
       today.setSeconds(today.getUTCSeconds() + weather.daily[day].dt);
-      const day = weekDays[today.getUTCDay()];
-      element.textContent = day;
+      element.textContent = weekDays[today.getUTCDay()];
     }
     for (const element of getElements(pic, `week_temp_${number}`)) {
+      console.log(weather.daily[day], weather.daily[day].weather[0]);
+      element.textContent = weather.daily[day].weather[0].temp;
+    }
+    for (const element of getElements(pic, `week_weather_${number}`)) {
       console.log(weather.daily[day], weather.daily[day].weather[0]);
       element.textContent = weather.daily[day].weather[0].temp;
     }
