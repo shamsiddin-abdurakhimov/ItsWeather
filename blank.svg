@@ -3,6 +3,8 @@
     <style>@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700');</style>
     <rect width="1000" height="1500" fill="url(#paint0_linear)" />
     <circle cx="504" cy="734" r="184" fill="url(#paint1_linear)" />
+    <path class="moon" d="M476.391 663C520.91 663 557 626.86 557 582.279C557 549.805 537.85 521.81 510.242 509C523.989 524.004 532.38 544.009 532.38 565.976C532.38 612.533 494.691 650.276 448.198 650.276C441.949 650.276 435.86 649.594 430 648.301C443.119 657.561 459.12 663 476.391 663Z" fill="" />
+    <circle cx="500" cy="555" r="125" fill="url(#paint6_linear)" />
     <g>
         <path class="mountains" d="M484.5 728L494 712L555 741L589.5 776.5L599 767L629 776.5L653.5 813.5H702.5L734.5 850.5L759.5 858L826 914.5L838 900L862.5 929.5L872.5 914.5L1017 1020.5V1545.5H-9V1054.5L55 1003.5L242 862L280.5 842.5L302.5 854V849H311.5L314.5 829.5L330 837.5L362.5 802H375L407.5 767H423.5L439.5 741H455.5L468.5 728H484.5Z" fill="" />
         <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="-9" y="712" width="1026" height="546">
@@ -65,6 +67,10 @@
             <stop stop-color="white" stop-opacity="0.9" />
             <stop offset="0.416667" stop-color="white" stop-opacity="0.4875" />
             <stop offset="1" stop-color="white" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="paint6_linear" x1="433.233" y1="458.112" x2="547.691" y2="644.357" gradientUnits="userSpaceOnUse">
+            <stop class="sun_day" stop-color="" />
+            <stop class="sun_day_shadow" offset="1" stop-color="" />
         </linearGradient>
     </defs>
 </svg>

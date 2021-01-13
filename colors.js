@@ -7,18 +7,17 @@ const colors = {
     background_shadow: "#605986",
   },
   day: {
-    mountains: "#ffd200",
-    sun: "#ffd200",
-    sun_shadow: "#ffd200",
-    background: "#ffd200",
-    background_shadow: "#ffd200",
+    mountains: "#D59558",
+    sun_day: "#FEEFCE",
+    sun_day_shadow: "#F9CE6C",
+    background: "#76C0C9",
+    background_shadow: "#BDD6C6",
   },
   sunset: {
-    mountains: "#31253B",
-    sun: "#E57873",
-    sun_shadow: "#E3443D",
-    background: "#1E0D3A",
-    background_shadow: "#605986",
+    mountains: "#4F425E",
+    moon: "#FFFFFF",
+    background: "#8B667E",
+    background_shadow: "#F9E9EE",
   },
 };
 
