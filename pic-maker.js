@@ -51,7 +51,7 @@ const picMake = async (weather) => {
   console.time(`picMake`);
 
   for (const element of getElements(pic, `temp`)) {
-    element.textContent = `${tempReplace(weather.current.temp)}__deg`;
+    element.textContent = `${tempReplace(weather.current.temp)}°`;
   }
 
   for (const element of getElements(pic, `weather`)) {
@@ -111,7 +111,7 @@ const picMake = async (weather) => {
             margin: 0;
         }
     </style>
-    ${serialize(pic).replace(/__deg/g, `°`)}
+    ${serialize(pic)}
   `);
   const screen = await page.screenshot();
   await page.close();

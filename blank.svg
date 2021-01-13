@@ -16,27 +16,27 @@
         </g>
     </g>
     <text class="now" text-anchor="middle" fill="#ffffff" font-family="Josefin Sans">
-        <tspan class="temp" font-size="210" x="525" y="384">14°</tspan>
-        <tspan class="weather" font-size="64" x="500" y="466">Clouds</tspan>
+        <tspan class="temp" font-size="210" x="525" y="384"></tspan>
+        <tspan class="weather" font-size="64" x="500" y="466"></tspan>
     </text>
     <g class="hint">
         <path d="M50 1285H950" stroke="white" stroke-linejoin="round" />
         <path d="M50 1380H950" stroke="white" stroke-linejoin="round" />
     </g>
     <text fill="#ffffff" font-family="Josefin Sans" font-size="40">
-        <tspan class="week_days_one" x="66" y="1255">Tuesday</tspan>
-        <tspan class="week_days_two" x="66" y="1347">Wednesday</tspan>
-        <tspan class="week_days_three" x="66" y="1439">Thursday</tspan>
+        <tspan class="week_days_one" x="66" y="1255"></tspan>
+        <tspan class="week_days_two" x="66" y="1347"></tspan>
+        <tspan class="week_days_three" x="66" y="1439"></tspan>
     </text>
     <text text-anchor="end" fill="#ffffff" font-family="Josefin Sans" font-size="40">
-        <tspan class="week_temp_one" x="963" y="1244">17°</tspan>
-        <tspan class="week_temp_two" x="963" y="1336">14°</tspan>
-        <tspan class="week_temp_three" x="950" y="1428">15°</tspan>
+        <tspan class="week_temp_one" x="963" y="1244"></tspan>
+        <tspan class="week_temp_two" x="963" y="1336"></tspan>
+        <tspan class="week_temp_three" x="950" y="1428"></tspan>
     </text>
     <text text-anchor="end" fill="#ffffff" font-family="Josefin Sans" font-size="30" font-weight="300">
-        <tspan class="week_weather_one" x="950" y="1272">Rain</tspan>
-        <tspan class="week_weather_two" x="950" y="1364">Clouds</tspan>
-        <tspan class="week_weather_three" x="940" y="1456">Clear</tspan>
+        <tspan class="week_weather_one" x="950" y="1272"></tspan>
+        <tspan class="week_weather_two" x="950" y="1364"></tspan>
+        <tspan class="week_weather_three" x="940" y="1456"></tspan>
     </text>
     <defs>
         <linearGradient id="paint0_linear" x1="500" y1="0" x2="500" y2="1500" gradientUnits="userSpaceOnUse">
