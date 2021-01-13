@@ -18,8 +18,8 @@
         </g>
     </g>
     <text class="now" text-anchor="middle" fill="#ffffff" font-family="Josefin Sans">
-        <tspan class="temp" font-size="210" x="425" y="384"></tspan>
-        <tspan class="weather" font-size="64" x="400" y="466"></tspan>
+        <tspan class="temp" font-size="210" x="525" y="284"></tspan>
+        <tspan class="weather" font-size="64" x="500" y="366"></tspan>
     </text>
     <g class="hint">
         <path d="M50 1285H950" stroke="white" stroke-linejoin="round" />
