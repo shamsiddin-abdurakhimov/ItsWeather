@@ -84,7 +84,12 @@ const picMake = async (weather) => {
       element.textContent = weather.daily[day].weather[0].main;
     }
   }
-  const now = "day";
+  let now = `day`;
+  if (Math.abs(weather.current.dt - weather.current.sunset) > 3600) {
+    now = `sunset`;
+  } else if (Math.abs(weather.current.dt - weather.current.sunrise) > 3600) {
+    now = `sunrise`;
+  }
   for (const elementClass in colors[now]) {
     for (const element of getElements(pic, `${elementClass}`)) {
       fill(element, colors[now][elementClass]);
