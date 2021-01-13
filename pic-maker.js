@@ -77,7 +77,7 @@ const picMake = async (weather) => {
       element.textContent = weekDays[today.getUTCDay()];
     }
     for (const element of getElements(pic, `week_temp_${number}`)) {
-      element.textContent = weather.daily[day].temp.day;
+      element.textContent = `${tempReplace(weather.daily[day].temp.day)}°`;
     }
     for (const element of getElements(pic, `week_weather_${number}`)) {
       element.textContent = weather.daily[day].weather[0].main;
