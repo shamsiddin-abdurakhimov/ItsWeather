@@ -66,6 +66,21 @@ const picMake = async (weather) => {
     element.textContent = weather.current.weather[0].main;
   }
 
+  const week = {};
+
+  for (const day of weather.daily) {
+    let time = new Date();
+    time.setSeconds(time.getUTCSeconds() + day.dt);
+    let key = weekDays[today.getDay()];
+
+    if (week[key] != undefined) {
+      key += `1`;
+    }
+
+    week[key] = day;
+  }
+  console.log(week);
+
   for (let num in numbers) {
     const number = numbers[num];
     const day = parseInt(num) + 2;
@@ -82,9 +97,12 @@ const picMake = async (weather) => {
     }
   }
   let now = `day`;
-  if (Math.abs(weather.current.dt - weather.current.sunset) < 7200) {
-    now = `sunset`;
-  } else if (Math.abs(weather.current.dt - weather.current.sunrise) < 7200) {
+  const currentDt = weather.current.dt;
+  const minSunrise = weather.current.sunrise - 3600;
+  const maxSunrise = weather.current.sunrise + 3600;
+  if (currentDt > weather.current.sunset || currentDt < minSunrise) {
+    nuw = `sunset`;
+  } else if (currentDt < maxSunrise && currentDt > minSunrise) {
     now = `sunrise`;
   }
   for (const elementClass in colors[now]) {
