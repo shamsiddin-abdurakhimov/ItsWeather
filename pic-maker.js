@@ -71,7 +71,7 @@ const picMake = async (weather) => {
   for (const day of weather.daily) {
     let time = new Date();
     time.setSeconds(time.getUTCSeconds() + day.dt);
-    week[time.getDay] = day;
+    week[time.getDay()] = day;
   }
   console.log(week);
 

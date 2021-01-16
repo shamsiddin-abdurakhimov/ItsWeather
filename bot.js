@@ -11,7 +11,7 @@ const weatherApi = new WeatherApi(apiId);
 
 async function sendReply(context) {
   console.time("sendWeather");
-  if (!/^\w+$+ /.test(context.update.message.text)) {
+  if (!/^\w+$/.test(context.update.message.text)) {
     await context.reply("Enter in Latin.");
     return;
   }
