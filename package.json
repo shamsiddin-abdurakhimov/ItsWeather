@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/shamsiddin7/ItsWeather#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "puppeteer": "^5.5.0",
     "telegraf": "^3.38.0",
     "xmldom": "^0.4.0",

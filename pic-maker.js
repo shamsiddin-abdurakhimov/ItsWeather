@@ -82,14 +82,17 @@ const picMake = async (weather) => {
   }
 
   let now = `day`;
-  const currentDt = weather.current.dt;
-  const minSunrise = weather.current.sunrise - 3600;
-  const maxSunrise = weather.current.sunrise + 3600;
-  if (currentDt > weather.current.sunset - 3600 || currentDt < minSunrise) {
-    nuw = `sunset`;
-  } else if (currentDt < maxSunrise && currentDt > minSunrise) {
+  const toTime = (time) =>
+    new Date(time * 1000 + weather.timezone_offset * 1000).getUTCHours();
+  const sunriseTime = toTime(weather.current.sunrise);
+  const sunsetTime = toTime(weather.current.sunset);
+  const nowTime = toTime(weather.current.dt);
+  if (nowTime > sunsetTime - 1 || nowTime < sunriseTime - 1) {
+    now = `sunset`;
+  } else if (nowTime < sunriseTime + 1 && nowTime > sunriseTime - 1) {
     now = `sunrise`;
   }
+
   for (const elementClass in colors[now]) {
     for (const element of getElements(pic, `${elementClass}`)) {
       fill(element, colors[now][elementClass]);

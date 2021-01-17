@@ -1,3 +1,4 @@
+require(`dotenv`).config();
 const token = process.env.TOKEN;
 const apiId = process.env.apiId;
 const adminId = process.env.adminId;
@@ -9,8 +10,15 @@ const render = require(`./pool`);
 const bot = new Telegraf(token);
 const weatherApi = new WeatherApi(apiId);
 
+const inline_keyboard = [
+  [
+    { text: "🌤Default", callback_data: "default" },
+    { text: "🌡Week", callback_data: "week" },
+    { text: "📈Graph", callback_data: "graph" },
+  ],
+];
+
 async function sendReply(context) {
-  console.time("sendWeather");
   if (!/^\w+$/.test(context.update.message.text)) {
     await context.reply("Enter in Latin.");
     return;
@@ -31,9 +39,11 @@ async function sendReply(context) {
   const preview = await render({ weather });
   await context.replyWithPhoto(
     { source: preview },
-    { reply_to_message_id: context.message.message_id }
+    {
+      reply_to_message_id: context.message.message_id,
+      reply_markup: { inline_keyboard },
+    }
   );
-  console.timeEnd("sendWeather");
 }
 
 bot.start((context) => {
