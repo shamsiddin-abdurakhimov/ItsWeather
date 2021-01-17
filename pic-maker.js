@@ -37,7 +37,7 @@ const getElements = (node, className) => [
   ...get(node, className, `text`),
 ];
 
-function tempReplace(temp) {
+const toTemp = (temp) => {
   temp = `${Math.round(temp)}`;
   let minus = ``;
   if (temp.startsWith(`-`)) {
@@ -46,7 +46,7 @@ function tempReplace(temp) {
   }
   temp = temp.length < 2 ? minus + 0 + temp : minus + temp;
   return temp;
-}
+};
 
 const fill = (node, hex) => {
   if (node.tagName === `stop`) {
@@ -59,42 +59,33 @@ const fill = (node, hex) => {
 const picMake = async (weather) => {
   const pic = parser.parseFromString(blank);
   for (const element of getElements(pic, `temp`)) {
-    element.textContent = `${tempReplace(weather.current.temp)}°`;
+    element.textContent = `${toTemp(weather.current.temp)}°`;
   }
 
   for (const element of getElements(pic, `weather`)) {
     element.textContent = weather.current.weather[0].main;
   }
 
-  const week = {};
-
-  for (const day of weather.daily) {
-    let time = new Date();
-    time.setSeconds(time.getUTCSeconds() + day.dt);
-    week[time.getDay()] = day;
-  }
-  console.log(week);
-
-  for (let num in numbers) {
-    const number = numbers[num];
-    const day = parseInt(num) + 2;
+  let day = 1;
+  for (const number of numbers) {
     for (const element of getElements(pic, `week_days_${number}`)) {
-      let today = new Date();
-      today.setSeconds(today.getUTCSeconds() + weather.daily[day].dt);
-      element.textContent = weekDays[today.getUTCDay()];
+      const time = new Date(weather.daily[day].dt * 1000);
+      element.textContent = weekDays[time.getUTCDay()];
     }
     for (const element of getElements(pic, `week_temp_${number}`)) {
-      element.textContent = `${tempReplace(weather.daily[day].temp.day)}°`;
+      element.textContent = `${toTemp(weather.daily[day].temp.day)}°`;
     }
     for (const element of getElements(pic, `week_weather_${number}`)) {
       element.textContent = weather.daily[day].weather[0].main;
     }
+    day += 1;
   }
+
   let now = `day`;
   const currentDt = weather.current.dt;
   const minSunrise = weather.current.sunrise - 3600;
   const maxSunrise = weather.current.sunrise + 3600;
-  if (currentDt > weather.current.sunset || currentDt < minSunrise) {
+  if (currentDt > weather.current.sunset - 3600 || currentDt < minSunrise) {
     nuw = `sunset`;
   } else if (currentDt < maxSunrise && currentDt > minSunrise) {
     now = `sunrise`;
