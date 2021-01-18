@@ -21,9 +21,9 @@
         <tspan class="temp" font-size="210" x="525" y="284"></tspan>
         <tspan class="weather" font-size="64" x="500" y="366"></tspan>
     </text>
-    <g class="hint">
-        <path d="M50 1285H950" stroke="white" stroke-linejoin="round" />
-        <path d="M50 1380H950" stroke="white" stroke-linejoin="round" />
+    <g>
+        <path class="hint" d="M50 1285H950" stroke="rgba(0,0,0,0)" stroke-linejoin="round" />
+        <path class="hint" d="M50 1380H950" stroke="rgba(0,0,0,0)" stroke-linejoin="round" />
     </g>
     <text fill="#ffffff" font-family="Josefin Sans" font-size="40">
         <tspan class="week_days_one" x="66" y="1255"></tspan>
@@ -39,6 +39,35 @@
         <tspan class="week_weather_one" x="950" y="1272"></tspan>
         <tspan class="week_weather_two" x="950" y="1364"></tspan>
         <tspan class="week_weather_three" x="940" y="1456"></tspan>
+    </text>
+    <polyline class="graph_fill" points="" fill-opacity="0.4" fill="rgb(240,240,240)" />
+    <polyline class="graph" points="" stroke="rgb(240,240,240)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <g filter="url(#filter1_f)">
+        <polyline class="graph_fill" points="" fill="#ffffff" fill-opacity="0.6" />
+    </g>
+    <text text-anchor="middle" fill="rgb(240,240,240)" font-family="Josefin Sans" font-size="30" font-weight="400">
+        <tspan class="graph_time0"></tspan>
+        <tspan class="graph_time4"></tspan>
+        <tspan class="graph_time9"></tspan>
+        <tspan class="graph_time14"></tspan>
+        <tspan class="graph_time19"></tspan>
+        <tspan class="graph_time24"></tspan>
+        <tspan class="graph_time29"></tspan>
+        <tspan class="graph_time34"></tspan>
+        <tspan class="graph_time39"></tspan>
+        <tspan class="graph_time44"></tspan>
+    </text>
+    <text text-anchor="middle" fill="rgb(240,240,240)" font-family="Josefin Sans" font-size="30" font-weight="300">
+        <tspan class="graph_temp0"></tspan>
+        <tspan class="graph_temp4"></tspan>
+        <tspan class="graph_temp9"></tspan>
+        <tspan class="graph_temp14"></tspan>
+        <tspan class="graph_temp19"></tspan>
+        <tspan class="graph_temp24"></tspan>
+        <tspan class="graph_temp29"></tspan>
+        <tspan class="graph_temp34"></tspan>
+        <tspan class="graph_temp39"></tspan>
+        <tspan class="graph_temp44"></tspan>
     </text>
     <defs>
         <linearGradient id="paint0_linear" x1="500" y1="0" x2="500" y2="1500" gradientUnits="userSpaceOnUse">
@@ -72,5 +101,10 @@
             <stop class="sun_day" stop-color="rgba(0,0,0,0)" />
             <stop class="sun_day_shadow" offset="1" stop-color="rgba(0,0,0,0)" />
         </linearGradient>
+        <filter id="filter1_f" x="0" y="1000" width="980" height="500" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur" />
+        </filter>
     </defs>
 </svg>

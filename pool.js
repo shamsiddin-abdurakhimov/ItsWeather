@@ -5,11 +5,11 @@ let renderersNumber = 0;
 
 const queue = [];
 
-const render = async ({ weather, resolve, reject }) => {
+const render = async ({ weather, type, resolve, reject }) => {
   renderersNumber++;
 
   try {
-    let preview = await picMaker.picMake(weather);
+    let preview = await picMaker.picMake(weather, type);
 
     resolve(preview);
   } catch (error) {

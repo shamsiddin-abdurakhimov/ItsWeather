@@ -37,16 +37,7 @@ const getElements = (node, className) => [
   ...get(node, className, `text`),
 ];
 
-const toTemp = (temp) => {
-  temp = `${Math.round(temp)}`;
-  let minus = ``;
-  if (temp.startsWith(`-`)) {
-    minus = `-`;
-    temp = temp.replace(`-`, ``);
-  }
-  temp = temp.length < 2 ? minus + 0 + temp : minus + temp;
-  return temp;
-};
+const toTemp = (temp) => Math.round(temp);
 
 const fill = (node, hex) => {
   if (node.tagName === `stop`) {
@@ -56,7 +47,7 @@ const fill = (node, hex) => {
   }
 };
 
-const picMake = async (weather) => {
+const picMake = async (weather, type) => {
   const pic = parser.parseFromString(blank);
   for (const element of getElements(pic, `temp`)) {
     element.textContent = `${toTemp(weather.current.temp)}°`;
@@ -64,21 +55,6 @@ const picMake = async (weather) => {
 
   for (const element of getElements(pic, `weather`)) {
     element.textContent = weather.current.weather[0].main;
-  }
-
-  let day = 1;
-  for (const number of numbers) {
-    for (const element of getElements(pic, `week_days_${number}`)) {
-      const time = new Date(weather.daily[day].dt * 1000);
-      element.textContent = weekDays[time.getUTCDay()];
-    }
-    for (const element of getElements(pic, `week_temp_${number}`)) {
-      element.textContent = `${toTemp(weather.daily[day].temp.day)}°`;
-    }
-    for (const element of getElements(pic, `week_weather_${number}`)) {
-      element.textContent = weather.daily[day].weather[0].main;
-    }
-    day += 1;
   }
 
   let now = `day`;
@@ -96,6 +72,99 @@ const picMake = async (weather) => {
   for (const elementClass in colors[now]) {
     for (const element of getElements(pic, `${elementClass}`)) {
       fill(element, colors[now][elementClass]);
+    }
+  }
+  if (type == `graph`) {
+    const hoursClass = [
+      `0`,
+      `4`,
+      `9`,
+      `14`,
+      `19`,
+      `24`,
+      `29`,
+      `34`,
+      `39`,
+      `44`,
+    ];
+    const graphHeight = 200;
+    const graphWidth = 920;
+    const graphBottom = 1400;
+    const graphLeft = 40;
+
+    const hourlyTempSort = [];
+    const hourlyTemp = [];
+    for (const hour of weather.hourly) {
+      hourlyTemp.push(hour.temp);
+      hourlyTempSort.push(hour.temp);
+    }
+    hourlyTempSort.sort((a, b) => a - b);
+    const hourlyTempMin = hourlyTempSort[0];
+    const yOne =
+      graphHeight / (hourlyTempSort[hourlyTempSort.length - 1] - hourlyTempMin);
+    let graphPoints = "";
+    const xOne = graphWidth / (hourlyTemp.length - 1);
+    for (const i in hourlyTemp) {
+      const y = graphBottom - yOne * (hourlyTemp[i] - hourlyTempMin);
+      const x = graphLeft + xOne * i;
+      if (graphPoints != "") {
+        graphPoints += " ";
+      }
+      graphPoints += `${x},${y}`;
+      if (hoursClass.includes(i)) {
+        const temp = `graph_temp${i}`;
+        const time = `graph_time${i}`;
+        for (const element of getElements(pic, temp)) {
+          element.textContent = `${toTemp(weather.hourly[i].temp)}°`;
+          element.setAttribute(`x`, x + 10);
+          element.setAttribute(`y`, y - 35);
+        }
+        for (const element of getElements(pic, time)) {
+          element.setAttribute(`x`, x + 10);
+          element.setAttribute(`y`, graphBottom + 30);
+          if (i == 0) {
+            element.textContent = "now";
+          } else {
+            let date = new Date(
+              weather.hourly[i].dt * 1000 + weather.timezone_offset * 1000
+            );
+            element.textContent = date
+              .toLocaleString("en-US", { hour: "numeric" })
+              .replace(" ", "")
+              .toLowerCase();
+          }
+        }
+      }
+    }
+    for (const element of getElements(pic, `graph`)) {
+      element.setAttribute(`points`, graphPoints);
+    }
+    for (const element of getElements(pic, `graph_fill`)) {
+      element.setAttribute(
+        `points`,
+        `${graphLeft},${graphBottom + 2} ${graphPoints} ${
+          graphLeft + graphWidth
+        },${graphBottom + 2}`
+      );
+    }
+  } else if (type == `week`) {
+  } else {
+    let day = 1;
+    for (const number of numbers) {
+      for (const element of getElements(pic, `week_days_${number}`)) {
+        const time = new Date(weather.daily[day].dt * 1000);
+        element.textContent = weekDays[time.getUTCDay()];
+      }
+      for (const element of getElements(pic, `week_temp_${number}`)) {
+        element.textContent = `${toTemp(weather.daily[day].temp.day)}°`;
+      }
+      for (const element of getElements(pic, `week_weather_${number}`)) {
+        element.textContent = weather.daily[day].weather[0].main;
+      }
+      day += 1;
+    }
+    for (const element of getElements(pic, `hint`)) {
+      element.setAttribute(`stroke`, `#FFFFFF`);
     }
   }
 
