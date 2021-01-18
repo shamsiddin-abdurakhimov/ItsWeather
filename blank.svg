@@ -18,7 +18,7 @@
         </g>
     </g>
     <text class="now" text-anchor="middle" fill="#ffffff" font-family="Josefin Sans">
-        <tspan class="temp" font-size="210" x="525" y="284"></tspan>
+        <tspan class="temp" font-size="210" x="535" y="284"></tspan>
         <tspan class="weather" font-size="64" x="500" y="366"></tspan>
     </text>
     <g>
