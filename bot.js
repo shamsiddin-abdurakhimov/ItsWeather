@@ -51,35 +51,46 @@ const newKeyboard = async (active) => {
 };
 
 const sendRes = async (context) => {
-  let name, type;
+  let type = `default`;
+  let cord = undefined;
+  let cityName;
+  const message = context.update.callback_query || context.update.message;
   if (context.update.callback_query) {
-    if (context.update.callback_query.data.endsWith(`_active`)) {
+    if (message.data.endsWith(`_active`)) {
+      context.answerCbQuery(`Active`);
       return;
     }
     await bot.telegram.editMessageCaption(
-      context.update.callback_query.message.chat.id,
-      context.update.callback_query.message.message_id,
-      context.update.callback_query.message.message_id,
+      message.message.chat.id,
+      message.message.message_id,
+      message.message.message_id,
       `Loading...`
     );
-    name = context.update.callback_query.message.reply_to_message.text;
-    type = context.update.callback_query.data;
+    type = message.data;
+    cityName = message.message.reply_to_message.text;
   } else {
     bot.telegram.sendChatAction(context.message.chat.id, `upload_photo`);
-    name = context.update.message.text;
-    type = `default`;
+    if (message.location) {
+      cord = {
+        lat: message.location.latitude,
+        lon: message.location.longitude,
+      };
+    }
   }
-  if (!/^\w+$/.test(name)) {
-    await context.reply(`Enter in Latin.`);
-    return;
-  }
-  const cord = await weatherApi.weather(name, `metric`, `en`);
-  if (cord.startsWith(`404`)) {
-    await context.reply(`There is no such place.`);
-    return;
+  if (!cord) {
+    const weatherCord = await weatherApi.weather(
+      cityName || message.text,
+      `metric`,
+      message.from.language_code
+    );
+    if (weatherCord.startsWith(`404`)) {
+      await context.reply(`There is no such place.`);
+      return;
+    }
+    cord = JSON.parse(weatherCord).coord;
   }
   const weather = await JSON.parse(
-    await weatherApi.onecall(JSON.parse(cord).coord, `metric`, `en`)
+    await weatherApi.onecall(cord, `metric`, message.from.language_code)
   );
   const preview = await render({ weather, type });
   const inline_keyboard = await newKeyboard(type);
