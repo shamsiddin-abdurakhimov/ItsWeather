@@ -121,10 +121,12 @@ const sendRes = async (context) => {
   const values = [message.text, message.from.id];
   console.log(values);
   try {
+    await client.connect();
     const res = await client.query(text, values);
     console.log(res);
     console.log(res.row);
     console.log(res.rows[0]);
+    await client.end();
     // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
   } catch (err) {
     console.log(err.stack);
