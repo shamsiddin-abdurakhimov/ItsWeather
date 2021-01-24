@@ -118,25 +118,18 @@ const sendRes = async (context) => {
       reply_markup: { inline_keyboard },
     }
   );
-  const text = `INSERT INTO sent(name, "user") VALUES($1, $2) RETURNING *`;
-  const values = [message.text, message.from.id];
-  console.log(values);
+  await client.query(`CREATE TEMP TABLE IF NOT EXISTS sent (
+                name TEXT,
+                user_id INTEGER,
+                time DATE)`);
+  const text = `INSERT INTO sent(name, user_id, time) VALUES($1, $2, $3) RETURNING *`;
+  const values = [message.text, message.from.id, new Date()];
   try {
     const res = await client.query(text, values);
-    console.log(res);
-    console.log(res.row);
     console.log(res.rows[0]);
   } catch (err) {
     console.log(err.stack);
   }
-  //await client.connect();
-  //await client.query(
-  //  `UPDATE `sent`
-  //  SET `messageId` = $1`,
-  //  [123]
-  //);
-  //console.log(await client.query(`SELECT * FROM `sent`;`));
-  //await client.end();
 };
 
 bot.start((context) => {
