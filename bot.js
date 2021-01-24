@@ -6,6 +6,7 @@ const adminId = process.env.adminId;
 const { WeatherApi } = require(`./weatherApi`);
 const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
+const site = require(`./site`);
 
 const bot = new Telegraf(token);
 const weatherApi = new WeatherApi(apiId);
