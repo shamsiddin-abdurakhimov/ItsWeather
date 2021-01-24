@@ -7,7 +7,7 @@ const { WeatherApi } = require(`./weatherApi`);
 const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
 const site = require(`./site`);
-const { Client } = require("pg");
+const { Client } = require(`pg`);
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -118,7 +118,7 @@ const sendRes = async (context) => {
       reply_markup: { inline_keyboard },
     }
   );
-  const text = "INSERT INTO sent(name, user) VALUES($1, $2) RETURNING *";
+  const text = `INSERT INTO sent(name, "user") VALUES($1, $2) RETURNING *`;
   const values = [message.text, message.from.id];
   console.log(values);
   try {
@@ -126,17 +126,17 @@ const sendRes = async (context) => {
     console.log(res);
     console.log(res.row);
     console.log(res.rows[0]);
-    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+    // { name: `brianc`, email: `brian.m.carlson@gmail.com` }
   } catch (err) {
     console.log(err.stack);
   }
   //await client.connect();
   //await client.query(
-  //  `UPDATE "sent"
-  //  SET "messageId" = $1`,
+  //  `UPDATE `sent`
+  //  SET `messageId` = $1`,
   //  [123]
   //);
-  //console.log(await client.query(`SELECT * FROM "sent";`));
+  //console.log(await client.query(`SELECT * FROM `sent`;`));
   //await client.end();
 };
 
