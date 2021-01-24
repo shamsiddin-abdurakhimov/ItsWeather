@@ -6,8 +6,19 @@ const adminId = process.env.adminId;
 const { WeatherApi } = require(`./weatherApi`);
 const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
-const site = require(`./site`);
 const { Client } = require(`pg`);
+const express = require(`express`);
+const app = express();
+const port = process.env.PORT || 3000;
+const path = require("path");
+
+app.get(`/`, (req, res) => {
+  res.sendFile(path.join(__dirname + "/index.html"));
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
