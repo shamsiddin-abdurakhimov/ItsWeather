@@ -22,7 +22,6 @@ const site = async () => {
     console.log(`BotStatistics listening at http://localhost:${port}`);
   });
 };
-site();
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
