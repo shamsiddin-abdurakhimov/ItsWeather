@@ -7,6 +7,14 @@ const { WeatherApi } = require(`./weatherApi`);
 const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
 const site = require(`./site`);
+const { Client } = require("pg");
+
+const db = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 const bot = new Telegraf(token);
 const weatherApi = new WeatherApi(apiId);
@@ -100,8 +108,16 @@ const sendRes = async (context) => {
       { type: `photo`, media: { source: preview } },
       { reply_markup: { inline_keyboard } }
     );
+    await db.connect();
+    await db.query(
+      `UPDATE "sent"
+      SET "messageId" = $1`,
+      [334]
+    );
+    await db.end();
     return;
   }
+  await db.connect();
   await context.replyWithPhoto(
     { source: preview },
     {
@@ -109,6 +125,13 @@ const sendRes = async (context) => {
       reply_markup: { inline_keyboard },
     }
   );
+  await db.query(
+    `UPDATE "sent"
+    SET "messageId" = $1`,
+    [123]
+  );
+  console.log(await db.query(`SELECT * FROM "sent";`));
+  await db.end();
 };
 
 bot.start((context) => {
