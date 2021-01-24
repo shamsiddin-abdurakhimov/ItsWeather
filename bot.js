@@ -8,9 +8,21 @@ const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
 const { Client } = require(`pg`);
 const express = require(`express`);
-const app = express();
 const port = process.env.PORT || 3000;
 const path = require("path");
+
+const site = async () => {
+  const app = express();
+
+  app.get(`/`, (req, res) => {
+    res.sendFile(path.join(__dirname + "/index.html"));
+  });
+
+  app.listen(port, () => {
+    console.log(`BotStatistics listening at http://localhost:${port}`);
+  });
+};
+site();
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -156,11 +168,3 @@ const start = async function () {
 start();
 
 bot.startPolling();
-
-app.get(`/`, (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
