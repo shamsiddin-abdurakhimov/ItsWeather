@@ -9,7 +9,7 @@ const render = require(`./pool`);
 const site = require(`./site`);
 const { Client } = require("pg");
 
-const db = new Client({
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
@@ -108,13 +108,6 @@ const sendRes = async (context) => {
       { type: `photo`, media: { source: preview } },
       { reply_markup: { inline_keyboard } }
     );
-    await db.connect();
-    await db.query(
-      `UPDATE "sent"
-      SET "messageId" = $1`,
-      [334]
-    );
-    await db.end();
     return;
   }
   await context.replyWithPhoto(
@@ -124,14 +117,25 @@ const sendRes = async (context) => {
       reply_markup: { inline_keyboard },
     }
   );
-  await db.connect();
-  await db.query(
-    `UPDATE "sent"
-    SET "messageId" = $1`,
-    [123]
-  );
-  console.log(await db.query(`SELECT * FROM "sent";`));
-  await db.end();
+  const text = "INSERT INTO sent(name, user) VALUES($1, $2) RETURNING *";
+  const values = [message.text, message.from.id];
+  try {
+    const res = await client.query(text, values);
+    console.log(res);
+    console.log(res.row);
+    console.log(res.rows[0]);
+    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+  } catch (err) {
+    console.log(err.stack);
+  }
+  //await client.connect();
+  //await client.query(
+  //  `UPDATE "sent"
+  //  SET "messageId" = $1`,
+  //  [123]
+  //);
+  //console.log(await client.query(`SELECT * FROM "sent";`));
+  //await client.end();
 };
 
 bot.start((context) => {
