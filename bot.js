@@ -117,7 +117,6 @@ const sendRes = async (context) => {
     await db.end();
     return;
   }
-  await db.connect();
   await context.replyWithPhoto(
     { source: preview },
     {
@@ -125,6 +124,7 @@ const sendRes = async (context) => {
       reply_markup: { inline_keyboard },
     }
   );
+  await db.connect();
   await db.query(
     `UPDATE "sent"
     SET "messageId" = $1`,
