@@ -119,6 +119,7 @@ const sendRes = async (context) => {
   );
   const text = "INSERT INTO sent(name, user) VALUES($1, $2) RETURNING *";
   const values = [message.text, message.from.id];
+  console.log(values);
   try {
     const res = await client.query(text, values);
     console.log(res);
