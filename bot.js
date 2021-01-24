@@ -126,7 +126,6 @@ const sendRes = async (context) => {
     console.log(res);
     console.log(res.row);
     console.log(res.rows[0]);
-    // { name: `brianc`, email: `brian.m.carlson@gmail.com` }
   } catch (err) {
     console.log(err.stack);
   }
