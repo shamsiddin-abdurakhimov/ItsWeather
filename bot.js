@@ -7,10 +7,10 @@ const { WeatherApi } = require(`./weatherApi`);
 const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
 const { Client } = require(`pg`);
+/*
 const express = require(`express`);
 const port = process.env.PORT || 3000;
 const path = require("path");
-
 const site = async () => {
   const app = express();
 
@@ -22,6 +22,7 @@ const site = async () => {
     console.log(`BotStatistics listening at http://localhost:${port}`);
   });
 };
+site();*/
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
