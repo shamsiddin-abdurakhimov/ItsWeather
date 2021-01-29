@@ -133,7 +133,7 @@ const sendRes = async (context) => {
       reply_markup: { inline_keyboard },
     }
   );
-  await client.query(`CREATE TEMP TABLE IF NOT EXISTS sent (
+  await client.query(`CREATE TABLE IF NOT EXISTS sent (
                 name TEXT,
                 user_id INTEGER,
                 time DATE)`);
@@ -147,6 +147,15 @@ const sendRes = async (context) => {
   }
 };
 
+const notifications = async (context) => {
+  await context.reply(`Send me the time.`);
+  await client.query(`CREATE TABLE IF NOT EXISTS users (
+                name TEXT,
+                user_id INTEGER,
+                time TEXT,
+                now TEXT)`);
+};
+
 bot.start((context) => {
   context.reply(`Send me the name of the place.`);
 });
@@ -158,7 +167,7 @@ bot.on(`message`, (context) => {
 bot.action(buttonsList, (context) => {
   sendRes(context);
 });
-
+bot.command(`notifications`, (context) => notifications(context));
 const start = async function () {
   bot.telegram.sendMessage(
     adminId,
