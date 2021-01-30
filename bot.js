@@ -103,6 +103,10 @@ const sendRes = async (context) => {
     }
   }
   if (!cord) {
+    if (!/^\w+$/.test(cityName || message.text)) {
+      await context.reply("Enter in Latin.");
+      return;
+    }
     const weatherCord = await weatherApi.weather(
       cityName || message.text,
       `metric`,
