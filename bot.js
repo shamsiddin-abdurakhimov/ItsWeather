@@ -216,6 +216,7 @@ bot.start(async (context) => {
   }
 });
 
+bot.command(`notifications`, (context) => notifications(context));
 bot.on(`message`, (context) => {
   sendRes(context);
 });
@@ -223,7 +224,6 @@ bot.on(`message`, (context) => {
 bot.action(buttonsList, (context) => {
   sendRes(context);
 });
-bot.command(`notifications`, (context) => notifications(context));
 const start = async function () {
   bot.telegram.sendMessage(
     adminId,
