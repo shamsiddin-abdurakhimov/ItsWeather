@@ -72,9 +72,11 @@ const newKeyboard = async (active) => {
 
 const sendRes = async (context) => {
   const update = context.update.callback_query ?? context.update;
+  console.log(0);
   const { rows } = await client.query(
     `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${update.message.from.id})`
   );
+  console.log(1);
   if (!rows[0].exists) {
     await client.query(
       `INSERT INTO
@@ -83,6 +85,7 @@ const sendRes = async (context) => {
       [false, update.message.from.id, false, `start`]
     );
   }
+  console.log(2);
   console.log(
     await client.query(`SELECT now WHERE "user_id=$1 FROM "users"`, [
       update.message.from.id,
