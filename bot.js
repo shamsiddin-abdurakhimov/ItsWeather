@@ -24,12 +24,7 @@ const site = async () => {
 };
 site();*/
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+const client = new Client();
 client.connect();
 
 const bot = new Telegraf(token);
@@ -76,6 +71,21 @@ const newKeyboard = async (active) => {
 };
 
 const sendRes = async (context) => {
+  const update = context.update.callback_query ?? context.update;
+  const { rows } = await client.query(
+    `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${update.message.from.id})`
+  );
+  if (!rows[0].exists) {
+    await client.query(
+      `INSERT INTO
+      "users"(name, user_id, time, now)
+      VALUES($1, $2, $3, $4);`,
+      [false, update.message.from.id, false, `start`]
+    );
+  }
+  console.log(
+    await client.query(`SELECT now WHERE user_id=${update.message.from.id}`)
+  );
   let type = `default`;
   let cord = undefined;
   let cityName;
@@ -137,14 +147,11 @@ const sendRes = async (context) => {
       reply_markup: { inline_keyboard },
     }
   );
-  await client.query(`CREATE TABLE IF NOT EXISTS sent (
-                name TEXT,
-                user_id INTEGER,
-                time DATE)`);
-  const text = `INSERT INTO sent(name, user_id, time) VALUES($1, $2, $3) RETURNING *`;
-  const values = [message.text, message.from.id, new Date()];
   try {
-    const res = await client.query(text, values);
+    const res = await client.query(
+      `INSERT INTO sent(name, user_id, time) VALUES($1, $2, $3) RETURNING *`,
+      [message.text, message.from.id, new Date()]
+    );
     console.log(res.rows[0]);
   } catch (err) {
     console.log(err.stack);
@@ -152,16 +159,39 @@ const sendRes = async (context) => {
 };
 
 const notifications = async (context) => {
-  await context.reply(`Send me the time.`);
-  await client.query(`CREATE TABLE IF NOT EXISTS users (
-                name TEXT,
-                user_id INTEGER,
-                time TEXT,
-                now TEXT)`);
+  await context.reply(`Send me the name of the place or location.`);
+  const { rows } = await client.query(
+    `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${context.update.message.from.id})`
+  );
+  if (!rows[0].exists) {
+    await client.query(
+      `INSERT INTO
+      "users"(name, user_id, time, now)
+      VALUES($1, $2, $3, $4);`,
+      [false, context.update.message.from.id, false, `start`]
+    );
+  }
+  await client.query(
+    `UPDATE "users"
+    SET now = $1
+    WHERE user_id = $2;`,
+    [`location`, context.update.message.from.id]
+  );
 };
 
-bot.start((context) => {
+bot.start(async (context) => {
   context.reply(`Send me the name of the place.`);
+  const { rows } = await client.query(
+    `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${context.update.message.from.id})`
+  );
+  if (!rows[0].exists) {
+    await client.query(
+      `INSERT INTO
+      "users"(name, user_id, time, now)
+      VALUES($1, $2, $3, $4);`,
+      [false, context.update.message.from.id, new Date(), `start`]
+    );
+  }
 });
 
 bot.on(`message`, (context) => {
