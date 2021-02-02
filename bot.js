@@ -101,9 +101,9 @@ const sendRes = async (context) => {
     await client.query(
       `UPDATE "users"
       SET name = $1
-          now = 'time'
-      WHERE user_id = $2;`,
-      [JSON.parse(weatherCord).coord, update.message.from.id]
+          now = $2
+      WHERE user_id = $3;`,
+      [JSON.parse(weatherCord).coord, `time`, update.message.from.id]
     );
     await context.reply(`Send me time.\n 23:50`);
     return;
@@ -127,9 +127,9 @@ const sendRes = async (context) => {
     await client.query(
       `UPDATE "users"
        SET time = $1
-           now = 'start'
-       WHERE user_id = $2;`,
-      [update.message.text, update.message.from.id]
+           now = $2
+       WHERE user_id = $3;`,
+      [update.message.text, `start`, update.message.from.id]
     );
     await context.reply(`Done`);
     return;
