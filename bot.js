@@ -84,9 +84,9 @@ const sendRes = async (context) => {
     );
   }
   console.log(
-    await client.query(
-      `SELECT "now" WHERE "user_id"=${update.message.from.id} FROM "users"`
-    )
+    await client.query(`SELECT "now" WHERE "user_id=$1 FROM "users"`, [
+      update.message.from.id,
+    ])
   );
   let type = `default`;
   let cord = undefined;
