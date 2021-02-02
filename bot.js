@@ -87,7 +87,7 @@ const sendRes = async (context) => {
   }
   console.log(2);
   console.log(
-    await client.query(`SELECT now WHERE "user_id=$1 FROM "users"`, [
+    await client.query(`SELECT now WHERE user_id=$1 FROM "users"`, [
       update.message.from.id,
     ])
   );
