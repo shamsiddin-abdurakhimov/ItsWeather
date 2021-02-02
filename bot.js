@@ -88,8 +88,25 @@ const sendRes = async (context) => {
   } = await client.query(`SELECT now FROM "users" WHERE user_id=$1`, [
     update.message.from.id,
   ]);
-  console.log(now);
-  if (now == `loc`) {
+  if (now == `location` && !context.update.callback_query) {
+    const weatherCord = await weatherApi.weather(
+      update.message.text,
+      `metric`,
+      update.message.from.language_code
+    );
+    if (weatherCord.startsWith(`404`)) {
+      await context.reply(`There is no such place.`);
+      return;
+    }
+    cord = JSON.parse(weatherCord).coord;
+    await client.query(
+      `UPDATE "users"
+      SET now = $1
+      WHERE user_id = $2;`,
+      [`time`, update.message.from.id]
+    );
+    await context.reply(`Send me time`);
+    return;
   }
   let type = `default`;
   let cord = undefined;
