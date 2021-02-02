@@ -15,7 +15,7 @@ const site = async () => {
   const app = express();
 
   app.get(`/`, (req, res) => {
-    res.sendFile(path.join(__dir"name" + "/index.html"));
+    res.sendFile(path.join(__dirname + "/index.html"));
   });
 
   app.listen(port, () => {
@@ -73,18 +73,18 @@ const newKeyboard = async (active) => {
 const sendRes = async (context) => {
   const update = context.update.callback_query ?? context.update;
   const { rows } = await client.query(
-    `SELECT exists(SELECT 1 FROM "users" WHERE "user_id"=${update.message.from.id})`
+    `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${update.message.from.id})`
   );
   if (!rows[0].exists) {
     await client.query(
       `INSERT INTO
-      "users"("name", "user_id", "time", "now")
+      "users"(name, user_id, time, now)
       VALUES($1, $2, $3, $4);`,
       [false, update.message.from.id, false, `start`]
     );
   }
   console.log(
-    await client.query(`SELECT "now" WHERE "user_id=$1 FROM "users"`, [
+    await client.query(`SELECT now WHERE "user_id=$1 FROM "users"`, [
       update.message.from.id,
     ])
   );
@@ -151,7 +151,7 @@ const sendRes = async (context) => {
   );
   try {
     const res = await client.query(
-      `INSERT INTO sent("name", "user_id", "time") VALUES($1, $2, $3) RETURNING *`,
+      `INSERT INTO sent(name, user_id, time) VALUES($1, $2, $3) RETURNING *`,
       [message.text, message.from.id, new Date()]
     );
     console.log(res.rows[0]);
@@ -161,35 +161,35 @@ const sendRes = async (context) => {
 };
 
 const notifications = async (context) => {
-  await context.reply(`Send me the "name" of the place or location.`);
+  await context.reply(`Send me the name of the place or location.`);
   const { rows } = await client.query(
-    `SELECT exists(SELECT 1 FROM "users" WHERE "user_id"=${context.update.message.from.id})`
+    `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${context.update.message.from.id})`
   );
   if (!rows[0].exists) {
     await client.query(
       `INSERT INTO
-      "users"("name", "user_id", "time", "now")
+      "users"(name, user_id, time, now)
       VALUES($1, $2, $3, $4);`,
       [false, context.update.message.from.id, false, `start`]
     );
   }
   await client.query(
     `UPDATE "users"
-    SET "now" = $1
-    WHERE "user_id" = $2;`,
+    SET now = $1
+    WHERE user_id = $2;`,
     [`location`, context.update.message.from.id]
   );
 };
 
 bot.start(async (context) => {
-  context.reply(`Send me the "name" of the place.`);
+  context.reply(`Send me the name of the place.`);
   const { rows } = await client.query(
-    `SELECT exists(SELECT 1 FROM "users" WHERE "user_id"=${context.update.message.from.id})`
+    `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${context.update.message.from.id})`
   );
   if (!rows[0].exists) {
     await client.query(
       `INSERT INTO
-      "users"("name", "user_id", "time", "now")
+      "users"(name, user_id, time, now)
       VALUES($1, $2, $3, $4);`,
       [false, context.update.message.from.id, new Date(), `start`]
     );
