@@ -101,16 +101,37 @@ const sendRes = async (context) => {
     await client.query(
       `UPDATE "users"
       SET name = $1
+          now = time
       WHERE user_id = $2;`,
       [JSON.parse(weatherCord).coord, update.message.from.id]
     );
+    await context.reply(`Send me time.\n 23:50`);
+    return;
+  } else if (now == `time` && !context.update.callback_query) {
+    const splitText = update.message.text.split(`:`);
+    if (splitText.length != 2) {
+      await context.reply(`Error`);
+      return;
+    }
+    try {
+      splitText.map((num) => parseInt(num));
+    } catch (err) {
+      await context.reply(`Error`);
+      return;
+    }
+    const [hh, mm] = splitText;
+    if (hh < 0 || hh > 23 || mm < 0 || mm > 59) {
+      await context.reply(`Error`);
+      return;
+    }
     await client.query(
       `UPDATE "users"
-      SET now = $1
-      WHERE user_id = $2;`,
-      [`time`, update.message.from.id]
+       SET time = $1
+           now = start
+       WHERE user_id = $2;`,
+      [update.message.text, update.message.from.id]
     );
-    await context.reply(`Send me time`);
+    await context.reply(`Done`);
     return;
   }
   let type = `default`;
@@ -186,7 +207,7 @@ const sendRes = async (context) => {
 };
 
 const notifications = async (context) => {
-  await context.reply(`Send me the name of the place or location.`);
+  await context.reply(`Send me the name of the place.`);
   const { rows } = await client.query(
     `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${context.update.message.from.id})`
   );
