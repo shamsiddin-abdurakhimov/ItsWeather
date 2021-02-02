@@ -98,7 +98,12 @@ const sendRes = async (context) => {
       await context.reply(`There is no such place.`);
       return;
     }
-    cord = JSON.parse(weatherCord).coord;
+    await client.query(
+      `UPDATE "users"
+      SET name = $1
+      WHERE user_id = $2;`,
+      [JSON.parse(weatherCord).coord, update.message.from.id]
+    );
     await client.query(
       `UPDATE "users"
       SET now = $1
