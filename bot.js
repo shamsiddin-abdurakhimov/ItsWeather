@@ -290,8 +290,8 @@ const notifications = async () => {
         hh,
         mm
       ).getTime() -
-      nowTime.getTime() +
-      nowTime.getTimezoneOffset();
+      nowTime.getTime() -
+      nowTime.getTimezoneOffset() * 1000;
     console.log(date / 3600000, nowTime.getTime(), nowTime.getTimezoneOffset());
     setTimeout(() => {
       sendNotifications(user_id, name);
