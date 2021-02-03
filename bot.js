@@ -124,10 +124,11 @@ const sendRes = async (context) => {
       await context.reply(`Error`);
       return;
     }
-    const loc = await client.query(
-      `SELECT name FROM "users" WHERE user_id=$1`,
-      [update.message.from.id]
-    );
+    const {
+      rows: [{ name: loc }],
+    } = await client.query(`SELECT name FROM "users" WHERE user_id=$1`, [
+      update.message.from.id,
+    ]);
     console.log(loc);
     const test = await weatherApi.onecall(
       loc,
