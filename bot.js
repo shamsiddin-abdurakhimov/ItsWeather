@@ -267,7 +267,7 @@ const sendNotifications = async () => {
     const [hh, mm] = timeStr.map((num) => parseInt(num));
     console.log(hh, mm);
     const nowTime = new Date();
-    console.log(nowTime.getHours());
+    console.log(nowTime.getUTCHours());
     const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
     console.log(date);
   }
