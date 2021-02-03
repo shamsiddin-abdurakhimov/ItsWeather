@@ -124,6 +124,16 @@ const sendRes = async (context) => {
       await context.reply(`Error`);
       return;
     }
+    const cord = await client.query(
+      `SELECT name FROM "users" WHERE user_id=$1`,
+      [update.message.from.id]
+    );
+    const test = await weatherApi.onecall(
+      cord,
+      `metric`,
+      update.message.from.language_code
+    );
+    console.log(test);
     await client.query(
       `UPDATE "users"
        SET time = $1,
@@ -244,10 +254,11 @@ bot.start(async (context) => {
 
 const sendNotifications = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
-  const users = rows.map(({ time, user_id }) => {
-    console.log(time, user_id);
-    return { time, user_id };
-  });
+  for (const { time, user_id } of rows) {
+    const [hh, mm] = time.split(`:`);
+    console.log(Date.now());
+    const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
+  }
   console.log(users);
 };
 sendNotifications();
