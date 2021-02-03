@@ -264,10 +264,12 @@ const sendNotifications = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
   for (const { time, user_id } of rows) {
     const timeStr = time.split(`:`);
-    const [hh, mm] = timeStr.map((num) => parseInt(num));
+    let [hh, mm] = timeStr.map((num) => parseInt(num));
     console.log(hh, mm);
     const nowTime = new Date();
-    console.log(nowTime.getUTCHours());
+    if (nowTime.getUTCHours() > hh && nowTime.getUTCMinutes() > mm) {
+      console.log(nowTime.getUTCHours());
+    }
     const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
     console.log(date);
   }
