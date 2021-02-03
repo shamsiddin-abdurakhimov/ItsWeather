@@ -136,7 +136,6 @@ const sendRes = async (context) => {
         update.message.from.language_code
       )
     );
-    console.log(timezone_offset / 3600);
     let locHh = parseInt(hh) - timezone_offset / 3600;
     if (locHh > 23) {
       locHh -= 24;
@@ -268,7 +267,7 @@ const sendNotifications = async () => {
     const [hh, mm] = timeStr.map((num) => parseInt(num));
     console.log(hh, mm);
     const nowTime = new Date();
-    console.log(nowTime);
+    console.log(nowTime.getHours());
     const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
     console.log(date);
   }
