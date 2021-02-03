@@ -298,6 +298,15 @@ const notifications = async () => {
         mm
       )
     );
+    console.log(
+      new Date(
+        nowTime.getUTCFullYear(),
+        nowTime.getUTCMonth(),
+        nowTime.getUTCDate(),
+        hh,
+        mm
+      ) - nowTime
+    );
     const date =
       new Date(
         nowTime.getUTCFullYear(),
