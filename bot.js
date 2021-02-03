@@ -143,13 +143,12 @@ const sendRes = async (context) => {
     } else if (locHh < 0) {
       locHh += 24;
     }
-    console.log(locHh);
     await client.query(
       `UPDATE "users"
        SET time = $1,
            now = $2
        WHERE user_id = $3;`,
-      [update.message.text, `start`, update.message.from.id]
+      [`${locHh}:${mm}`, `start`, update.message.from.id]
     );
     await context.reply(`Done`);
     return;
@@ -266,7 +265,8 @@ const sendNotifications = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
   for (const { time, user_id } of rows) {
     const [hh, mm] = time.split(`:`);
-    console.log(Date.now());
+    const nowTime = Date.UTC();
+    console.log(nowTime);
     const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
     console.log(date);
   }
