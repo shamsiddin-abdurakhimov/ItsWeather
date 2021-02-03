@@ -258,8 +258,8 @@ const sendNotifications = async () => {
     const [hh, mm] = time.split(`:`);
     console.log(Date.now());
     const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
+    console.log(date);
   }
-  console.log(users);
 };
 sendNotifications();
 bot.command(`notifications`, (context) => notifications(context));
