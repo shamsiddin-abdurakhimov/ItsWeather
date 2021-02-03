@@ -130,12 +130,14 @@ const sendRes = async (context) => {
       update.message.from.id,
     ]);
     console.log(JSON.parse(loc));
-    const test = await weatherApi.onecall(
-      JSON.parse(loc),
-      `metric`,
-      update.message.from.language_code
+    const { timezone_offset } = JSON.parse(
+      await weatherApi.onecall(
+        JSON.parse(loc),
+        `metric`,
+        update.message.from.language_code
+      )
     );
-    console.log(test);
+    console.log(timezone_offset);
     await client.query(
       `UPDATE "users"
        SET time = $1,
