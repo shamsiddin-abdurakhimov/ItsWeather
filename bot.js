@@ -245,7 +245,7 @@ bot.start(async (context) => {
 const sendNotifications = async () => {
   const { rows: users } = await client.query(`SELECT * FROM users`);
   users.map(({ time, user_id }) => {
-    time, user_id;
+    return { time, user_id };
   });
   console.log(users);
 };
