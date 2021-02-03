@@ -274,11 +274,11 @@ const notifications = async () => {
   for (const { time, user_id, name } of rows) {
     const timeStr = time.split(`:`);
     let [hh, mm] = timeStr.map((num) => parseInt(num));
-    console.log(hh, mm);
     const nowTime = new Date();
     if (nowTime.getUTCHours() > hh && nowTime.getUTCMinutes() > mm) {
       hh += 24;
     }
+    console.log(hh, mm);
     const date =
       new Date(
         nowTime.getUTCFullYear(),
