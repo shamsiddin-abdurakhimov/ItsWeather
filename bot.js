@@ -242,6 +242,11 @@ bot.start(async (context) => {
   }
 });
 
+const sendNotifications = async () => {
+  const users = await client.query(`SELECT * FROM users`);
+  console.log(users);
+};
+sendNotifications();
 bot.command(`notifications`, (context) => notifications(context));
 bot.on(`message`, (context) => {
   sendRes(context);
