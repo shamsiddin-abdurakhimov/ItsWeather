@@ -129,7 +129,6 @@ const sendRes = async (context) => {
     } = await client.query(`SELECT name FROM "users" WHERE user_id=$1`, [
       update.message.from.id,
     ]);
-    console.log(JSON.parse(loc));
     const { timezone_offset } = JSON.parse(
       await weatherApi.onecall(
         JSON.parse(loc),
@@ -137,7 +136,7 @@ const sendRes = async (context) => {
         update.message.from.language_code
       )
     );
-    console.log(timezone_offset);
+    console.log(timezone_offset / 3600);
     await client.query(
       `UPDATE "users"
        SET time = $1,
