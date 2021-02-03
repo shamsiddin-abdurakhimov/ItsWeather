@@ -265,7 +265,7 @@ const sendNotifications = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
   for (const { time, user_id } of rows) {
     const [hh, mm] = time.split(`:`);
-    const nowTime = Date.UTC();
+    const nowTime = new Date();
     console.log(nowTime);
     const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
     console.log(date);
