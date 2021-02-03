@@ -282,6 +282,22 @@ const notifications = async () => {
       hh += 24;
     }
     console.log(hh, mm);
+    console.log(
+      nowTime.getUTCFullYear(),
+      nowTime.getUTCMonth(),
+      nowTime.getUTCDate(),
+      hh,
+      mm
+    );
+    console.log(
+      new Date(
+        nowTime.getUTCFullYear(),
+        nowTime.getUTCMonth(),
+        nowTime.getUTCDate(),
+        hh,
+        mm
+      )
+    );
     const date =
       new Date(
         nowTime.getUTCFullYear(),
