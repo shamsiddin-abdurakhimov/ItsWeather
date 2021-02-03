@@ -282,31 +282,6 @@ const notifications = async () => {
       hh += 24;
     }
     console.log(hh, mm);
-    console.log(
-      nowTime.getUTCFullYear(),
-      nowTime.getUTCMonth(),
-      nowTime.getUTCDate(),
-      hh,
-      mm
-    );
-    console.log(
-      new Date(
-        nowTime.getUTCFullYear(),
-        nowTime.getUTCMonth(),
-        nowTime.getUTCDate(),
-        hh,
-        mm
-      )
-    );
-    console.log(
-      new Date(
-        nowTime.getUTCFullYear(),
-        nowTime.getUTCMonth(),
-        nowTime.getUTCDate(),
-        hh,
-        mm
-      ) - nowTime
-    );
     const date =
       new Date(
         nowTime.getUTCFullYear(),
@@ -314,7 +289,7 @@ const notifications = async () => {
         nowTime.getUTCDate(),
         hh,
         mm
-      ).getTime() - nowTime.getTime();
+      ).getUTCTime() - nowTime.getUTCTime();
     console.log(date, nowTime.getTime());
     setTimeout(() => {
       sendNotifications(user_id, name);
