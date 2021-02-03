@@ -129,9 +129,9 @@ const sendRes = async (context) => {
     } = await client.query(`SELECT name FROM "users" WHERE user_id=$1`, [
       update.message.from.id,
     ]);
-    console.log(loc);
+    console.log(JSON.parse(loc));
     const test = await weatherApi.onecall(
-      loc,
+      JSON.parse(loc),
       `metric`,
       update.message.from.language_code
     );
