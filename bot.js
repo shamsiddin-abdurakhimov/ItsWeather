@@ -275,7 +275,10 @@ const notifications = async () => {
     const timeStr = time.split(`:`);
     let [hh, mm] = timeStr.map((num) => parseInt(num));
     const nowTime = new Date();
-    if (nowTime.getUTCHours() > hh && nowTime.getUTCMinutes() > mm) {
+    if (
+      nowTime.getUTCHours() > hh ||
+      (nowTime.getUTCHours() == hh && nowTime.getUTCMinutes() > mm)
+    ) {
       hh += 24;
     }
     console.log(hh, mm);
