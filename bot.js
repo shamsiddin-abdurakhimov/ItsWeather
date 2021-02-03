@@ -224,7 +224,7 @@ const sendRes = async (context) => {
   }
 };
 
-const notifications = async (context) => {
+const addNotifications = async (context) => {
   await context.reply(`Send me the name of the place.`);
   const { rows } = await client.query(
     `SELECT exists(SELECT 1 FROM "users" WHERE user_id=${context.update.message.from.id})`
@@ -260,9 +260,18 @@ bot.start(async (context) => {
   }
 });
 
-const sendNotifications = async () => {
+const sendNotifications = async (user_id, name) => {
+  const cord = JSON.parse(name);
+  const weather = await JSON.parse(
+    await weatherApi.onecall(cord, `metric`, `en`)
+  );
+  const preview = await render({ weather, type: `default` });
+  await bot.telegram.sendPhoto(user_id, { source: preview });
+};
+
+const notifications = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
-  for (const { time, user_id } of rows) {
+  for (const { time, user_id, name } of rows) {
     const timeStr = time.split(`:`);
     let [hh, mm] = timeStr.map((num) => parseInt(num));
     console.log(hh, mm);
@@ -279,10 +288,13 @@ const sendNotifications = async () => {
         mm
       ).getTime() - Date.now();
     console.log(date);
+    setTimeout(() => {
+      sendNotifications(user_id, name);
+    }, date);
   }
 };
-sendNotifications();
-bot.command(`notifications`, (context) => notifications(context));
+notifications();
+bot.command(`notifications`, (context) => addNotifications(context));
 bot.on(`message`, (context) => {
   sendRes(context);
 });
