@@ -137,7 +137,7 @@ const sendRes = async (context) => {
       )
     );
     console.log(timezone_offset / 3600);
-    let locHh = parseInt(hh) + timezone_offset / 3600;
+    let locHh = parseInt(hh) - timezone_offset / 3600;
     if (locHh > 23) {
       locHh -= 24;
     } else if (locHh < 0) {
