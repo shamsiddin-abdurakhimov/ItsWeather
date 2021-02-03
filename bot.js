@@ -137,6 +137,13 @@ const sendRes = async (context) => {
       )
     );
     console.log(timezone_offset / 3600);
+    let locHh = parseInt(hh) + timezone_offset / 3600;
+    if (locHh > 23) {
+      locHh -= 24;
+    } else if (locHh < 0) {
+      locHh += 24;
+    }
+    console.log(locHh);
     await client.query(
       `UPDATE "users"
        SET time = $1,
