@@ -268,9 +268,16 @@ const sendNotifications = async () => {
     console.log(hh, mm);
     const nowTime = new Date();
     if (nowTime.getUTCHours() > hh && nowTime.getUTCMinutes() > mm) {
-      console.log(nowTime.getUTCHours());
+      hh += 24;
     }
-    const date = new Date(2015, 0, 21, 17, 0).getTime() - Date.now();
+    const date =
+      new Date(
+        nowTime.getUTCFullYear(),
+        nowTime.getUTCMonth(),
+        nowTime.getUTCDate(),
+        hh,
+        mm
+      ).getTime() - Date.now();
     console.log(date);
   }
 };
