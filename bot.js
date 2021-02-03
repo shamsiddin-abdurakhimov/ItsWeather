@@ -290,7 +290,7 @@ const notifications = async () => {
         hh,
         mm
       ).getTime() - nowTime.getTime();
-    console.log(date);
+    console.log(date, nowTime.getTime());
     setTimeout(() => {
       sendNotifications(user_id, name);
     }, date);
