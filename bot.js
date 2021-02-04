@@ -75,30 +75,32 @@ const notificationsList = [];
 const notifications = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
   for (const { time, user_id, name } of rows) {
-    const timeStr = time.split(`:`);
-    let [hh, mm] = timeStr.map((num) => parseInt(num));
-    const nowTime = new Date();
-    if (
-      nowTime.getUTCHours() > hh ||
-      (nowTime.getUTCHours() == hh && nowTime.getUTCMinutes() > mm)
-    ) {
-      hh += 24;
+    if (name != `false`) {
+      const timeStr = time.split(`:`);
+      let [hh, mm] = timeStr.map((num) => parseInt(num));
+      const nowTime = new Date();
+      if (
+        nowTime.getUTCHours() > hh ||
+        (nowTime.getUTCHours() == hh && nowTime.getUTCMinutes() > mm)
+      ) {
+        hh += 24;
+      }
+      console.log(hh, mm);
+      const date =
+        new Date(
+          nowTime.getUTCFullYear(),
+          nowTime.getUTCMonth(),
+          nowTime.getUTCDate(),
+          hh,
+          mm
+        ).getTime() -
+        nowTime.getTime() -
+        nowTime.getTimezoneOffset() * 60000;
+      const timeout = setTimeout(() => {
+        sendNotifications(user_id, name);
+      }, date);
+      notificationsList.push(timeout);
     }
-    console.log(hh, mm);
-    const date =
-      new Date(
-        nowTime.getUTCFullYear(),
-        nowTime.getUTCMonth(),
-        nowTime.getUTCDate(),
-        hh,
-        mm
-      ).getTime() -
-      nowTime.getTime() -
-      nowTime.getTimezoneOffset() * 60000;
-    const timeout = setTimeout(() => {
-      sendNotifications(user_id, name);
-    }, date);
-    notificationsList.push(timeout);
   }
 };
 notifications();
@@ -289,7 +291,7 @@ bot.start(async (context) => {
       `INSERT INTO
       "users"(name, user_id, time, now)
       VALUES($1, $2, $3, $4);`,
-      [false, context.update.message.from.id, new Date(), `start`]
+      [false, context.update.message.from.id, false, `start`]
     );
   }
 });
