@@ -70,6 +70,39 @@ const newKeyboard = async (active) => {
   return inline_keyboard;
 };
 
+const notificationsList = [];
+
+const notifications = async () => {
+  const { rows } = await client.query(`SELECT * FROM users`);
+  for (const { time, user_id, name } of rows) {
+    const timeStr = time.split(`:`);
+    let [hh, mm] = timeStr.map((num) => parseInt(num));
+    const nowTime = new Date();
+    if (
+      nowTime.getUTCHours() > hh ||
+      (nowTime.getUTCHours() == hh && nowTime.getUTCMinutes() > mm)
+    ) {
+      hh += 24;
+    }
+    console.log(hh, mm);
+    const date =
+      new Date(
+        nowTime.getUTCFullYear(),
+        nowTime.getUTCMonth(),
+        nowTime.getUTCDate(),
+        hh,
+        mm
+      ).getTime() -
+      nowTime.getTime() -
+      nowTime.getTimezoneOffset() * 60000;
+    const timeout = setTimeout(() => {
+      sendNotifications(user_id, name);
+    }, date);
+    notificationsList.push(timeout);
+  }
+};
+notifications();
+
 const sendRes = async (context) => {
   const update = context.update.callback_query ?? context.update;
   const { rows } = await client.query(
@@ -150,6 +183,7 @@ const sendRes = async (context) => {
       [`${locHh}:${mm}`, `start`, update.message.from.id]
     );
     await context.reply(`Done`);
+    notifications();
     return;
   }
   let type = `default`;
@@ -261,6 +295,9 @@ bot.start(async (context) => {
 });
 
 const sendNotifications = async (user_id, name) => {
+  for (const id of notificationsList) {
+    clearTimeout(id);
+  }
   const cord = JSON.parse(name);
   const weather = await JSON.parse(
     await weatherApi.onecall(cord, `metric`, `en`)
@@ -268,37 +305,6 @@ const sendNotifications = async (user_id, name) => {
   const preview = await render({ weather, type: `default` });
   await bot.telegram.sendPhoto(user_id, { source: preview });
 };
-
-const notifications = async () => {
-  const { rows } = await client.query(`SELECT * FROM users`);
-  for (const { time, user_id, name } of rows) {
-    const timeStr = time.split(`:`);
-    let [hh, mm] = timeStr.map((num) => parseInt(num));
-    const nowTime = new Date();
-    if (
-      nowTime.getUTCHours() > hh ||
-      (nowTime.getUTCHours() == hh && nowTime.getUTCMinutes() > mm)
-    ) {
-      hh += 24;
-    }
-    console.log(hh, mm);
-    const date =
-      new Date(
-        nowTime.getUTCFullYear(),
-        nowTime.getUTCMonth(),
-        nowTime.getUTCDate(),
-        hh,
-        mm
-      ).getTime() -
-      nowTime.getTime() -
-      nowTime.getTimezoneOffset() * 60000;
-    console.log(date / 3600000);
-    setTimeout(() => {
-      sendNotifications(user_id, name);
-    }, date);
-  }
-};
-notifications();
 bot.command(`notifications`, (context) => addNotifications(context));
 bot.on(`message`, (context) => {
   sendRes(context);
