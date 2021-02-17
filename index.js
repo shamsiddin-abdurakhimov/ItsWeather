@@ -63,7 +63,11 @@ const notificationUsers = {};
 const notification = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
   for (const { user_id, location, date, notifications } of rows) {
-    if (notifications != `false`) {
+    if (
+      notifications != `false` &&
+      date != `none` &&
+      location.lat != undefined
+    ) {
       const timeStr = date.split(`:`);
       let [hh, mm] = timeStr.map((num) => parseInt(num));
       const nowTime = new Date();
@@ -96,9 +100,14 @@ const sendNotifications = async (user_id, cord) => {
   const weather = await JSON.parse(
     await weatherApi.onecall(cord, `metric`, `en`)
   );
+  const inline_keyboard = await newKeyboard(`default`, `notification_`);
   const preview = await render({ weather, type: `default` });
   try {
-    await bot.telegram.sendPhoto(user_id, { source: preview });
+    await bot.telegram.sendPhoto(
+      user_id,
+      { source: preview },
+      { reply_markup: { inline_keyboard } }
+    );
   } catch (err) {
     console.log(err);
   }
@@ -329,8 +338,7 @@ const editingNotification = async (context, stage, from) => {
 const updateWeatherNotification = async (context) => {
   const data = context.update.callback_query.data.slice(`notification_`.length);
   const {
-    from: { id },
-    message_id,
+    chat: { id },
   } = context.update.callback_query.message;
   if (data.endsWith(`_active`)) {
     context.answerCbQuery(`Active`);
@@ -340,7 +348,7 @@ const updateWeatherNotification = async (context) => {
     rows: [{ location: coords }],
   } = await client.query(`SELECT location FROM "users" WHERE user_id=$1`, [id]);
   await context.editMessageCaption(`Loading...`);
-  const { pic, reply_markup } = await getPic(coords, data);
+  const { pic, reply_markup } = await getPic(coords, data, `notification_`);
   await context.editMessageMedia(
     { type: `photo`, media: { source: pic } },
     { reply_markup }
@@ -461,7 +469,10 @@ const sendWeatherMessage = async (context) => {
   const { pic, reply_markup } = await getPic(coords.coord, `default`);
   await context.replyWithPhoto(
     { source: pic },
-    { reply_to_message_id: message_id, reply_markup }
+    {
+      reply_to_message_id: message_id,
+      reply_markup,
+    }
   );
   await client.query(
     `INSERT INTO sent(name, user_id, date) VALUES($1, $2, $3)`,
