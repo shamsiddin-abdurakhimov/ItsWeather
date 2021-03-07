@@ -5,8 +5,8 @@
 	<g class="Today">
 		<g class="icon" transform="translate(47 554) scale(2.5 2.5)"></g>
 		<text class="temp" x="155" y="628" fill="rgba(255,255,255,1)" font-family="Mont" font-size="80"></text>
-		<text class="place" x="60" y="690" fill="rgba(255,255,255,.7)" font-family="Mont" font-size="45"></text>
-		<text class="name" x="60" y="716" fill="rgba(255,255,255,.7)" font-family="Mont" font-size="20"></text>
+		<text class="place" x="60" y="690" fill="rgba(255,255,255,.8)" font-family="Mont" font-size="45"></text>
+		<text class="name" x="60" y="716" fill="rgba(255,255,255,.8)" font-family="Mont" font-size="20"></text>
 	</g>
 	<g>
 		<text x="895" y="105" fill="#FFFFFF" font-family="Mont" font-size="18">Hourly forecast</text>
