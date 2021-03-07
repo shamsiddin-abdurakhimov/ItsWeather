@@ -4,8 +4,6 @@ const { serializeToString: serialize } = new XMLSerializer();
 const parser = new DOMParser();
 const puppeteer = require(`puppeteer`);
 const { icons } = require(`./icons`);
-const sharp = require(`sharp`);
-const sizeOf = require(`image-size`);
 
 const apiId = process.env.apiId;
 const { WeatherApi } = require(`./weatherApi`);
@@ -16,7 +14,7 @@ const blank = fs.readFileSync(`./weather.svg`, `utf8`);
 
 const backgrounds = {};
 for (const icon in icons) {
-  backgrounds[icon] = fs.readFileSync(`./images/${icon}.png`, `binary`);
+  backgrounds[icon] = fs.readFileSync(`./images/${icon}.png`, `base64`);
 }
 
 const weekDays = [
@@ -172,41 +170,12 @@ const picMake = async (weather) => {
   }
 
   const elements = getElements(pic, `back`);
-  await Promise.all(
-    elements.map(async (element) => {
-      let chatWidth = Number(element.getAttribute(`width`));
-      let chatHeight = Number(element.getAttribute(`height`));
-      let ratio = chatHeight / chatWidth;
-      const imageBuffer = Buffer.from(
-        backgrounds[weather.current.weather[0].icon],
-        `binary`
-      );
-
-      const { width, height } = sizeOf(imageBuffer);
-      const imageRatio = height / width;
-      let finalHeight;
-      let finalWidth;
-      if (ratio > imageRatio) {
-        finalHeight = chatHeight;
-        finalWidth = Math.round(chatHeight / imageRatio);
-      } else {
-        finalWidth = chatWidth;
-        finalHeight = Math.round(chatWidth * imageRatio);
-      }
-      const resizedImage = await sharp(imageBuffer)
-        .resize(finalWidth, finalHeight)
-        .png()
-        .toBuffer();
-      const croppedImage = await sharp(resizedImage)
-        .resize(chatWidth, chatHeight)
-        .png()
-        .toBuffer();
-      element.setAttribute(
-        `xlink:href`,
-        `data:image/png;base64,${croppedImage.toString(`base64`)}`
-      );
-    })
-  );
+  elements.map(async (element) => {
+    element.setAttribute(
+      `xlink:href`,
+      `data:image/png;base64,${backgrounds[weather.current.weather[0].icon]}`
+    );
+  });
 
   const svg = pic.getElementsByTagName(`svg`)[0];
   const widthSvg = parseInt(svg.getAttribute(`width`));
