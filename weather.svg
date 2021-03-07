@@ -4,17 +4,17 @@
 	<image class="back" id="image0" width="1280" height="784" xlink:href="" />
 	<g class="Today">
 		<g class="icon" transform="translate(47 554) scale(2.5 2.5)"></g>
-		<text class="temp" x="155" y="628" fill="rgba(255,255,255,1)" font-family="Mont-SemiBold" font-size="80"></text>
-		<text class="place" x="60" y="690" fill="rgba(255,255,255,.7)" font-family="Mont-SemiBold" font-size="45"></text>
-		<text class="name" x="60" y="716" fill="rgba(255,255,255,.7)" font-family="Mont-SemiBold" font-size="20"></text>
+		<text class="temp" x="155" y="628" fill="rgba(255,255,255,1)" font-family="Mont" font-size="80"></text>
+		<text class="place" x="60" y="690" fill="rgba(255,255,255,.7)" font-family="Mont" font-size="45"></text>
+		<text class="name" x="60" y="716" fill="rgba(255,255,255,.7)" font-family="Mont" font-size="20"></text>
 	</g>
 	<g>
-		<text x="895" y="105" fill="#FFFFFF" font-family="Mont-SemiBold" font-size="18">Hourly forecast</text>
+		<text x="895" y="105" fill="#FFFFFF" font-family="Mont" font-size="18">Hourly forecast</text>
 		<polyline class="graph_fill" points="" fill="url(#paint0_linear)" fill-opacity="0.6" />
 		<g filter="url(#filter2_d)">
 			<polyline class="graph" points="" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
 		</g>
-		<text text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Mont-SemiBold" font-size="12">
+		<text text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Mont" font-size="12">
 			<tspan class="graph_temp0" y="" x="895"></tspan>
 			<tspan class="graph_temp7" y="" x="949"></tspan>
 			<tspan class="graph_temp15" y="" x="1003"></tspan>
@@ -23,7 +23,7 @@
 			<tspan class="graph_temp39" y="" x="1165"></tspan>
 			<tspan class="graph_temp47" y="" x="1219"></tspan>
 		</text>
-		<text text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Mont-SemiBold" font-size="12">
+		<text text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Mont" font-size="12">
 			<tspan class="graph_time0" y="273" x="895"></tspan>
 			<tspan class="graph_time7" y="273" x="949"></tspan>
 			<tspan class="graph_time15" y="273" x="1003"></tspan>
@@ -34,7 +34,7 @@
 		</text>
 	</g>
 	<g class="week">
-		<text class="week-days" fill="#FAFAFA" font-family="Mont-SemiBold" font-size="18">
+		<text class="week-days" fill="#FAFAFA" font-family="Mont" font-size="18">
 			<tspan class="wd1" x="895" y="389"></tspan>
 			<tspan class="wd2" x="895" y="439"></tspan>
 			<tspan class="wd3" x="895" y="489"></tspan>
@@ -43,7 +43,7 @@
 			<tspan class="wd6" x="895" y="639"></tspan>
 			<tspan class="wd7" x="895" y="689"></tspan>
 		</text>
-		<text class="humidity" fill="#FAFAFA" font-family="Mont-SemiBold" font-size="14">
+		<text class="humidity" fill="#FAFAFA" font-family="Mont" font-size="14">
 			<tspan class="h1" x="1047" y="388"></tspan>
 			<tspan class="h2" x="1047" y="438"></tspan>
 			<tspan class="h3" x="1047" y="488"></tspan>
@@ -52,7 +52,7 @@
 			<tspan class="h6" x="1047" y="638"></tspan>
 			<tspan class="h7" x="1047" y="688"></tspan>
 		</text>
-		<text text-anchor="middle" class="week-temp" fill="#FAFAFA" font-family="Mont-SemiBold" font-size="14">
+		<text text-anchor="middle" class="week-temp" fill="#FAFAFA" font-family="Mont" font-size="14">
 			<tspan class="wt-day1" x="1190" y="388">
 				<tspan class="wt-night1" fill-opacity=".7"></tspan>
 			</tspan>
