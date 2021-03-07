@@ -2,6 +2,7 @@
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink">
 	<image class="back" id="image0" width="1280" height="784" xlink:href="" />
+	<rect x="0" y="484" width="1280" height="300" fill="url(#shadow_linear)" />
 	<g class="Today">
 		<g class="icon" transform="translate(47 554) scale(2.5 2.5)"></g>
 		<text class="temp" x="155" y="628" fill="rgba(255,255,255,1)" font-family="Mont" font-size="80"></text>
@@ -149,6 +150,10 @@
 		<linearGradient id="paint0_linear" x1="1057" y1="159.75" x2="1057" y2="254" gradientUnits="userSpaceOnUse">
 			<stop stop-color="white" />
 			<stop offset="1" stop-color="#C4C4C4" stop-opacity="0" />
+		</linearGradient>
+		<linearGradient id="shadow_linear" x1="0" y1="784" x2="0" y2="484" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgba(0,0,0,.5)" />
+			<stop offset="1" stop-color="rgba(0,0,0,0)" stop-opacity="0" />
 		</linearGradient>
 	</defs>
 </svg>
