@@ -14,51 +14,6 @@ client.connect();
 const bot = new Telegraf(token);
 const weatherApi = new WeatherApi(apiId);
 
-const messageButtonsList = [
-  `default`,
-  `default_active`,
-  `week`,
-  `week_active`,
-  `graph`,
-  `graph_active`,
-];
-
-const notificationButtonsList = [
-  `notification_default`,
-  `notification_default_active`,
-  `notification_week`,
-  `notification_week_active`,
-  `notification_graph`,
-  `notification_graph_active`,
-];
-
-const locationButtonsList = [
-  `location_default`,
-  `location_default_active`,
-  `location_week`,
-  `location_week_active`,
-  `location_graph`,
-  `location_graph_active`,
-];
-
-const keyboard = {
-  default: {
-    num: 0,
-    active: `🌤`,
-    unactive: `Default`,
-  },
-  week: {
-    num: 1,
-    active: `🌡`,
-    unactive: `Week`,
-  },
-  graph: {
-    num: 2,
-    active: `📈`,
-    unactive: `Graph`,
-  },
-};
-
 const notificationUsers = {};
 const notification = async () => {
   const { rows } = await client.query(`SELECT * FROM users`);
@@ -100,14 +55,9 @@ const sendNotifications = async (user_id, cord) => {
   const weather = await JSON.parse(
     await weatherApi.onecall(cord, `metric`, `en`)
   );
-  const inline_keyboard = await newKeyboard(`default`, `notification_`);
-  const preview = await render({ weather, type: `default` });
+  const preview = await render({ weather });
   try {
-    await bot.telegram.sendPhoto(
-      user_id,
-      { source: preview },
-      { reply_markup: { inline_keyboard } }
-    );
+    await bot.telegram.sendPhoto(user_id, { source: preview });
   } catch (err) {
     console.log(err);
   }
@@ -163,24 +113,6 @@ const updateNotifyUser = async (user_id) => {
   }
 };
 
-const newKeyboard = async (active, pre) => {
-  pre ??= ``;
-  const inline_keyboard = [
-    [
-      { text: `Default`, callback_data: `default` },
-      { text: `Week`, callback_data: `week` },
-      { text: `Graph`, callback_data: `graph` },
-    ],
-  ];
-  inline_keyboard[0][keyboard[active].num].text = keyboard[active].active;
-  inline_keyboard[0][keyboard[active].num].callback_data += `_active`;
-  for (const button in inline_keyboard[0]) {
-    inline_keyboard[0][button].callback_data =
-      pre + inline_keyboard[0][button].callback_data;
-  }
-  return inline_keyboard;
-};
-
 const getCoord = async (text) => {
   if (!/^\w+$/.test(text)) {
     return [false, "Enter in Latin."];
@@ -192,13 +124,12 @@ const getCoord = async (text) => {
   return [true, JSON.parse(coord)];
 };
 
-const getPic = async (coords, type, pre) => {
+const getPic = async (coords) => {
   const weather = await JSON.parse(
     await weatherApi.onecall(coords, `metric`, `en`)
   );
-  const pic = await render({ weather, type });
-  const inline_keyboard = await newKeyboard(type, pre);
-  return { pic, reply_markup: { inline_keyboard } };
+  const pic = await render({ weather });
+  return pic;
 };
 
 const notifications = async (context) => {
@@ -335,26 +266,6 @@ const editingNotification = async (context, stage, from) => {
   return editingDate(context, stage);
 };
 
-const updateWeatherNotification = async (context) => {
-  const data = context.update.callback_query.data.slice(`notification_`.length);
-  const {
-    chat: { id },
-  } = context.update.callback_query.message;
-  if (data.endsWith(`_active`)) {
-    context.answerCbQuery(`Active`);
-    return;
-  }
-  const {
-    rows: [{ location: coords }],
-  } = await client.query(`SELECT location FROM "users" WHERE user_id=$1`, [id]);
-  await context.editMessageCaption(`Loading...`);
-  const { pic, reply_markup } = await getPic(coords, data, `notification_`);
-  await context.editMessageMedia(
-    { type: `photo`, media: { source: pic } },
-    { reply_markup }
-  );
-};
-
 const editLocationAndDate = async (context) => {
   await context.reply(`Send me the name of the place or location`);
   await client.query(
@@ -466,13 +377,10 @@ const sendWeatherMessage = async (context) => {
     return;
   }
   bot.telegram.sendChatAction(id, `upload_photo`);
-  const { pic, reply_markup } = await getPic(coords.coord, `default`);
+  const pic = await getPic(coords.coord);
   await context.replyWithPhoto(
     { source: pic },
-    {
-      reply_to_message_id: message_id,
-      reply_markup,
-    }
+    { reply_to_message_id: message_id }
   );
   await client.query(
     `INSERT INTO sent(name, user_id, date) VALUES($1, $2, $3)`,
@@ -494,61 +402,10 @@ const sendWeatherLocation = async (context) => {
     return;
   }
   bot.telegram.sendChatAction(id, `upload_photo`);
-  const { pic, reply_markup } = await getPic(
-    { lat, lon },
-    `default`,
-    `location_`
-  );
+  const pic = await getPic({ lat, lon });
   await context.replyWithPhoto(
     { source: pic },
-    { reply_to_message_id: message_id, reply_markup }
-  );
-};
-
-const updateWeatherMessage = async (context) => {
-  const data = context.update.callback_query.data;
-  const {
-    from: { id },
-    message_id,
-    reply_to_message: { text },
-  } = context.update.callback_query.message;
-  if (data.endsWith(`_active`)) {
-    context.answerCbQuery(`Active`);
-    return;
-  }
-  const [coordBool, coords] = await getCoord(text);
-  if (!coordBool) {
-    await context.reply(coords);
-    return;
-  }
-  await context.editMessageCaption(`Loading...`);
-  const { pic, reply_markup } = await getPic(coords.coord, data);
-  await context.editMessageMedia(
-    { type: `photo`, media: { source: pic } },
-    { reply_markup }
-  );
-};
-
-const updateWeatherLocation = async (context) => {
-  const data = context.update.callback_query.data.slice(`location_`.length);
-  const {
-    from: { id },
-    message_id,
-    reply_to_message: { text },
-  } = context.update.callback_query.message;
-  if (data.endsWith(`_active`)) {
-    context.answerCbQuery(`Active`);
-    return;
-  }
-  const {
-    latitude: lat,
-    longitude: lon,
-  } = context.update.callback_query.message.reply_to_message.location;
-  await context.editMessageCaption(`Loading...`);
-  const { pic, reply_markup } = await getPic({ lat, lon }, data, `location_`);
-  await context.editMessageMedia(
-    { type: `photo`, media: { source: pic } },
-    { reply_markup }
+    { reply_to_message_id: message_id }
   );
 };
 
@@ -576,18 +433,6 @@ bot.on(`location`, (context) => {
 
 bot.on(`message`, (context) => {
   sendWeatherMessage(context);
-});
-
-bot.action(messageButtonsList, (context) => {
-  updateWeatherMessage(context);
-});
-
-bot.action(notificationButtonsList, (context) => {
-  updateWeatherNotification(context);
-});
-
-bot.action(locationButtonsList, (context) => {
-  updateWeatherLocation(context);
 });
 
 bot.action(`edit_notification`, (context) => {
