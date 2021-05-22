@@ -6,9 +6,14 @@ const adminId = process.env.adminId;
 const { WeatherApi } = require(`./weatherApi`);
 const Telegraf = require(`telegraf`);
 const render = require(`./pool`);
-const { Client } = require(`pg`);
+const { Pool } = require("pg");
 
-const client = new Client();
+const client = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 client.connect();
 
 const bot = new Telegraf(token);
