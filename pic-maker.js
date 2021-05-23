@@ -9,7 +9,7 @@ const apiId = process.env.apiId;
 const { WeatherApi } = require(`./weatherApi`);
 const weatherApi = new WeatherApi(apiId);
 
-const browser = puppeteer.launch({ args: ["--no-sandbox"] });
+const browser = puppeteer.launch({ args: ["--no-sandbox"], headless: false });
 const blank = fs.readFileSync(`./weather.svg`, `utf8`);
 
 const backgrounds = {};
