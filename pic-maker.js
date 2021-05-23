@@ -11,6 +11,7 @@ const weatherApi = new WeatherApi(apiId);
 
 const browser = puppeteer.launch({
   args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  ignoreDefaultArgs: ["--disable-extensions"],
   headless: false,
 });
 const blank = fs.readFileSync(`./weather.svg`, `utf8`);
